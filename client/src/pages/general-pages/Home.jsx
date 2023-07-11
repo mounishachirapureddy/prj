@@ -1,9 +1,43 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import Header from "../../components/general-components/Header";
-import FullpageLoader from "../../components/general-components/FullpageLoader";
 import Footer from "../../components/general-components/Footer";
+import Product from '../../components/general-components/Product';
+import Loader from '../../components/general-components/Loader';
+import ImgLoader from '../../components/general-components/ImgLoader';
+import FullpageLoader from '../../components/general-components/FullpageLoader';
+import CarouselPro from '../../components/general-components/CarouselPro';
 const Home = () => {
+  const [products, setProducts] = useState([])
+  // const [searchLoad, setSearchLoad] = useState(false)
+  const [productsLoaded, setLoaded] = useState(false)
+  const [featuredProducts, setFeaturedProducts] = useState([]);
+  const [searchTerm_home, setSearchTerm_home] = useState('')
+  // const [search_filter, setSearchFilter] = useState([])
+  const navigate = useNavigate();
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoaded(false)
+        const response_prod = await axios.get('http://localhost:5000/api/merchandise/gethome');
+        //const total = response_prod.headers.get("x-total-count");
+        setProducts(response_prod.data.merchandises);
+        setLoaded(true)
+        setFeaturedProducts(response_prod.data.featured_products);
+        // setSearchLoad(false)
+        // const search_filter_prod = await axios.get("http://localhost:5000/api/merchandise/getall", { params: { searchTerm: searchTerm_home } })
+        // setSearchFilter(search_filter_prod.data.merchandises);
+        // setSearchLoad(true)
+        console.log("hitted")
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
+
+
+  }, [searchTerm_home]);
   return (
     <>
       <FullpageLoader />
@@ -29,11 +63,16 @@ const Home = () => {
                             className="form-control"
                             type="text"
                             placeholder="Search item..."
+                            value={searchTerm_home} onChange={(e) => { setSearchTerm_home(e.target.value) }}
                           />
                         </div>
                       </div>
                       <div className="col-md-3">
-                        <input type="submit" value="Find" />
+                        <input type='submit' value="Find" onClick={(e) => {
+                          e.preventDefault();
+                          navigate("/catalog", { state: { searchTerm_home: searchTerm_home } })
+                        }} />
+
                       </div>
                     </div>
                     <div
