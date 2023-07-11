@@ -110,7 +110,7 @@
 		} else {
 		    $("body").removeClass("light-theme");
 		    $("body").addClass("dark-theme");
-		    // document.getElementById("theme_toggle").checked = false;
+		    document.getElementById("theme_toggle").checked = false;
 		}
 		//add toggle
 		$("#theme_toggle").on("click", function() {
@@ -202,9 +202,9 @@
             "visibility": "visible"
         });
         $('.popup_close').on("click", function () {
-            $(".popup_wrapper").fadeOut(100);
+            $(".popup_wrapper").fadeOut(300);
         })
-    }, 300);
+    }, 1500);
 
     // Scroll to top
 	var pxShow = 800; // height on which the button will show

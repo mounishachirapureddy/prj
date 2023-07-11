@@ -39,7 +39,7 @@ const Catalog = (props) => {
         };
 
         const response_prod = await axios.get(
-          "http://localhost:3002/api/merchandise/getall",
+          "http://localhost:3001/api/merchandise/getall",
           { params }
         );
 
@@ -115,6 +115,7 @@ const Catalog = (props) => {
   return (
     <>
       <Header />
+      <br /><br /><br /><br />
       <main>
         <FilterUp>
           <div className="search_bar_list">
