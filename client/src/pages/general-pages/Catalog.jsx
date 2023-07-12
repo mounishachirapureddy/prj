@@ -191,9 +191,9 @@ const Catalog = (props) => {
                     <input
                       type="range"
                       min={l_price}
-                      max={h_price + 100}
+                      max={h_price}
                       step="1"
-                      value={UptoSnapp}
+                      value={UptoSnapp==0 ? h_price : UptoSnapp}
                       onChange={(e) => {
                         e.target.value == 0
                           ? setUptoSnapp({ h_price })
@@ -201,7 +201,7 @@ const Catalog = (props) => {
                       }}
                       data-orientation="horizontal"
                     />
-                    <div className="ms-3 text-center">{ `${UptoSnapp}` }</div>
+                    <div className="ms-3 text-center">{ UptoSnapp==0 ? h_price : UptoSnapp }</div>
                   </div>
                     
                 </div>
