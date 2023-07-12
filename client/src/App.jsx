@@ -25,6 +25,7 @@ import GamerLogin from "./pages/gamer-pages/Login";
 import GamerVerify from "./pages/gamer-pages/Verify";
 import GamerDetailsPage from "./pages/gamer-pages/DetailsPage";
 import GamerMyprofile from './pages/gamer-pages/myProfile';
+import ProductDetail from "./pages/general-pages/ProductDetail";
 import MerchandiseUpload from "./components/merchant-components/MerchandiseUpload";
 
 function App() {
@@ -32,7 +33,7 @@ function App() {
   const isVerify = localStorage.getItem("verify");
 
   const gamerState = useSelector((state) => state.gamerReducer);
-
+  console.log(gamerState,merchantState)
   return (
     <div className="App">
       <Routes>
@@ -41,7 +42,7 @@ function App() {
         <Route path="/catalog" element={<Catalog />} />
 
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
-
+        <Route path="/detail-page" element={<ProductDetail />} />
         <Route path="/gaming-vendor-login" element={<Login />} />
         <Route path="/gaming-vendor-dashboard" element={<Dashbaord />} />
         <Route path="/gaming-vendor-settings" element={<Settings />} />
@@ -96,8 +97,8 @@ function App() {
             ) : (
               <Navigate to="/gamer-login" />
             )
-          } */}
-        />
+          }
+        /> */}
         <Route path="/gamer-signup" element={<GamerSignup />} />
         <Route path="/gamer-login" element={<GamerLogin />} />
         <Route path="/gamer-verify" element={<GamerVerify />} />

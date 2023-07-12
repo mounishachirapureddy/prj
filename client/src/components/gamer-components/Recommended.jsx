@@ -161,7 +161,7 @@ export default function Recommended(props) {
         />
         <a href="detail-page.html" className="strip_info">
           <div className="item_title">
-            <span className="badge bg-primary">{props.price} snapps</span>
+            <span className="badge"  style={{"background-color": "#FF1493"}}>{props.price} snapps</span>
           </div>
         </a>
       </figure>

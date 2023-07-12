@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import Loader from "./Loader";
 import axios from "axios"
+import SnappnowLink from "./SnappnowLink";
 import ImgLoader from "./ImgLoader"; const CarouselPro = (props) => {
     const [imageLoaded, setImageLoaded] = useState(false);
     const [imageSrc, setImageSrc] = useState("");
@@ -10,12 +11,12 @@ import ImgLoader from "./ImgLoader"; const CarouselPro = (props) => {
     useEffect(() => {
         const fetch = async () => {
             try {
-                const response = await axios.get(`${process.env.REACT_APP_URL}/api/getprofile${props.userid}`)
+                const response = await axios.get(`http://localhost:3002/api/getprofile${props.userid}`)
                 const imgsrc = response.data.user.image
                 console.log(imgsrc)
                 setProfilePic(
                     (imgsrc)
-                        ? `${process.env.REACT_APP_URL}/api/merchandise/img${imgsrc}`
+                        ? `http://localhost:3002/api/merchandise/img${imgsrc}`
                         : "assets/img/items/default-prof.png"
                 );
             }
@@ -26,7 +27,7 @@ import ImgLoader from "./ImgLoader"; const CarouselPro = (props) => {
         fetch();
         setImageSrc(
             props.img
-                ? `${process.env.REACT_APP_URL}/api/merchandise/img${props.img}`
+                ? `http://localhost:3002/api/merchandise/img${props.img}`
                 : "assets/img/items/default-prod.png"
         );
     }, [props.img, props.profpic, ProfilePic]);
@@ -35,7 +36,7 @@ import ImgLoader from "./ImgLoader"; const CarouselPro = (props) => {
         <div className="d-flex justify-content-center">
             <div className="strip col-5">
                 <figure >
-                    {!imageLoaded && <div > <Loader /> </div>}<Link to="#modal-dialog" className={`btn_1 modal_popup lazy ${imageLoaded ? "" : "visually-hidden"} `}>Snapp Now!</Link>
+                    {!imageLoaded && <div > <Loader /> </div>} <SnappnowLink imageLoaded={imageLoaded} url="/detail-page" />
                     <img src={imageSrc} data-src="img/items/item-12.jpg" className={`lazy ${imageLoaded ? "" : "visually-hidden"}`} alt="" width="533" height="400" onLoad={() => setImageLoaded(true)}
                         onError={() => setImageLoaded(false)} />
                     <Link to="detail-page.html" className="strip_info">

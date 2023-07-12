@@ -215,7 +215,7 @@ export default function Home() {
   const [totaltransactions, setTotaltransactions] = useState();
   const itemsPerPage1 = 3; // change the value here sasi
 
-  const [isSearchPerformed, setIsSearchPerformed] = useState(false);
+  //const [isSearchPerformed, setIsSearchPerformed] = useState(false);
   const [searchKeyword, setSearchKeyword] = useState("");
 
   console.log(searchKeyword);
@@ -349,7 +349,7 @@ export default function Home() {
 
   return (
     <>
-      {loading && <FullpageLoader />}
+      
       <Header />
 
       <div className="banner">

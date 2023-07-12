@@ -210,6 +210,7 @@ const ToggleSide = (props) => {
                                     brand={currentItems.brand}
                                     price={currentItems.price}
                                     category={currentItems.category}
+                                    featured={currentItems.featured}
                                     merchandise={currentItems}
                                     onDeleteMerchandise={() => handleDeleteMerchandise(currentItems._id, currentItems.image)}
                                 />

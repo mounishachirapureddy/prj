@@ -11,6 +11,7 @@ import FullpageLoader from "../../components/general-components/FullpageLoader.j
 const Settings = () => {
   const [vendorId, setVendorId] = useState("");
   const [vendor_name, setVendorName] = useState("");
+  const [vendor_snappcoins, setVendorSnappcoins] = useState("");
 
   const [password, setPassword] = useState("");
   const [password_confirmation, setPasswordConfirmation] = useState("");
@@ -57,6 +58,7 @@ const Settings = () => {
         .then((response) => response.json())
         .then((data) => {
           setVendorName(data.vendor_name);
+          setVendorSnappcoins(data.vendor_coins);
         })
         .catch((error) => {
           console.error("Error:", error);
@@ -205,7 +207,7 @@ const Settings = () => {
 
   return (
     <>
-      <FullpageLoader />
+      {/* <FullpageLoader /> */}
       <Header name={vendor_name} />
 
       <main>
@@ -213,7 +215,11 @@ const Settings = () => {
 
         <div class="container margin_30_40">
           <div class="row">
-            <UserProfile page={"settings"} name={"@" + vendor_name} />
+            <UserProfile
+              page={"settings"}
+              name={"@" + vendor_name}
+              snappcoins={vendor_snappcoins}
+            />
             <div class="col-lg-9 ps-lg-5">
               <div class="main_title version_2">
                 <span>

@@ -33,6 +33,7 @@ exports.wallet = async (req, res) => {
   
       
       const user = await User.findById(id);
+      user.games.push({ name: 'Ludo King', moneyWon: parseInt(money) });
   
       if (!user) {
         return res.status(404).json({ error: "User not found" });
