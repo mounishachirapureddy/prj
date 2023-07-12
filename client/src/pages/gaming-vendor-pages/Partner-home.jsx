@@ -288,7 +288,7 @@ const Dashboard = () => {
                           <div className="col-md-12">
                             <div className="form-group switch_wrapper">
                               <label>Set Reminders</label>
-                              <p className="mb-0">
+                              <p className="mb-0 text-secondary">
                                 Ea quo utroque forensibus eloquentiam
                               </p>
                               <div className="form-check form-switch">

@@ -40,7 +40,7 @@ const Signup = () => {
 
   return (
     <>
-      <FullpageLoader />
+      {/* <FullpageLoader /> */}
       <div id="register_bg">
         {loading ? (
           <PreLoader />

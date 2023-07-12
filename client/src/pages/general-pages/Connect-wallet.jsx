@@ -6,7 +6,7 @@ import Footer from "../../components/general-components/Footer";
 const Connect = () => {
   return (
     <>
-      <FullpageLoader />
+      {/* <FullpageLoader /> */}
       <Header />
 
       <main>
