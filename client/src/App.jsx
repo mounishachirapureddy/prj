@@ -25,6 +25,7 @@ import GamerLogin from "./pages/gamer-pages/Login";
 import GamerVerify from "./pages/gamer-pages/Verify";
 import GamerDetailsPage from "./pages/gamer-pages/DetailsPage";
 import GamerMyprofile from './pages/gamer-pages/myProfile';
+import ProductDetail from "./pages/general-pages/ProductDetail";
 import MerchandiseUpload from "./components/merchant-components/MerchandiseUpload";
 
 function App() {
@@ -41,7 +42,7 @@ function App() {
         <Route path="/catalog" element={<Catalog />} />
 
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
-
+        <Route path="/detail-page" element={<ProductDetail />} />
         <Route path="/gaming-vendor-login" element={<Login />} />
         <Route path="/gaming-vendor-dashboard" element={<Dashbaord />} />
         <Route path="/gaming-vendor-settings" element={<Settings />} />
