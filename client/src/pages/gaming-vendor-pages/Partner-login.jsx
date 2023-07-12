@@ -46,7 +46,10 @@ const Login = () => {
               <em />
             </span>
             <h2>Join Snappcoins</h2>
-            <p>Cum doctus civibus efficiantur in imperdiet deterruisset.</p>
+            <p>
+              Engage and incentivize your gamers with the largest gaming
+              redemption platform
+            </p>
           </div>
           <div className="row">
             <div className="col-lg-4">
@@ -63,14 +66,13 @@ const Login = () => {
                 <h3>Boost your Revenue</h3>
                 <p className="lead">
                   {" "}
-                  Illum suavitate ad has, inani salutatus sit et, error
-                  reprehendunt id eam.
+                  Create stickiness and incentivize your users.
                 </p>
                 <p>
-                  Eu quem patrioque delicatissimi est. Eos delectus perpetua
-                  posidonium ei. Ad debitis accusamus eam. Nec ea esse nulla
-                  aperiam, pri at decore numquam, no detracto cotidieque his.
-                  Invenire facilisis ex ius.
+                  Unlock new revenue streams and propel your success with our
+                  innovative solutions that boost monetization opportunities,
+                  helping you maximize your earnings and achieve sustainable
+                  growth.
                 </p>
               </div>
             </div>
@@ -87,15 +89,14 @@ const Login = () => {
                 </figure>
                 <h3>Manage snapps</h3>
                 <p className="lead">
-                  Est falli invenire interpretaris id, magna libris sensibus mel
-                  id.
+                  Multiple Games? No problem. Allocate Snapps to your game
+                  portfolio.
                 </p>
                 <p>
-                  Per eu nostrud feugiat. Et quo molestiae persecuti
-                  neglegentur. At zril definitionem mei, vel ei choro volumus.
-                  An tota nulla soluta has, ei nec essent audiam, te nisl
-                  dignissim vel. Ex velit audire perfecto pro, ei mei doming
-                  vivendo legendos.
+                  Simplify and streamline your gaming experience by efficiently
+                  managing your Snapps across multiple games, ensuring seamless
+                  transitions and empowering you to make the most of your gaming
+                  investments.
                 </p>
               </div>
             </div>
@@ -111,15 +112,12 @@ const Login = () => {
                   />
                 </figure>
                 <h3>Reach New Gamers</h3>
-                <p className="lead">
-                  Laoreet inimicus vulputate est. Sea in voluptatibus
-                  comprehensam.
-                </p>
+                <p className="lead">Onboard new gamers through Snappcoins.</p>
                 <p>
-                  Movet iriure dolores nec ea, per ei dicat audire
-                  signiferumque. Illum porro gubergren vis in, affert graecis an
-                  eos, qui quem facilis vulputate cu. Ei commodo prompta eum, et
-                  eum vide appareat euripidis.
+                  Attract a wider audience and expand your player base by
+                  implementing effective strategies that help you reach and
+                  connect with new gamers, opening up exciting possibilities for
+                  growth and success.
                 </p>
               </div>
             </div>
@@ -136,8 +134,8 @@ const Login = () => {
                   </span>
                   <h2>Please fill the form below</h2>
                   <p>
-                    Id persius indoctum sed, audiam verear his in, te eum quot
-                    comprehensam.
+                  Interested in partnering with us? <br />
+                  Drop us a line and we will be happy to connect. Promise!
                   </p>
                 </div>
                 <div id="message-register" />

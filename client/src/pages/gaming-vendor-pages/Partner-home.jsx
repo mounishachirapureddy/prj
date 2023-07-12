@@ -288,8 +288,8 @@ const Dashboard = () => {
                           <div className="col-md-12">
                             <div className="form-group switch_wrapper">
                               <label>Set Reminders</label>
-                              <p className="mb-0 text-secondary">
-                                Ea quo utroque forensibus eloquentiam
+                              <p className="mb-0">
+                              Notify me when my Snappcoins are depleted
                               </p>
                               <div className="form-check form-switch">
                                 <input
