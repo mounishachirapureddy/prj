@@ -26,6 +26,9 @@ import GamerVerify from "./pages/gamer-pages/Verify";
 import GamerDetailsPage from "./pages/gamer-pages/DetailsPage";
 import GamerMyprofile from './pages/gamer-pages/myProfile';
 
+import GameLogin from "./game/gamer-login-page";
+import Game from "./game/game-page";
+
 function App() {
   const merchantState = useSelector((state) => state.merchantReducer);
   const isVerify = localStorage.getItem("verify");
@@ -93,6 +96,9 @@ function App() {
         <Route path="/details-page" element={<GamerDetailsPage />} />
         <Route path="/profile" element={<GamerProfile />} />
         <Route path="/myprofile" element={<GamerMyprofile />} />
+
+        <Route path="/game-login" element={<GameLogin />}/>
+        <Route path="/game" element={<Game />}/>
       </Routes>
     </div>
   );

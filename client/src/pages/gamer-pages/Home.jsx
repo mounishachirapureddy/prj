@@ -17,7 +17,7 @@ export default function Home() {
   const [merchant, setMerchant] = useState([]);
   const [snaphistory, setSnaphistory] = useState([]);
   const [transactions, setTransactions] = useState([]);
-  const [pendingOrders,setPendingOrders]=useState(0)
+  const [pendingOrders, setPendingOrders] = useState(0);
 
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
@@ -45,8 +45,9 @@ export default function Home() {
   useEffect(() => {
     if (!token) {
       // Redirect to login page if token is null
-      navigate('/gamer-login', { state: { message: "You are not logged in." } })
-
+      navigate("/gamer-login", {
+        state: { message: "You are not logged in." },
+      });
     } else {
       fetchUser();
     }
@@ -247,7 +248,7 @@ export default function Home() {
         const response = await fetchTransactions();
         if (response) {
           setTransactions(response.transactions);
-          setPendingOrders(response.pendingOrders)
+          setPendingOrders(response.pendingOrders);
         }
       } catch (error) {
         console.log(error);
@@ -357,7 +358,13 @@ export default function Home() {
           src="assets/img/hero_general.jpg"
           alt=""
           className="card-img-top w-100"
-          style={{ height: "60rem",marginTop:"0px",marginBottom:'0px',paddingTop:'0px',paddingBottom:'0px' }}
+          style={{
+            height: "60rem",
+            marginTop: "0px",
+            marginBottom: "0px",
+            paddingTop: "0px",
+            paddingBottom: "0px",
+          }}
         />
       </div>
 
@@ -481,7 +488,7 @@ export default function Home() {
                     <div class="row mt-lg-5 mt-3">
                       <aside class="col-lg-12">
                         <div class="widget search_blog">
-                        <div class="form-group d-flex">
+                          <div class="form-group d-flex">
                             <input
                               class="form-control me-2 w-100 bg-white text-dark"
                               type="search"
@@ -501,24 +508,26 @@ export default function Home() {
                         <div class="widget">
                           {transactions.length > 0 ? (
                             <div className="row history_list">
-                            {snaphistory.map((transaction, index) => (
-                              <div
-                                className="col-xl-4 col-lg-6 col-md-6 col-sm-12"
-                                key={index}
-                              >
-                                <MyItems
-                                  tdate={transaction.transactionDate}
-                                  tId={transaction.transactionId}
-                                  status={transaction.orderStatus}
-                                />
-                              </div>
-                            ))}
-                          </div>
+                              {snaphistory.map((transaction, index) => (
+                                <div
+                                  className="col-xl-4 col-lg-6 col-md-6 col-sm-12"
+                                  key={index}
+                                >
+                                  <MyItems
+                                    tdate={transaction.transactionDate}
+                                    tId={transaction.transactionId}
+                                    status={transaction.orderStatus}
+                                  />
+                                </div>
+                              ))}
+                            </div>
                           ) : (
-                            <center><h3>No Snaps Collected</h3></center> 
+                            <center>
+                              <h3>No Snaps Collected</h3>
+                            </center>
                           )}
                         </div>
-                       
+
                         <div className="text-center">
                           <div className="pagination_fg mb-4">
                             {pages2.map((i) => {
@@ -584,7 +593,9 @@ export default function Home() {
                               ))}
                             </div>
                           ) : (
-                            <center><h3>No Snaps Redeemed</h3></center> 
+                            <center>
+                              <h3>No Snaps Redeemed</h3>
+                            </center>
                           )}
                         </div>
                         <div class="text-center">

@@ -43,7 +43,7 @@ const Header = () => {
           <div className="logo">
             <a href="/">
               <img
-                src="https://distil.in/demo/snappcoins/img/logo.svg"
+                src="assets/img/logo.svg"
                 alt=""
                 width="170"
                 height="35"
