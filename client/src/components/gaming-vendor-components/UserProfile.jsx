@@ -50,7 +50,15 @@ const UserProfile = (props) => {
             </figure>
           </div>
         </div>
-        <h1 id="vendor_name">{props.name}</h1>
+        <h1 id="vendor_name">
+          {props.name} <br />
+          <br />
+          <h6>Snappcoins in Wallet</h6>
+          <span className="btn_1">
+            {props.snappcoins}
+            <> snapps</>
+          </span>
+        </h1>
         <ul>
           <li>
             <a
