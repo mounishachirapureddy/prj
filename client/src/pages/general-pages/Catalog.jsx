@@ -65,14 +65,14 @@ const Catalog = (props) => {
   const pagelength = Math.ceil(search_count / itemsPerPage);
   const start = 1;
   const end = pagelength;
-  const pages = ["<<", "<"]; // represents  the starting page
+  const pages = ["«", "<"]; // represents  the starting page
 
   for (var i = start; i <= end; i++) {
     pages.push(i);
   }
 
   pages.push(">"); // represents the ending page
-  pages.push(">>");
+  pages.push("»");
 
   const Category = [
     "Art",
@@ -180,7 +180,7 @@ const Catalog = (props) => {
                 );
               })}
               {
-                <div className="collapse" id="filter_3">
+                <div >
                   <div className="range_input">
                     Price range from {l_price} to <span>{UptoSnapp}</span>{" "}
                     snapps

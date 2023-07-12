@@ -44,7 +44,7 @@ function Product(props) {
                         onError={() => setImageLoaded(false)} />
                     <Link to="detail-page.html" className="strip_info">
                         <div className="item_title">
-                            <span className="badge bg-voilet">{props.price} snapps</span>
+                            <span className="badge bg-violet">{props.price} snapps</span>
                         </div>
                     </Link>
                 </figure >
