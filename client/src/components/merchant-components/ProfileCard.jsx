@@ -47,7 +47,7 @@ const ProfileCard = (props) => {
             </div>
         </div>
         <h1>@{props.merchantName}</h1>
-        <p className="author_number">Ox465d53...9df5 <a href="#0"><i className="bi bi-clipboard"></i></a></p>
+        {/* <p className="author_number">Ox465d53...9df5 <a href="#0"><i className="bi bi-clipboard"></i></a></p> */}
         <h2 className="content-h2">
             <span className="badge d-block">
             {props.walletMoney}

@@ -140,7 +140,7 @@ const Home = () => {
          <div id='carouselItems' className="carousel slide carousel-fade" data-bs-ride="carousel">
 						<div className='carousel-inner'>
 							{featuredProducts.map((product, index) => {
-								return <CarouselPro index={index} price={product.price} desc={product.description} brand={product.brand} title={product.title} count={product.count} img={product.image} userid={product.userid} genre={product.category} />
+								return <CarouselPro index={index} price={product.price} desc={product.description} brand={product.brand} title={product.title} count={product.count} img={product.image} userid={product.userid} genre={product.category} datatopass={product} />
 							})}
 						</div>
 						<button className="carousel-control-prev" type="button" data-bs-target="#carouselItems" data-bs-slide="prev">
@@ -154,9 +154,9 @@ const Home = () => {
 					</div>
 
           <p className="text-center mt-4">
-            <a to="catalog" className="btn_1 medium pulse_bt">
+            <Link to="/catalog" className="btn_1 medium pulse_bt">
               Start Redeeming
-            </a>
+            </Link>
           </p>
         </div>
 
@@ -168,7 +168,7 @@ const Home = () => {
               </span>
               <h2>Weekly Top Games</h2>
               <p>New games added every week!</p>
-              <Link to="#0">
+              <Link >
                 View All <i className="bi bi-arrow-right"></i>
               </Link>
             </div>
@@ -177,10 +177,10 @@ const Home = () => {
               <div className="col-lg-4 col-md-6">
                 <a className="author">
                   <strong>1</strong>
-                  <div className="author_thumb veryfied">
+                  <div className="author_thumb veryfied ms-5">
                     <i className="bi bi-check"></i>
                     <figure>
-                      <img
+                      <img 
                         src="assets/img/avatar1.jpg"
                         alt=""
                         className="lazy"
@@ -195,9 +195,9 @@ const Home = () => {
                 </a>
               </div>
               <div className="col-lg-4 col-md-6">
-                <Link to="author.html" className="author">
+                <Link  className="author">
                   <strong>2</strong>
-                  <div className="author_thumb veryfied">
+                  <div className="author_thumb veryfied ms-5">
                     <i className="bi bi-check"></i>
                     <figure>
                       <img
@@ -215,9 +215,9 @@ const Home = () => {
                 </Link>
               </div>
               <div className="col-lg-4 col-md-6">
-                <Link to="author.html" className="author">
+                <Link  className="author">
                   <strong>3</strong>
-                  <div className="author_thumb veryfied">
+                  <div className="author_thumb veryfied ms-5">
                     <i className="bi bi-check"></i>
                     <figure>
                       <img
@@ -235,9 +235,9 @@ const Home = () => {
                 </Link>
               </div>
               <div className="col-lg-4 col-md-6">
-                <Link to="author.html" className="author">
+                <Link  className="author">
                   <strong>4</strong>
-                  <div className="author_thumb veryfied">
+                  <div className="author_thumb veryfied ms-5">
                     <i className="bi bi-check"></i>
                     <figure>
                       <img
@@ -255,9 +255,9 @@ const Home = () => {
                 </Link>
               </div>
               <div className="col-lg-4 col-md-6">
-                <Link to="author.html" className="author">
+                <Link  className="author">
                   <strong>5</strong>
-                  <div className="author_thumb veryfied">
+                  <div className="author_thumb veryfied ms-5">
                     <i className="bi bi-check"></i>
                     <figure>
                       <img
@@ -275,9 +275,9 @@ const Home = () => {
                 </Link>
               </div>
               <div className="col-lg-4 col-md-6">
-                <Link to="author.html" className="author">
+                <Link  className="author">
                   <strong>6</strong>
-                  <div className="author_thumb veryfied">
+                  <div className="author_thumb veryfied ms-5">
                     <i className="bi bi-check"></i>
                     <figure>
                       <img
@@ -295,9 +295,9 @@ const Home = () => {
                 </Link>
               </div>
               <div className="col-lg-4 col-md-6">
-                <Link to="author.html" className="author">
+                <Link  className="author">
                   <strong>7</strong>
-                  <div className="author_thumb veryfied">
+                  <div className="author_thumb veryfied ms-5">
                     <i className="bi bi-check"></i>
                     <figure>
                       <img
@@ -315,9 +315,9 @@ const Home = () => {
                 </Link>
               </div>
               <div className="col-lg-4 col-md-6">
-                <Link to="author.html" className="author">
+                <Link className="author">
                   <strong>8</strong>
-                  <div className="author_thumb veryfied">
+                  <div className="author_thumb veryfied ms-5">
                     <i className="bi bi-check"></i>
                     <figure>
                       <img
@@ -335,9 +335,9 @@ const Home = () => {
                 </Link>
               </div>
               <div className="col-lg-4 col-md-6">
-                <Link to="author.html" className="author">
+                <Link  className="author">
                   <strong>9</strong>
-                  <div className="author_thumb veryfied">
+                  <div className="author_thumb veryfied ms-5">
                     <i className="bi bi-check"></i>
                     <figure>
                       <img
@@ -387,14 +387,14 @@ const Home = () => {
             <span><em></em></span>
             <h2>New Items</h2>
             <p>Redeem your Snapps from the latest products in our catalog!</p>
-            <Link to="catalog">View All <i className="bi bi-arrow-right"></i></Link>
+            <Link to="\catalog">View All <i className="bi bi-arrow-right"></i></Link>
           </div>
 
 
           {productsLoaded ? <div className='row d-flex justify-content-center '>
             {
               products.map((product) => {
-                return <NewItem price={product.price} desc={product.description} brand={product.brand} title={product.title} count={product.count} img={product.image} userid={product.userid} genre={product.category} />
+                return <NewItem price={product.price} desc={product.description} brand={product.brand} title={product.title} count={product.count} img={product.image} userid={product.userid} genre={product.category} datatopass={product} />
               })
             }
 
@@ -462,59 +462,6 @@ const Home = () => {
       </main >
 
       <Footer />
-
-      <div id="modal-dialog" className="zoom-anim-dialog mfp-hide">
-        <div className="modal_header">
-          <h3>Snapp Now!</h3>
-        </div>
-        <form>
-          <div className="sign-in-wrapper">
-            <p>
-              You are about to purchase <strong>"Amazing Art" #304</strong> from{" "}
-              <strong>George Lucas</strong>
-            </p>
-            <div className="form-group">
-              {" "}
-              <label>Redeem With</label>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="3.25 snapps"
-                disabled
-              />
-            </div>
-            <div className="form-group">
-              <label>
-                Enter quantity <small>(10 available)</small>
-              </label>
-              <input type="text" className="form-control" />
-            </div>
-            <ul>
-              <li>
-                Your balance <span>8.498 snapps</span>
-              </li>
-              <li>
-                Service fee 1.5%<span>0.125 snapps</span>
-              </li>
-              <li>
-                You will pay<span>8.798 snapps</span>
-              </li>
-            </ul>
-            <div className="text-center">
-              <input
-                type="submit"
-                value="Place a bid"
-                className="btn_1 full-width mb-2"
-              />
-              <input
-                type="submit"
-                value="Cancel"
-                className="btn_1 full-width outline"
-              />
-            </div>
-          </div>
-        </form>
-      </div>
     </>
   );
 };

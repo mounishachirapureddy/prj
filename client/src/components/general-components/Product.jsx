@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Loader from "./Loader";
 import axios from "axios"
 import ImgLoader from "./ImgLoader";
+import SnappnowLink from "./SnappnowLink";
 
 function Product(props) {
     const [imageLoaded, setImageLoaded] = useState(false);
@@ -39,10 +40,10 @@ function Product(props) {
         <div className="col-xl-4 col-lg-4 col-md-4 col-sm-6">
             <div className="strip">
                 <figure >
-                    {!imageLoaded && <div > <Loader /> </div>}<Link to="#modal-dialog" className={`btn_1 modal_popup lazy ${imageLoaded ? "" : "visually-hidden"} `}>Snapp Now!</Link>
+                    {!imageLoaded && <div > <Loader /> </div>}<SnappnowLink imageLoaded={imageLoaded} url="\detail-page" datatopass={props.datatopass} />
                     <img src={imageSrc} data-src="img/items/item-12.jpg" className={`lazy ${imageLoaded ? "" : "visually-hidden"}`} alt="" width="533" height="400" onLoad={() => setImageLoaded(true)}
                         onError={() => setImageLoaded(false)} />
-                    <Link to="detail-page.html" className="strip_info">
+                    <Link  className="strip_info">
                         <div className="item_title">
                             <span className="badge bg-violet">{props.price} snapps</span>
                         </div>
@@ -50,7 +51,7 @@ function Product(props) {
                 </figure >
                 <ul>
                     <li>
-                        <Link to="author.html" className="author">
+                        <Link  className="author">
                             <div className="author_thumb veryfied"><i className="bi bi-check"></i>
                                 <figure>{!ProfPicLoaded && <div > <ImgLoader /> </div>}
                                     <img src={ProfilePic} data-src="img/avatar2.jpg" alt="" className={`lazy ${ProfPicLoaded ? "" : "visually-hidden"}`} width="100px" onLoad={() => setProfPicLoaded(true)} onError={() => setProfPicLoaded(false)} /></figure>
@@ -60,7 +61,7 @@ function Product(props) {
                     </li>
                     <li></li>
                     <li>
-                        <Link to="#0" className="wish_bt"></Link><i class="bi bi-stack"></i> {props.count}
+                        <Link  className="wish_bt"></Link><i class="bi bi-stack"></i> {props.count}
                     </li>
                 </ul>
                 <ul>

@@ -35,12 +35,12 @@ import ImgLoader from "./ImgLoader"; const CarouselPro = (props) => {
 
     return (<div id="carouselControl" className={props.index == 0 ? "carousel-item active" : "carousel-item"}>
         <div className="d-flex justify-content-center">
-            <div className="strip col-5">
+            <div className="strip col-sm-3 col-lg-3 col-xl-3 col-md-3">
                 <figure >
-                    {!imageLoaded && <div > <Loader /> </div>} <SnappnowLink imageLoaded={imageLoaded} url="/detail-page" />
+                    {!imageLoaded && <div > <Loader /> </div>} <SnappnowLink imageLoaded={imageLoaded} url="/detail-page" datatopass={props.datatopass} />
                     <img src={imageSrc} data-src="img/items/item-12.jpg" className={`lazy ${imageLoaded ? "" : "visually-hidden"}`} alt="" width="533" height="400" onLoad={() => setImageLoaded(true)}
                         onError={() => setImageLoaded(false)} />
-                    <Link to="detail-page.html" className="strip_info">
+                    <Link  className="strip_info" >
                         <div className="item_title">
                             <span className="badge bg-voilet">{props.price} snapps</span>
                         </div>
@@ -48,7 +48,7 @@ import ImgLoader from "./ImgLoader"; const CarouselPro = (props) => {
                 </figure >
                 <ul>
                     <li>
-                        <Link to="author.html" className="author">
+                        <Link className="author">
                             <div className="author_thumb veryfied"><i className="bi bi-check"></i>
                                 <figure>{!ProfPicLoaded && <div > <ImgLoader /> </div>}
                                     <img src={ProfilePic} data-src="img/avatar2.jpg" alt="" className={`lazy ${ProfPicLoaded ? "" : "visually-hidden"}`} width="100px" onLoad={() => setProfPicLoaded(true)} onError={() => setProfPicLoaded(false)} /></figure>
@@ -58,7 +58,7 @@ import ImgLoader from "./ImgLoader"; const CarouselPro = (props) => {
                     </li>
                     <li></li>
                     <li>
-                        <Link to="#0" className="wish_bt"></Link><i class="bi bi-stack"></i> {props.count}
+                        <Link className="wish_bt"></Link><i class="bi bi-stack"></i> {props.count}
                     </li>
                 </ul>
                 <ul>

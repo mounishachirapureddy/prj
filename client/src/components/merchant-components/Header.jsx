@@ -106,12 +106,12 @@ const Header = () => {
                       />
                     </figure>
                     <h4>@{merchant.companyName}</h4>
-                    <p className="author_number">
+                    {/* <p className="author_number">
                       Ox465d53...9df5{" "}
                       <a href="#0">
                         <i className="bi bi-clipboard"></i>
                       </a>
-                    </p>
+                    </p> */}
                     <div className="balance">
                       <h4>Balance</h4>
                       <span>{merchant.walletMoney} snapps</span>
