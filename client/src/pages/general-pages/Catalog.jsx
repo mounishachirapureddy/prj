@@ -183,10 +183,11 @@ const Catalog = (props) => {
               {
                 <div >
                   <div className="range_input">
-                    Price range from {l_price} to <span>{UptoSnapp}</span>{" "}
+                    Price range from {l_price} to <span>{h_price}</span>{" "}
                     snapps
                   </div>
-                  <div className="mb-4">
+                  
+                  <div className="mb-4 d-flex justify-content-center">
                     <input
                       type="range"
                       min={l_price}
@@ -200,7 +201,9 @@ const Catalog = (props) => {
                       }}
                       data-orientation="horizontal"
                     />
+                    <div className="ms-3 text-center">{ `${UptoSnapp}` }</div>
                   </div>
+                    
                 </div>
               }
             </Filter>
