@@ -43,6 +43,9 @@ function ProductCard(props) {
                             </div>
                         </div>
                     </figure> */}
+                    {props.featured && <div className="ribbon">
+                        <span>Featured</span>
+                    </div>}
                     <figure> {!imageLoaded && <div> <Loader /> </div>}
                     <img
                         src={imageSrc}

@@ -7,6 +7,7 @@ import EditProd from "./EditProd";
 import { useDispatch } from "react-redux";
 import { merchantProfile } from "../../redux/actions/merchantAction";
 import Hero from "../gaming-vendor-components/Hero";
+import FullpageLoader from "../general-components/FullpageLoader";
 
 const Content = () => {
   const [user, setUser] = useState();
@@ -48,7 +49,7 @@ const Content = () => {
       <Hero />
 
       <div className="container margin_30_40">
-        {user && (
+        {user ? (
           <div className="row justify-content-center">
             <div className="col-lg-3 col-md-6">
               <ProfileCard
@@ -65,7 +66,7 @@ const Content = () => {
               <EditProd onEditForm={handleSubmit} />
             </div>
           </div>
-        )}
+        ): <FullpageLoader />}
       </div>
     </div>
   );

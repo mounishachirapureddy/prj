@@ -10,12 +10,12 @@ import ImgLoader from "./ImgLoader"; const CarouselPro = (props) => {
     useEffect(() => {
         const fetch = async () => {
             try {
-                const response = await axios.get(`http://localhost:3001/api/getprofile${props.userid}`)
+                const response = await axios.get(`http://localhost:3002/api/getprofile${props.userid}`)
                 const imgsrc = response.data.user.image
                 console.log(imgsrc)
                 setProfilePic(
                     (imgsrc)
-                        ? `http://localhost:3001/api/merchandise/img${imgsrc}`
+                        ? `http://localhost:3002/api/merchandise/img${imgsrc}`
                         : "assets/img/items/default-prof.png"
                 );
             }
@@ -26,7 +26,7 @@ import ImgLoader from "./ImgLoader"; const CarouselPro = (props) => {
         fetch();
         setImageSrc(
             props.img
-                ? `http://localhost:3001/api/merchandise/img${props.img}`
+                ? `http://localhost:3002/api/merchandise/img${props.img}`
                 : "assets/img/items/default-prod.png"
         );
     }, [props.img, props.profpic, ProfilePic]);

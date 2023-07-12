@@ -11,17 +11,26 @@ const Header = () => {
 
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageSrc, setImageSrc] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
+
+  const handleToggle = () => {
+    setDarkMode(!darkMode);
+  };
 
   useEffect(() => {
     setImageSrc(
       merchant.image
         ? `${process.env.REACT_APP_MERCHANT_MODULE_URL}/api/profile/img/${merchant.image}`
-        : "assets/img/avatar-user.jpg"
+        : "assets/img/avatar-gamer.jpg"
     );
   }, [merchant.image]);
 
   const handleLogoutClick = () => {
     dispatch(logout());
+  };
+  const toggleDropdown = () => {
+    setIsOpen((prevState) => !prevState);
   };
 
   return (
@@ -50,18 +59,19 @@ const Header = () => {
           <ul className="top_menu drop_user">
             <li>
               <span className="color_mode_bt">
-                <input id="theme_toggle" type="checkbox" name="theme_toggle" />
+                <input id="theme_toggle" type="checkbox" name="theme_toggle" onChange={handleToggle}/>
                 <label htmlFor="theme_toggle"></label>
               </span>
             </li>
             <li>
-              <div className="dropdown user clearfix">
+              <div className={`dropdown user clearfix ${isOpen ? "show" : ""}`}>
                 <Link
                   to="#"
                   role="button"
                   data-bs-toggle="dropdown"
                   aria-haspopup="true"
-                  aria-expanded="false"
+                  aria-expanded={isOpen}
+                  onClick={toggleDropdown}
                 >
                   <figure>
                     {/* <!-- Profile picture image--> */}
@@ -88,7 +98,9 @@ const Header = () => {
                     <span>{merchant.walletMoney} snapps</span>
                   </div>
                 </Link>
-                <div className="dropdown-menu dropdown-menu-end animate fadeIn">
+                <div className={`dropdown-menu dropdown-menu-end animate ${
+                    isOpen ? "fadeIn show" : ""
+                  }`}>
                   <div className="dropdown-menu-content">
                     <figure>
                       <img
@@ -121,9 +133,9 @@ const Header = () => {
                         </Link>
                       </li>
                       <li onClick={handleLogoutClick}>
-                        <Link to="/merchant-login">
+                        <a href="/">
                           <i className="bi bi-box-arrow-right"></i>Log out
-                        </Link>
+                        </a>
                       </li>
                     </ul>
                   </div>

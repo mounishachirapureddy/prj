@@ -190,7 +190,7 @@ const Dashboard = () => {
       <meta name="author" content="Snappcoins" />
       <title>Snappcoins - Ready , Steady, Snapp!</title>
 
-      <FullpageLoader />
+      {/* <FullpageLoader /> */}
       <Header name={vendor_name} />
 
       <main>

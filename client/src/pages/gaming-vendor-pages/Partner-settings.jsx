@@ -205,7 +205,7 @@ const Settings = () => {
 
   return (
     <>
-      <FullpageLoader />
+      {/* <FullpageLoader /> */}
       <Header name={vendor_name} />
 
       <main>

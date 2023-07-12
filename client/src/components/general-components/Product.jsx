@@ -14,12 +14,12 @@ function Product(props) {
     useEffect(() => {
         const fetch = async () => {
             try {
-                const response = await axios.get(`http://127.0.0.1:3001/api/getprofile${props.userid}`)
+                const response = await axios.get(`http://127.0.0.1:3002/api/getprofile${props.userid}`)
                 const imgsrc = response.data.user.image
                 console.log(imgsrc)
                 setProfilePic(
                     (imgsrc)
-                        ? `http://127.0.0.1:3001/api/img${imgsrc}`
+                        ? `http://127.0.0.1:3002/api/img${imgsrc}`
                         : "assets/img/items/default-prof.png"
                 );
             }
@@ -30,7 +30,7 @@ function Product(props) {
         fetch();
         setImageSrc(
             props.img
-                ? `http://127.0.0.1:3001/api/merchandise/img${props.img}`
+                ? `http://127.0.0.1:3002/api/merchandise/img${props.img}`
                 : "assets/img/items/default-prod.png"
         );
     }, [props.img, props.profpic, ProfilePic]);

@@ -40,7 +40,7 @@ const Catalog = (props) => {
         };
 
         const response_prod = await axios.get(
-          "http://localhost:3001/api/merchandise/getall",
+          "http://localhost:3002/api/merchandise/getall",
           { params }
         );
 

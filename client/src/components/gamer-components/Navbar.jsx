@@ -136,9 +136,9 @@ const Header = () => {
                         </Link>
                       </li>
                       <li onClick={handleLogoutClick}>
-                        <Link to="/gamer-login">
+                        <a href="/">
                           <i className="bi bi-box-arrow-right"></i>Log out
-                        </Link>
+                        </a>
                       </li>
                     </ul>
                   </div>

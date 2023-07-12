@@ -32,7 +32,7 @@ function App() {
   const isVerify = localStorage.getItem("verify");
 
   const gamerState = useSelector((state) => state.gamerReducer);
-
+  console.log(gamerState,merchantState)
   return (
     <div className="App">
       <Routes>
@@ -96,8 +96,8 @@ function App() {
             ) : (
               <Navigate to="/gamer-login" />
             )
-          } */}
-        />
+          }
+        /> */}
         <Route path="/gamer-signup" element={<GamerSignup />} />
         <Route path="/gamer-login" element={<GamerLogin />} />
         <Route path="/gamer-verify" element={<GamerVerify />} />

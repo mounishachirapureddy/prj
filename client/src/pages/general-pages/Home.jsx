@@ -21,7 +21,7 @@ const Home = () => {
     const fetchData = async () => {
       try {
         setLoaded(false)
-        const response_prod = await axios.get('http://localhost:3001/api/merchandise/gethome');
+        const response_prod = await axios.get('http://localhost:3002/api/merchandise/gethome');
         //const total = response_prod.headers.get("x-total-count");
         setProducts(response_prod.data.merchandises);
         setLoaded(true)

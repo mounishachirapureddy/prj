@@ -8416,19 +8416,19 @@ ul.bullets li span {
 /* ------ 5.4 Forms styles ------ */
 .nice-select {
   -webkit-tap-highlight-color: transparent;
-  background-color: #211d23;
-  border-radius: 2px;
-  border: none;
+  background-color: transparent;
+  border-radius: 5px;
+  border: 2px solid var(--border-color-1);
   box-sizing: border-box;
   clear: both;
   cursor: pointer;
   display: block;
   float: left;
   font-family: inherit;
-  font-size: 14px !important;
-  font-weight: 500;
-  height: 31px !important;
-  line-height: 30px !important;
+  font-size: 14px;
+  font-weight: normal;
+  height: 42px;
+  line-height: 40px;
   outline: none;
   padding-left: 18px;
   padding-right: 33px;
@@ -8438,7 +8438,6 @@ ul.bullets li span {
   user-select: none;
   white-space: nowrap;
   width: auto;
-  color: #fff;
 }
 .nice-select:active, .nice-select.open, .nice-select:focus {
   border-color: var(--border-color-1);
@@ -8449,7 +8448,7 @@ ul.bullets li span {
   content: '';
   display: block;
   height: 8px;
-  margin-top: -7px;
+  margin-top: -4px;
   pointer-events: none;
   position: absolute;
   right: 15px;
