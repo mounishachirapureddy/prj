@@ -95,7 +95,7 @@ const Header = () => {
                     />
                   </figure>
                   <div className="balance">
-                    <h6 className="mb-0">Balance</h6>
+                    <h6 className="mb-0">{gamer.userName}</h6>
                     <span>{gamer.walletMoney} snapps</span>
                   </div>
                 </Link>
@@ -114,12 +114,12 @@ const Header = () => {
                       />
                     </figure>
                     <h4>@{gamer.userName}</h4>
-                    <p className="author_number">
+                    {/* <p className="author_number">
                       {gamer._id}{" "}
                       <a href="#0">
                         <i className="bi bi-clipboard"></i>
                       </a>
-                    </p>
+                    </p>*/}
                     <div className="balance">
                       <h4>Balance</h4>
                       <span>{gamer.walletMoney} snapps</span>

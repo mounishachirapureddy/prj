@@ -51,14 +51,21 @@ export default function TransactionHistory(props) {
           </a>
         </h3>
         {props.status === "Delivered" && (
-          <span className="badge bg-success text-light mx-1">Delivered</span>
+          <span>
+            <span className="badge bg-success text-light mx-1">Delivered</span> |
+            <span>&nbsp;<a href="#" className="link-secondary">| &nbsp;Raise An Issue</a></span>
+          </span>
         )}
         {props.status === "In transit" && (
-          <span className="badge bg-warning text-light mx-1">In Transit</span>
+          <span>
+            <span className="badge bg-warning text-light mx-1">In Transit</span> |
+            <span>&nbsp;<a href="#" className="link-secondary">| &nbsp; Cancel</a></span>
+          </span>
         )}
         {props.status === "Cancelled" && (
-          <span className="badge bg-danger text-light  mx-1">Cancelled</span>
+          <span className="badge bg-danger text-light mx-1">Cancelled</span>
         )}
+
       </li>
     </ul>
   );

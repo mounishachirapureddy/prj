@@ -49,33 +49,33 @@ exports.sendVerificationEmail= async(req,res)=>{
 
 exports.signup = async (req, res) => {
   try {
-    const { userName, password ,email, confirmpassword } = req.body;
+    const { userName, password, email, confirmpassword } = req.body;
     
-    console.log(req.body)
+    //console.log(req.body);
+    
     const user = await User.findOne({ email });
 
     if (user) {
-      return res.status(400).json({ success: false, msg: "This email is already registered" });
+      return res.status(400).json({ success: false, msg: "This email is already registered",user });
     }
     
-    else if(password != confirmpassword){
-      return res.status(400).json({success:false, msg: "password and confirm password must be same" });
+    else if (password !== confirmpassword) {
+      return res.status(400).json({ success: false, msg: "Password and confirm password must be the same" });
     }
+    
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const createuser =await User.create({ userName,email,password: hashedPassword})
+    const createuser = await User.create({ userName, email, password: hashedPassword });
 
-    res.status(200).send({userId:createuser._id, email , msg:"Registration Successful"})
+    console.log("Gamer ID is: ", createuser._id);
 
-    }
-catch (error) {
-  
-  
-   res.status(500).json({ error: `Internal server error ${error.message}` });
+    res.status(200).send({ userId: createuser._id, email, msg: "Registration Successful" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: `Internal server error ${error.message}` });
+  }
+};
 
-  
-}
-}
 
 exports.login = async (req, res) => {
     try {
