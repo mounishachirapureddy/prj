@@ -67,8 +67,8 @@ const Verify = () => {
         {loading ? (
           <PreLoader />
         ) : (
-          <div className="d-flex container mt-5 align-items-center justify-content-center otp-verify">
-            <div className="card text-center text-dark mt-5 py-5 px-3 otp-card">
+          <div className="d-flex container align-items-center justify-content-center otp-verify">
+            <div className="card text-center text-dark py-5 px-3 otp-card">
               <div className="container-fluid">
                 {token ? (
                   <p className="fs-1">2 Step Verification</p>

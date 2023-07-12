@@ -43,10 +43,10 @@ const Login = () => {
 
   return (
     <>
-      <FullpageLoader />
       <div id="login_bg" className="bg-login">
         {loading ? (
-          <PreLoader />
+      <FullpageLoader />
+          // <PreLoader />
         ) : (
           <div id="login">
             <aside>

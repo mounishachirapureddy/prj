@@ -54,6 +54,7 @@ const ProfileCard = (props) => {
         </span>
         </h2>
         <p>Member since {formatDate(props.memberSince)}</p>
+        <a href="/merchant-product-upload" className="btn_1"><i className="bi bi-cart-check-fill"></i> Add New Product</a>
         {/* <!-- <p>
             <a href="#0" className="btn_1 full-width mb-2">Follow</a>
             <a href="#0" className="btn_1 full-width outline">Send a message</a>

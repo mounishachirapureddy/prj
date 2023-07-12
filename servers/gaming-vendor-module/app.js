@@ -53,7 +53,7 @@ mongoose.connection.on("disconnected", () => {
 });
 
 // Start the server
-const PORT = 3001;
+const PORT = 3002;
 app.listen(PORT, () => {
   connectToDatabase();
   console.log(`Server running on port ${PORT}`);

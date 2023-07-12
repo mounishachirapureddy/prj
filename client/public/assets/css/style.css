@@ -90,7 +90,7 @@ Author URI:
 /*============================================================================================*/
 @font-face {
   font-family: "bootstrap-icons";
-  src: url("bs-icon-font/bootstrap-icons.woff2") format("woff2"), url("bs-icon-font/bootstrap-icons.woff") format("woff");
+  src: url("bs-icon-font/bootstrap-icons.woff2?856008caa5eb66df68595e734e59580d") format("woff2"), url("bs-icon-font/bootstrap-icons.woff?856008caa5eb66df68595e734e59580d") format("woff");
   font-display: swap;
 }
 [class^="bi-"]::before,
@@ -5705,7 +5705,7 @@ html * {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-@import url('../../../css2-1');
+@import url('https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 body {
   background-color: var(--body-background);
   font-size: 14px;

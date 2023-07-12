@@ -162,9 +162,9 @@ const Header = () => {
             </div>
             <ul>
               <li className="submenu">
-                <Link to="/" className="show-submenu">
+                <a href="/" className="show-submenu">
                   Home
-                </Link>
+                </a>
               </li>
               <li className="submenu">
                 <a href="catalog.html" className="show-submenu">
