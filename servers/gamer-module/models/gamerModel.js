@@ -1,6 +1,17 @@
 const {Schema, model} =   require("mongoose");
 const bcrypt = require("bcrypt");
 
+
+const gameSchema = new Schema({
+  name: {
+    type: String,
+  },
+  moneyWon: {
+    type: Number,
+    default: 0,
+  },
+});
+
 const gamerSchema = new Schema({
    userName:{
       type: String,
@@ -35,14 +46,13 @@ const gamerSchema = new Schema({
       
     }
     ,
-    walletMoney: {
-      type: Number,
-      default: 0
-    },
+    
     redeemed: {
       type: Number,
       default: 0
     },
+
+    games : [gameSchema] ,
 
    },
    {timestamp:true}

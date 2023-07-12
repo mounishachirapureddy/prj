@@ -7,7 +7,7 @@ import Recommended from "../../components/gamer-components/Recommended";
 import PageComp from "../../components/gamer-components/PageComp";
 import MyItems from "../../components/gamer-components/myItems";
 import useFetch from "../../hooks/useFetch-gamer";
-
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { gamerProfile } from "../../redux/actions/gamerAction";
 import FullpageLoader from "../../components/general-components/FullpageLoader";
@@ -20,6 +20,7 @@ export default function Home() {
   const [pendingOrders,setPendingOrders]=useState(0)
 
   const token = localStorage.getItem("token");
+  const navigate = useNavigate();
   const [fetchData, { loading }] = useFetch();
 
   const dispatch = useDispatch();
@@ -42,6 +43,13 @@ export default function Home() {
   }, [fetchData, token, dispatch]);
 
   useEffect(() => {
+    if (!token) {
+      // Redirect to login page if token is null
+      navigate('/gamer-login', { state: { message: "You are not logged in." } })
+
+    } else {
+      fetchUser();
+    }
     fetchUser();
   }, [fetchUser]);
 
@@ -349,7 +357,7 @@ export default function Home() {
           src="assets/img/hero_general.jpg"
           alt=""
           className="card-img-top w-100"
-          style={{ height: "275px" }}
+          style={{ height: "60rem",marginTop:"0px",marginBottom:'0px',paddingTop:'0px',paddingBottom:'0px' }}
         />
       </div>
 
@@ -359,6 +367,7 @@ export default function Home() {
             {user && (
               <Card
                 gamerName={user.userName}
+                id={user._id}
                 walletMoney={user.walletMoney}
                 memberSince={user.joiningTime}
                 pending={pendingOrders}
@@ -429,6 +438,7 @@ export default function Home() {
                           <div style={{ width: "100%" }}>
                             <Recommended
                               title={product.title}
+                              pid={product._id}
                               img={product.image}
                               desc={product.description}
                               brand={product.brand}

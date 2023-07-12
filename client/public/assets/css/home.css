@@ -365,13 +365,13 @@
 
 /* Banner */
 .banner {
-  margin-bottom: 30px;
-  height: 200px;
+  
+  height: 320px;
   border-radius: var(--border-radius-medium);
   overflow: hidden;
   position: relative;
   color: #fff;
-  padding: 60px;
+  
 }
 @media (max-width: 767px) {
   .banner {

@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const app = express();
 require("dotenv").config();
 const cors = require("cors");
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 3001;
 const merchandiseRoutes = require("./routes/merchandise.route");
 const profilePicRoute = require("./routes/profile.route");
 app.use(express.json());

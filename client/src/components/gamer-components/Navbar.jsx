@@ -23,7 +23,7 @@ const Header = () => {
     setImageSrc(
       gamer.image
         ? `${process.env.REACT_APP_GAMER_MODULE_URL}/api/profile/img/${gamer.image}`
-        : "assets/img/avatar-user.jpg"
+        : "assets/img/avatar-gamer.jpg"
     );
   }, [gamer.image]);
 
@@ -115,7 +115,7 @@ const Header = () => {
                     </figure>
                     <h4>@{gamer.userName}</h4>
                     <p className="author_number">
-                      Ox465d53...9df5{" "}
+                      {gamer._id}{" "}
                       <a href="#0">
                         <i className="bi bi-clipboard"></i>
                       </a>
