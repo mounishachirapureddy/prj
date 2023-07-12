@@ -137,31 +137,21 @@ const Home = () => {
               </button>
             </div>
           </div> */}
-          <div id="carouselControl" class="carousel slide">
-            <div class="carousel-inner">
-              {
-                featuredProducts.map((product,index) => {
-                  return <CarouselPro price={product.price}
-                    desc={product.description}
-                    brand={product.brand}
-                    title={product.title}
-                    count={product.count}
-                    img={product.image}
-                    userid={product.userid}
-                    genre={product.category}
-                    />
-                })
-              }
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselControl" data-bs-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselControl" data-bs-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Next</span>
-            </button>
-          </div>
+         <div id='carouselItems' className="carousel slide carousel-fade" data-bs-ride="carousel">
+						<div className='carousel-inner'>
+							{featuredProducts.map((product, index) => {
+								return <CarouselPro index={index} price={product.price} desc={product.description} brand={product.brand} title={product.title} count={product.count} img={product.image} userid={product.userid} genre={product.category} />
+							})}
+						</div>
+						<button className="carousel-control-prev" type="button" data-bs-target="#carouselItems" data-bs-slide="prev">
+							<span className="carousel-control-prev-icon" aria-hidden="true"></span>
+							<span className="visually-hidden">Previous</span>
+						</button>
+						<button className="carousel-control-next" type="button" data-bs-target="#carouselItems" data-bs-slide="next">
+							<span className="carousel-control-next-icon" aria-hidden="true"></span>
+							<span className="visually-hidden">Next</span>
+						</button>
+					</div>
 
           <p className="text-center mt-4">
             <a to="catalog" className="btn_1 medium pulse_bt">

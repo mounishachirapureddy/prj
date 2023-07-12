@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import Loader from "./Loader";
 import axios from "axios"
-import ImgLoader from "./ImgLoader";
-const CarouselPro = (props) => {
+import ImgLoader from "./ImgLoader"; const CarouselPro = (props) => {
     const [imageLoaded, setImageLoaded] = useState(false);
     const [imageSrc, setImageSrc] = useState("");
     const [ProfPicLoaded, setProfPicLoaded] = useState(false)
@@ -32,7 +31,7 @@ const CarouselPro = (props) => {
         );
     }, [props.img, props.profpic, ProfilePic]);
 
-    return (<div  className={props.index == 0 ? "carousel-item active" : "carousel-item"}>
+    return (<div id="carouselControl" className={props.index == 0 ? "carousel-item active" : "carousel-item"}>
         <div className="d-flex justify-content-center">
             <div className="strip col-5">
                 <figure >
