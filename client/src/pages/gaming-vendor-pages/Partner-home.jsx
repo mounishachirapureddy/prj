@@ -12,8 +12,8 @@ const Dashboard = () => {
   const [vendorId, setVendorId] = useState("");
   const [vendor_name, setVendorName] = useState("");
   const [vendor_snappcoins, setVendorSnappcoins] = useState("");
-
   const [snappcoinsToPurchase, setSnappcoinsToPurchase] = useState("");
+  const [keyword, setKeyword] = useState("");
 
   const verifyUser = async () => {
     try {
@@ -27,7 +27,6 @@ const Dashboard = () => {
         const data = await response.json();
         if (data.success) {
           setVendorId(data.vendor_id);
-          console.log("Vendor Id: ", data.vendor_id);
           const response = await fetch(
             `http://localhost:3001/gaming-vendor-wallet/snappcoin-counter/${data.vendor_id}`
           );
@@ -182,6 +181,11 @@ const Dashboard = () => {
     }
   };
 
+  const handleSearch = () => {
+    const search_term = document.getElementById("search").value;
+    setKeyword(search_term);
+  };
+
   return (
     <>
       <meta charSet="utf-8" />
@@ -198,7 +202,11 @@ const Dashboard = () => {
 
         <div className="container margin_30_40">
           <div className="row justify-content-center">
-            <UserProfile page={"dashboard"} name={"@" + vendor_name} />
+            <UserProfile
+              page={"dashboard"}
+              name={"@" + vendor_name}
+              snappcoins={vendor_snappcoins}
+            />
             <div className="col-lg-9 ps-lg-5">
               <div className="tabs_detail">
                 <ul className="nav nav-tabs" role="tablist">
@@ -251,27 +259,25 @@ const Dashboard = () => {
                           <h2>Buy Snappcoins</h2>
                         </div>
                         <div className="row">
-                          <div className="col-md-6">
+                          <div>
                             <div className="form-group">
                               <label>Enter Amount</label>
-                              <input
-                                type="text"
-                                className="form-control"
-                                placeholder={100}
-                                id="order-price"
-                                onChange={handleInputChange}
-                              />
-                            </div>
-                          </div>
-                          <div className="col-md-6">
-                            <div className="form-group">
-                              <label>Collect Snappcoins</label>
-                              <div className="box_bid">
-                                <div className="item_meta">
-                                  <h3 className="" id="snappcoins-counter">
-                                    {vendor_snappcoins}
-                                  </h3>
-                                </div>
+                              <div style={{ display: "flex" }}>
+                                <input
+                                  style={{ width: "65%", marginRight: "2rem" }}
+                                  type="text"
+                                  className="form-control"
+                                  placeholder={100}
+                                  id="order-price"
+                                  onChange={handleInputChange}
+                                />
+                                <button
+                                  className="btn_1 medium pulse_bt"
+                                  id="payment"
+                                  onClick={makePayment}
+                                >
+                                  Continue to Payment Gateway
+                                </button>
                               </div>
                             </div>
                           </div>
@@ -298,13 +304,6 @@ const Dashboard = () => {
                         </div>
                         {/* /row */}
                         <div className="text-center form-group">
-                          <button
-                            className="btn_1 medium pulse_bt"
-                            id="payment"
-                            onClick={makePayment}
-                          >
-                            Continue to Payment Gateway
-                          </button>
                           <div
                             id="error-message"
                             className="error-message"
@@ -356,6 +355,7 @@ const Dashboard = () => {
                                   }}
                                   className="btn_1"
                                   id="search-btn"
+                                  onClick={handleSearch}
                                 >
                                   Search
                                 </button>
@@ -363,7 +363,7 @@ const Dashboard = () => {
                             </div>
                           </div>
                           <div className="widget transaction-container">
-                            <TransactionHistory />
+                            <TransactionHistory searchKeyword={keyword}/>
                           </div>
                         </aside>
                       </div>
