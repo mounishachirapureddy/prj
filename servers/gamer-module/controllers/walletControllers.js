@@ -26,3 +26,26 @@ exports.wallet = async (req, res) => {
       return res.status(500).json({ status: false, msg: "Internal Server Error" });
     }
   }
+
+  exports.addMoney = async (req, res) => {
+    try {
+      const { id, money } = req.query;
+  
+      
+      const user = await User.findById(id);
+  
+      if (!user) {
+        return res.status(404).json({ error: "User not found" });
+      }
+  
+      
+      user.walletMoney += parseInt(money);
+      await user.save();
+  
+      return res.status(200).json({ message: "Wallet money updated successfully" });
+    } catch (err) {
+      console.error(err);
+      return res.status(500).json({ error: "Internal server error" });
+    }
+  };
+  
