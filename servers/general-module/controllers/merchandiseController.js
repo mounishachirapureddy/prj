@@ -6,8 +6,8 @@ const { parse } = require('dotenv');
 exports.getHome  = async (req,res) => {
   try {
     var query = {}
-    query.limit = 6
-    const merchandises = await Merchandise.find( {},{}, query).sort({createdAt : -1 })
+    query.limit = 8
+    const merchandises = await Merchandise.find( {},{}, query).sort({featured : -1 ,createdAt : -1 })
     const featured_products = await Merchandise.find({ featured : true })
     res.status(200).json({ merchandises, featured_products,status: true, msg: `Merchandises fetched successfully`})
   }
@@ -19,7 +19,8 @@ exports.getHome  = async (req,res) => {
 
 exports.getMerchandises = async (req, res) => {
   try {
-    const { size, pagenum, searchTerm, category , uptoSnapp } = req.query
+    var { size, pagenum, searchTerm, category , uptoSnapp } = req.query
+    let check;
     var query = {}
     query.skip = parseInt(size) * parseInt(pagenum - 1)
     query.limit = parseInt(size)
@@ -38,7 +39,7 @@ exports.getMerchandises = async (req, res) => {
     if (category && category.length > 0) {
       filter_query.category = { $in: category };
     }
-    const merchandises = await Merchandise.find(filter_query, {}, query).then((data) => {
+    const merchandises = await Merchandise.find(filter_query, {}, query).sort({ featured : -1 ,createdAt : -1 }).then((data) => {
       return data
     })
     

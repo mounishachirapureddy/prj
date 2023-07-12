@@ -140,7 +140,7 @@ const Home = () => {
          <div id='carouselItems' className="carousel slide carousel-fade" data-bs-ride="carousel">
 						<div className='carousel-inner'>
 							{featuredProducts.map((product, index) => {
-								return <CarouselPro index={index} price={product.price} desc={product.description} brand={product.brand} title={product.title} count={product.count} img={product.image} userid={product.userid} genre={product.category} />
+								return <CarouselPro index={index} price={product.price} desc={product.description} brand={product.brand} title={product.title} count={product.count} img={product.image} userid={product.userid} genre={product.category} datatopass={product} />
 							})}
 						</div>
 						<button className="carousel-control-prev" type="button" data-bs-target="#carouselItems" data-bs-slide="prev">
@@ -154,9 +154,9 @@ const Home = () => {
 					</div>
 
           <p className="text-center mt-4">
-            <a to="catalog" className="btn_1 medium pulse_bt">
+            <Link to="/catalog" className="btn_1 medium pulse_bt">
               Start Redeeming
-            </a>
+            </Link>
           </p>
         </div>
 
@@ -387,14 +387,14 @@ const Home = () => {
             <span><em></em></span>
             <h2>New Items</h2>
             <p>Redeem your Snapps from the latest products in our catalog!</p>
-            <Link to="catalog">View All <i className="bi bi-arrow-right"></i></Link>
+            <Link to="\catalog">View All <i className="bi bi-arrow-right"></i></Link>
           </div>
 
 
           {productsLoaded ? <div className='row d-flex justify-content-center '>
             {
               products.map((product) => {
-                return <NewItem price={product.price} desc={product.description} brand={product.brand} title={product.title} count={product.count} img={product.image} userid={product.userid} genre={product.category} />
+                return <NewItem price={product.price} desc={product.description} brand={product.brand} title={product.title} count={product.count} img={product.image} userid={product.userid} genre={product.category} datatopass={product} />
               })
             }
 

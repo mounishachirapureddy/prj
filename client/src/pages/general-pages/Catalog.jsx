@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Product from "../../components/general-components/Product";
 import axios from "axios";
 import Header from "../../components/general-components/Header";
@@ -16,6 +16,8 @@ const Catalog = (props) => {
   const [total_count, setCount] = useState(0);
   const [search_count, setSearchCount] = useState(0);
   const [genre, setgenre] = useState([]);
+
+  const navigate = useNavigate();
 
   //pagination
   const [searchTerm, setSearchTerm] = useState(
@@ -79,8 +81,7 @@ const Catalog = (props) => {
     "Electronics",
     "Stationary",
     "Music",
-    "Wellness",
-    "Featured",
+    "Wellness"
   ];
   const handleClick = (e) => {
     e.preventDefault();
@@ -114,7 +115,7 @@ const Catalog = (props) => {
 
   //search functionality
   return (
-    <div className="catalog"> 
+    <div className="catalog">
       <Header />
       <br /><br /><br /><br />
       <main>
@@ -218,6 +219,7 @@ const Catalog = (props) => {
                           img={product.image}
                           userid={product.userid}
                           genre={product.category}
+                          datatopass={product}
                         ></Product>
                       ))
                     ) : (
@@ -228,15 +230,15 @@ const Catalog = (props) => {
                     <div className="pagination_fg mb-4">
                       {search_count !== 0
                         ? pages.map((i) => {
-                            return (
-                              <PageComp
-                                key={i}
-                                pagenum={i}
-                                handleClick={handleClick}
-                                isActive={currentPage === i ? true : false}
-                              />
-                            );
-                          })
+                          return (
+                            <PageComp
+                              key={i}
+                              pagenum={i}
+                              handleClick={handleClick}
+                              isActive={currentPage === i ? true : false}
+                            />
+                          );
+                        })
                         : null}
                     </div>
                   </div>
