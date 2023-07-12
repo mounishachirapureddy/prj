@@ -13,7 +13,7 @@ const Card = (props) => {
     setImageSrc(
       profile.image
         ? `${process.env.REACT_APP_GAMER_MODULE_URL}/api/profile/img/${profile.image}`
-        : "assets/img/avatar-user.jpg"
+        : "assets/img/avatar-gamer.jpg"
     );
   }, [profile.image]);
 
@@ -63,7 +63,7 @@ const Card = (props) => {
 
       <ul>
         <li>
-          Redeemed <span className="badge bg-success"></span>
+          Redeemed <span className="badge bg-success">0</span>
         </li>
         <li>
           Pending Orders <span className="badge bg-warning">{props.pending}</span>

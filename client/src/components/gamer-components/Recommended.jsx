@@ -32,6 +32,7 @@ export default function Recommended(props) {
 
   const displayData = {
     title: props.title,
+    pid:props.pid,
     desc: props.desc,
     brand: props.brand,
     price: props.price,

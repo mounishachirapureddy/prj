@@ -6,10 +6,15 @@ const merchantTransaction = require("../models/merchantTransactions")
 exports.gamerCheckout = async(req,res) =>{
     try{
         const {pid,gid,gname} = req.query
+        //console.log(pid,gid,gname)
         const {snaps , itemsPurchased} = req.body
+        //console.log(snaps,itemsPurchased)
         const {userid,price,title,count,image} = await Merchandise.findById(pid)
+        console.log(userid,price,title,count,image)
+        const imageField = image || null;
+        console.log(imageField)
         if(snaps >= price){
-            const {_id} = await merchantTransaction.create({userid,gamerId:gid,gamerName:gname,productId:pid,product:title,itemsPurchased,snaps,image,status:"pending",transactionEntry:"credit"})
+            const {_id} = await merchantTransaction.create({userid,gamerId:gid,gamerName:gname,productId:pid,product:title,itemsPurchased,snaps,image:imageField,status:"pending",transactionEntry:"credit"})
             const {walletMoney} = await User.findById(userid)
             const totalBalance = parseInt(walletMoney) + parseInt(snaps) * parseInt(itemsPurchased)
             const {walletMoney:updatedAmount} =  await User.findByIdAndUpdate({_id:userid},{walletMoney:totalBalance},{ new: true });

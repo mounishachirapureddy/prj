@@ -23,7 +23,7 @@ const Header = () => {
     setImageSrc(
       gamer.image
         ? `${process.env.REACT_APP_GAMER_MODULE_URL}/api/profile/img/${gamer.image}`
-        : "assets/img/avatar-user.jpg"
+        : "assets/img/avatar-gamer.jpg"
     );
   }, [gamer.image]);
 

@@ -27,5 +27,5 @@ export const gamerProfile = (gamer) => async(dispatch) =>{
 export const logout = () => (dispatch) => {
     localStorage.removeItem('token');
     dispatch({ type: LOGOUT });
-    document.location.href = '/login';
+    document.location.href = '/gamer-login';
   }

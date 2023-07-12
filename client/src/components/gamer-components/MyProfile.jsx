@@ -21,7 +21,7 @@ const EditProfile = () => {
     setImageSrc(
       profile.image
         ? `${process.env.REACT_APP_GAMER_MODULE_URL}/api/profile/img/${profile.image}`
-        : "assets/img/avatar-user.jpg"
+        : "assets/img/avatar-gamerr.jpg"
     );
   }, [profile.image]);
 

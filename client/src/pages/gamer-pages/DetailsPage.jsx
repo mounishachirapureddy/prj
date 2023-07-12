@@ -1,17 +1,24 @@
-import React, { useState } from "react";
+import React, { useCallback, useState,useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import Navbar from "../../components/gamer-components/Navbar";
 import Footer from "../../components/gamer-components/Footer";
 import { gamerProfile } from "../../redux/actions/gamerAction";
 import { useDispatch, useSelector } from "react-redux";
+import useFetch from "../../hooks/useFetch-gamer";
 
 export default function DetailsPage() {
   const location = useLocation();
   const { displayData, imageSrc } = location.state;
 
+  
+  const token = localStorage.getItem("token");
+  const [fetchData, { loading }] = useFetch();
+
   const dispatch = useDispatch();
   const gaming = useSelector((state) => state.gamerReducer);
   const profile = gaming.gamer;
+
+  console.log("proff ", profile?._id, profile?.userName);
 
   console.log("pd: ", displayData);
   console.log("i:", imageSrc);
@@ -28,95 +35,87 @@ export default function DetailsPage() {
     setIsExtended(false);
   };
 
-  const handleSnappNow = async (e) => {
-    e.preventDefault();
-    let pid = 123;
-    try {
-      const response = await fetch(
-        `/api/transaction/gamerCheckout?pid=${profile._id}&gid=${pid}&gname=${profile.userName}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            snaps: profile.walletMoney,
-            itemsPurchased: 1,
-          }),
-        }
-      );
-      const data = await response.json();
-      console.log(data); // handle the response data as needed
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const handlSnappNow = useCallback(() => {
+    const config = {
+      url: `http://localhost:3003/api/transactions/gamerCheckout?pid=${displayData?.pid}&gid=${profile?._id}&gname=${profile?.userName}`,
+      method: "post",
+      headers: { Authorization: token ,  "Content-Type": "application/json", },
+      data: {
+        snaps: displayData.price,
+        itemsPurchased: 1,
+      },
+    };
+
+    fetchData(config, { showSuccessToast: false })
+      .then((data) => {
+
+          console.log("Gamer checkout sucessfull")
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [fetchData, token, dispatch, displayData, profile]);
 
   return (
     <div>
       <Navbar />
       <main style={{ transform: "none" }}>
-        <div class="container" style={{ transform: "none" }}>
-          <div class="row" style={{ transform: "none" }}>
+        <div className="container" style={{ transform: "none" }}>
+          <div className="row" style={{ transform: "none" }}>
             <div
-              class="col-xl-8 col-lg-7 margin_detail"
+              className="col-xl-8 col-lg-7 margin_detail"
               style={{
                 zIndex: 2,
                 position: "relative",
                 marginRight: "400px",
               }}
             >
-              <div class="box_general" style={{ alignContent: "center" }}>
+              <div className="box_general" style={{ alignContent: "center" }}>
                 <img
                   src={imageSrc}
                   alt=""
-                  class="img-fluid"
-                  style={{
-                    height: "500px",
-                    marginLeft: "6rem",
-                    marginRight: "2rem",
-                    marginTop: "2rem",
-                  }} // Set the width of the image to 100%
+                  className="img-fluid"
+                  style={{ height: "500px", marginLeft: "6rem", marginRight: "2rem", marginTop: "2rem" }} // Set the width of the image to 100%
                 />
-                <div class="main_info_wrapper">
-                  <div class="main_info">
-                    <div class="clearfix mb-3">
-                      <div class="item_desc">
-                        <div class="mb-3">
-                          <a href="author.html" class="author">
-                            <div class="author_thumb veryfied">
-                              <i class="bi bi-check"></i>
+                <div className="main_info_wrapper">
+                  <div className="main_info">
+                    <div className="clearfix mb-3">
+                      <div className="item_desc">
+                        <div className="mb-3">
+                          <a href="author.html" className="author">
+                            <div className="author_thumb veryfied">
+                              <i className="bi bi-check"></i>
                               <figure>
                                 <img
                                   src="assets/img/avatar1.jpg"
                                   data-src="img/avatar1.jpg"
                                   alt=""
-                                  class="lazy loaded"
+                                  className="lazy loaded"
                                   width="100"
                                   height="100"
                                   data-was-processed="true"
                                 />
                               </figure>
                             </div>
-                            <h6 class="ms-1">
+                            <h6 className="ms-1">
                               <span>Brand</span>
-                              {displayData.brand}
+                              {displayData?.brand}
                             </h6>
                           </a>
                         </div>
                       </div>
-                      <div class="score_in">
+                      <div className="score_in">
                         123 Likes{" "}
-                        <a href="#" class="wish_bt">
-                          <i class="bi bi-heart"></i>
+                        <a href="#" className="wish_bt">
+                          <i className="bi bi-heart"></i>
                         </a>
                       </div>
                     </div>
-                    <h1 class="mb-md-2">
-                      {displayData.brand} | {displayData.title}
+                    <h1 className="mb-md-2">
+                      {displayData?.brand} | {displayData?.title}
                     </h1>
                     <p style={{ color: "#666" }}>
-                      {displayData.desc}
+                      {displayData?.desc}
                       {isExtended ? (
                         <span>
                           <br />
@@ -141,7 +140,7 @@ export default function DetailsPage() {
               </div>
             </div>
             <div
-              class="col-xl-4 col-lg-5 sticky-sidebar"
+              className="col-xl-4 col-lg-5 sticky-sidebar"
               id="sidebar_fixed"
               style={{
                 boxSizing: "border-box",
@@ -152,7 +151,7 @@ export default function DetailsPage() {
               }}
             >
               <div
-                class="theiaStickySidebar"
+                className="theiaStickySidebar"
                 style={{
                   paddingTop: "0px",
                   paddingBottom: "1px",
@@ -163,51 +162,51 @@ export default function DetailsPage() {
                   width: "376px",
                 }}
               >
-                <div class="box_bid">
-                  <h2>{displayData.title}</h2>
-                  <a href="#0" class="close_panel_mobile">
-                    <i class="icon_close"></i>
+                <div className="box_bid">
+                  <h2>{displayData?.title}</h2>
+                  <a href="#0" className="close_panel_mobile">
+                    <i className="icon_close"></i>
                   </a>
-                  <div class="item_meta">
+                  <div className="item_meta">
                     <h3>
                       Redeem With
-                      <br /> <strong>{displayData.price} snapps</strong>
+                      <br /> <strong>{displayData?.price} snapps</strong>
                     </h3>
-                    <p class="countdown_in">
+                    <p className="countdown_in">
                       Ends in
                       <br />
                       <strong data-countdown="2022/03/15">00D 00:00:00</strong>
                     </p>
                   </div>
                   <hr />{" "}
-                  <a href="/" class="btn_1 full-width mb-2 modal_popup">
+                  <button  className="btn_1 full-width mb-2 modal_popup" onClick={handlSnappNow}>
                     Snapp Now!
-                  </a>
+                  </button>
                 </div>
-                <ul class="share-buttons">
+                <ul className="share-buttons">
                   <li>
                     <a href="#0">
-                      <i class="bi bi-instagram"></i>
+                      <i className="bi bi-instagram"></i>
                     </a>
                   </li>
                   <li>
                     <a href="#0">
-                      <i class="bi bi-facebook"></i>
+                      <i className="bi bi-facebook"></i>
                     </a>
                   </li>
                   <li>
                     <a href="#0">
-                      <i class="bi bi-twitter"></i>
+                      <i className="bi bi-twitter"></i>
                     </a>
                   </li>
                   <li>
                     <a href="#0">
-                      <i class="bi bi-youtube"></i>
+                      <i className="bi bi-youtube"></i>
                     </a>
                   </li>
                 </ul>
                 <div
-                  class="resize-sensor"
+                  className="resize-sensor"
                   style={{
                     position: "absolute",
                     inset: "0px",
@@ -217,7 +216,7 @@ export default function DetailsPage() {
                   }}
                 >
                   <div
-                    class="resize-sensor-expand"
+                    className="resize-sensor-expand"
                     style={{
                       position: "absolute",
                       left: 0,
@@ -241,7 +240,7 @@ export default function DetailsPage() {
                     ></div>
                   </div>
                   <div
-                    class="resize-sensor-shrink"
+                    className="resize-sensor-shrink"
                     style={{
                       position: "absolute",
                       left: 0,

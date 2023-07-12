@@ -42,42 +42,44 @@ exports.additem = async (req, res) => {
     const skip = size * (pagenum - 1);
     const limit = parseInt(size);
 
-    
-    //const totalTrans = await transaction.find();
-
     let query = { user_id };
 
     if (searchTerm) {
       const trimmedSearchTerm = searchTerm.trim();
       console.log("trimmedSearchTerm: ", trimmedSearchTerm);
       query.orderStatus = { $regex: trimmedSearchTerm, $options: 'i' };
-
     }
 
     const transactions = await transaction.find(query)
       .skip(skip)
       .limit(limit);
-    
-    
-    let count
 
-    if(searchTerm){
+    let count;
 
-      count = await transaction.countDocuments(query)
-    }
-    else{
-       count = await transaction.countDocuments({ user_id });
+    if (searchTerm) {
+      count = await transaction.countDocuments(query);
+    } else {
+      count = await transaction.countDocuments({ user_id });
     }
 
-    console.log(count)
+    console.log(count);
+
+    let pendingOrders = 0;
+
+    const orders = await transaction.find({user_id})
+
+    orders.forEach((transaction) => {
+      if (transaction.orderStatus === 'In transit') {
+        pendingOrders++;
+      }
+    });
 
     res.status(200).send({
       transactions,
       status: true,
       msg: "Products displayed successfully",
       total_counts: count,
-      
-
+      pendingOrders: pendingOrders,
     });
   } catch (error) {
     res.status(500).json({ error: `Internal server error ${error}` });

@@ -41,7 +41,7 @@ const merchantTransactionSchema = new mongoose.Schema({
     },
     image:{
         type:String,
-        required: true
+        
     },
     transactionEntry:{
         type:String,
