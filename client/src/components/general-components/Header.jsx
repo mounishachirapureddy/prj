@@ -7,7 +7,7 @@ function Header() {
       <div className="layer"></div>
       <div className="container">
         <div className="logo" style={{ paddingTop: "5px" }}>
-          <Link to="/">
+          <a href="/">
             <img
               src="assets/img/logo.svg"
               alt=""
@@ -22,7 +22,7 @@ function Header() {
               height="35"
               className="light"
             />
-          </Link>
+          </a>
         </div>
 
         <ul className="top_menu">
@@ -47,16 +47,16 @@ function Header() {
               </div>
               <ul className="list">
                 <li className="option">
-                  <Link to="/gaming-vendor-login">Gaming Vendor</Link>
+                  <a href="/gaming-vendor-login">Gaming Vendor</a>
                 </li>
                 <li className="option">
-                  <Link to="/merchant-login">Merchant</Link>
+                  <a href="/merchant-dashboard">Merchant</a>
                 </li>
                 <li className="option">
-                  <Link to="/gamer-login">Gamer</Link>
+                  <a href="/gamer-login">Gamer</a>
                 </li>
                 <li className="option">
-                  <Link to="/admin-dashboard">Admin</Link>
+                  <a href="/admin-dashboard">Admin</a>
                 </li>
               </ul>
             </div>
@@ -66,9 +66,9 @@ function Header() {
       <nav className="main-menu">
         <ul style={{ paddingTop: "5px" }}>
           <li className="submenu">
-            <Link to="/" className="show-submenu">
+            <a href="/" className="show-submenu">
               Home
-            </Link>
+            </a>
           </li>
           <li className="submenu">
             <Link to="/catalog" className="show-submenu">

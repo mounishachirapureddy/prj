@@ -47,7 +47,7 @@ const Card = (props) => {
       </div>
       <h1>@{props.gamerName}</h1>
       <p className="author_number">
-        Ox465d53...9df5{" "}
+        {props.id}{" "}
         <a href="#0">
           <i className="bi bi-clipboard"></i>
         </a>

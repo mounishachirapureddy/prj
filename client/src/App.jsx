@@ -25,6 +25,7 @@ import GamerLogin from "./pages/gamer-pages/Login";
 import GamerVerify from "./pages/gamer-pages/Verify";
 import GamerDetailsPage from "./pages/gamer-pages/DetailsPage";
 import GamerMyprofile from './pages/gamer-pages/myProfile';
+import MerchandiseUpload from "./components/merchant-components/MerchandiseUpload";
 
 function App() {
   const merchantState = useSelector((state) => state.merchantReducer);
@@ -57,6 +58,16 @@ function App() {
           }
         />
         <Route
+          path="/merchant-product-upload"
+          element={
+            merchantState.isLoggedIn ? (
+              <MerchandiseUpload />
+            ) : (
+              <Navigate to="/merchant-login" />
+            )
+          }
+        />
+        <Route
           path="/merchant-dashboard"
           element={
             merchantState.isLoggedIn ? (
@@ -77,7 +88,7 @@ function App() {
 
         <Route exact path="/gamer-dashboard" element={<GamerHome />} />
         <Route path="/gamer-profile" element={<GamerProfile />} />
-        <Route
+        {/* <Route
           path="/gamer-dashboard"
           element={
             gamerState.isLoggedIn ? (
@@ -85,7 +96,7 @@ function App() {
             ) : (
               <Navigate to="/gamer-login" />
             )
-          }
+          } */}
         />
         <Route path="/gamer-signup" element={<GamerSignup />} />
         <Route path="/gamer-login" element={<GamerLogin />} />

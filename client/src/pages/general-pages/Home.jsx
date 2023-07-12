@@ -1,9 +1,43 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import Header from "../../components/general-components/Header";
-import FullpageLoader from "../../components/general-components/FullpageLoader";
 import Footer from "../../components/general-components/Footer";
+import NewItem from '../../components/general-components/NewItem';
+import Loader from '../../components/general-components/Loader';
+import ImgLoader from '../../components/general-components/ImgLoader';
+import FullpageLoader from '../../components/general-components/FullpageLoader';
+import CarouselPro from '../../components/general-components/CarouselPro';
 const Home = () => {
+  const [products, setProducts] = useState([])
+  // const [searchLoad, setSearchLoad] = useState(false)
+  const [productsLoaded, setLoaded] = useState(false)
+  const [featuredProducts, setFeaturedProducts] = useState([]);
+  const [searchTerm_home, setSearchTerm_home] = useState('')
+  // const [search_filter, setSearchFilter] = useState([])
+  const navigate = useNavigate();
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoaded(false)
+        const response_prod = await axios.get('http://localhost:3001/api/merchandise/gethome');
+        //const total = response_prod.headers.get("x-total-count");
+        setProducts(response_prod.data.merchandises);
+        setLoaded(true)
+        setFeaturedProducts(response_prod.data.featured_products);
+        // setSearchLoad(false)
+        // const search_filter_prod = await axios.get("http://localhost:5000/api/merchandise/getall", { params: { searchTerm: searchTerm_home } })
+        // setSearchFilter(search_filter_prod.data.merchandises);
+        // setSearchLoad(true)
+        console.log("hitted")
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
+
+
+  }, [searchTerm_home]);
   return (
     <>
       <FullpageLoader />
@@ -29,11 +63,16 @@ const Home = () => {
                             className="form-control"
                             type="text"
                             placeholder="Search item..."
+                            value={searchTerm_home} onChange={(e) => { setSearchTerm_home(e.target.value) }}
                           />
                         </div>
                       </div>
                       <div className="col-md-3">
-                        <input type="submit" value="Find" />
+                        <input type='submit' value="Find" onClick={(e) => {
+                          e.preventDefault();
+                          navigate("/catalog", { state: { searchTerm_home: searchTerm_home } })
+                        }} />
+
                       </div>
                     </div>
                     <div
@@ -68,7 +107,7 @@ const Home = () => {
             <p>Cum doctus civibus efficiantur in imperdiet deterruisset</p>
           </div>
 
-          <div className="owl-carousel owl-theme featured_carousel">
+          <div   className="owl-carousel owl-theme featured_carousel">
             <div className="item">
               <div className="strip">
                 <figure>
@@ -564,371 +603,24 @@ const Home = () => {
         </div>
 
         <div className="container margin_120_90">
-          <div className="main_title version_2">
-            <span>
-              <em></em>
-            </span>
-            <h2>New Items</h2>
-            <p>Cum doctus civibus efficiantur in imperdiet deterruisset.</p>
-            <Link to="catalog">
-              View All <i className="bi bi-arrow-right"></i>
-            </Link>
-          </div>
+					<div className="main_title version_2">
+						<span><em></em></span>
+						<h2>New Items</h2>
+						<p>Cum doctus civibus efficiantur in imperdiet deterruisset.</p>
+						<Link to="catalog">View All <i className="bi bi-arrow-right"></i></Link>
+					</div>
 
-          <div className="row justify-content-center">
-            <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6">
-              <div className="strip">
-                <figure>
-                  <img
-                    src="assets/img/items/item-8.jpg"
-                    className="lazy"
-                    alt=""
-                    width="533"
-                    height="400"
-                  />
-                  <Link to="detail-page.html" className="strip_info">
-                    <div className="item_title">
-                      <span className="badge bg-primary">3.25 snapps</span>
-                    </div>
-                  </Link>
-                </figure>
-                <ul>
-                  <li>
-                    <Link to="author.html" className="author">
-                      <div className="author_thumb">
-                        <figure>
-                          <img
-                            src="assets/img/avatar2.jpg"
-                            alt=""
-                            className="lazy"
-                            width="100"
-                            height="100"
-                          />
-                        </figure>
-                      </div>
-                      <h6>Brand Name</h6>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="#0" className="wish_bt">
-                      <i className="bi bi-heart-fill"></i>
-                    </Link>{" "}
-                    50
-                  </li>
-                </ul>
-              </div>
-            </div>
 
-            <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6">
-              <div className="strip">
-                <figure>
-                  <img
-                    src="assets/img/items/item-9.jpg"
-                    className="lazy"
-                    alt=""
-                    width="533"
-                    height="400"
-                  />
-                  <Link to="detail-page.html" className="strip_info">
-                    <div className="item_title">
-                      <span className="badge bg-primary">3.25 snapps</span>
-                    </div>
-                  </Link>
-                </figure>
-                <ul>
-                  <li>
-                    <Link to="author.html" className="author">
-                      <div className="author_thumb veryfied">
-                        <i className="bi bi-check"></i>
-                        <figure>
-                          <img
-                            src="assets/img/avatar4.jpg"
-                            alt=""
-                            className="lazy"
-                            width="100"
-                            height="100"
-                          />
-                        </figure>
-                      </div>
-                      <h6>Brand Name</h6>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="#0" className="wish_bt">
-                      <i className="bi bi-heart-fill"></i>
-                    </Link>{" "}
-                    50
-                  </li>
-                </ul>
-              </div>
-            </div>
+					{productsLoaded ? <div className='row d-flex justify-content-center '>
+						{
+							products.map((product) => {
+								return <NewItem price={product.price} desc={product.description} brand={product.brand} title={product.title} count={product.count} img={product.image} userid={product.userid} genre={product.category} />
+							})
+						}
 
-            <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6">
-              <div className="strip">
-                <figure>
-                  <img
-                    src="assets/img/items/item-10.jpg"
-                    className="lazy"
-                    alt=""
-                    width="533"
-                    height="400"
-                  />
-                  <Link to="detail-page.html" className="strip_info">
-                    <div className="item_title">
-                      <span className="badge bg-primary">3.25 snapps</span>
-                    </div>
-                  </Link>
-                </figure>
-                <ul>
-                  <li>
-                    <Link to="author.html" className="author">
-                      <div className="author_thumb">
-                        <figure>
-                          <img
-                            src="assets/img/avatar4.jpg"
-                            alt=""
-                            className="lazy"
-                            width="100"
-                            height="100"
-                          />
-                        </figure>
-                      </div>
-                      <h6>Brand Name</h6>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="#0" className="wish_bt">
-                      <i className="bi bi-heart-fill"></i>
-                    </Link>{" "}
-                    50
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6">
-              <div className="strip">
-                <figure>
-                  <img
-                    src="assets/img/items/item-11.jpg"
-                    className="lazy"
-                    alt=""
-                    width="533"
-                    height="400"
-                  />
-                  <Link to="detail-page.html" className="strip_info">
-                    <div className="item_title">
-                      <span className="badge bg-primary">3.25 snapps</span>
-                    </div>
-                  </Link>
-                </figure>
-                <ul>
-                  <li>
-                    <Link to="author.html" className="author">
-                      <div className="author_thumb">
-                        <figure>
-                          <img
-                            src="assets/img/avatar3.jpg"
-                            alt=""
-                            className="lazy"
-                            width="100"
-                            height="100"
-                          />
-                        </figure>
-                      </div>
-                      <h6>Brand Name</h6>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="#0" className="wish_bt">
-                      <i className="bi bi-heart-fill"></i>
-                    </Link>{" "}
-                    50
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6">
-              <div className="strip">
-                <figure>
-                  <img
-                    src="assets/img/items/item-12.jpg"
-                    className="lazy"
-                    alt=""
-                    width="533"
-                    height="400"
-                  />
-                  <Link to="detail-page.html" className="strip_info">
-                    <div className="item_title">
-                      <span className="badge bg-primary">3.25 snapps</span>
-                    </div>
-                  </Link>
-                </figure>
-                <ul>
-                  <li>
-                    <Link to="author.html" className="author">
-                      <div className="author_thumb">
-                        <figure>
-                          <img
-                            src="assets/img/avatar1.jpg"
-                            alt=""
-                            className="lazy"
-                            width="100"
-                            height="100"
-                          />
-                        </figure>
-                      </div>
-                      <h6>Brand Name</h6>
-                    </Link>
-                  </li>
-                  <li>
-                    <a to="#0" className="wish_bt">
-                      <i className="bi bi-heart-fill"></i>
-                    </a>{" "}
-                    50
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6">
-              <div className="strip">
-                <figure>
-                  <img
-                    src="assets/img/items/item-6.jpg"
-                    className="lazy"
-                    alt=""
-                    width="533"
-                    height="400"
-                  />
-                  <Link to="detail-page.html" className="strip_info">
-                    <div className="item_title">
-                      <span className="badge bg-primary">3.25 snapps</span>
-                    </div>
-                  </Link>
-                </figure>
-                <ul>
-                  <li>
-                    <Link to="author.html" className="author">
-                      <div className="author_thumb">
-                        <figure>
-                          <img
-                            src="assets/img/avatar1.jpg"
-                            alt=""
-                            className="lazy"
-                            width="100"
-                            height="100"
-                          />
-                        </figure>
-                      </div>
-                      <h6>Brand Name</h6>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="#0" className="wish_bt">
-                      <i className="bi bi-heart-fill"></i>
-                    </Link>{" "}
-                    50
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6">
-              <div className="strip">
-                <figure>
-                  <img
-                    src="assets/img/items/item-7.jpg"
-                    className="lazy"
-                    alt=""
-                    width="598"
-                    height="400"
-                  />
-                  <Link to="detail-page.html" className="strip_info">
-                    <div className="item_title">
-                      <span className="badge bg-primary">3.25 snapps</span>
-                    </div>
-                  </Link>
-                </figure>
-                <ul>
-                  <li>
-                    <Link to="author.html" className="author">
-                      <div className="author_thumb veryfied">
-                        <i className="bi bi-check"></i>
-                        <figure>
-                          <img
-                            src="assets/img/avatar3.jpg"
-                            alt=""
-                            className="lazy"
-                            width="100"
-                            height="100"
-                          />
-                        </figure>
-                      </div>
-                      <h6>Brand Name</h6>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="#0" className="wish_bt">
-                      <i className="bi bi-heart-fill"></i>
-                    </Link>{" "}
-                    50
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6">
-              <div className="strip">
-                <figure>
-                  <img
-                    src="assets/img/items/item-8.jpg"
-                    className="lazy"
-                    alt=""
-                    width="533"
-                    height="400"
-                  />
-                  <Link to="detail-page.html" className="strip_info">
-                    <div className="item_title">
-                      <span className="badge bg-primary">3.25 snapps</span>
-                    </div>
-                  </Link>
-                </figure>
-                <ul>
-                  <li>
-                    <Link to="author.html" className="author">
-                      <div className="author_thumb">
-                        <figure>
-                          <img
-                            src="assets/img/avatar2.jpg"
-                            alt=""
-                            className="lazy"
-                            width="100"
-                            height="100"
-                          />
-                        </figure>
-                      </div>
-                      <h6>Brand Name</h6>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="#0" className="wish_bt">
-                      <i className="bi bi-heart-fill"></i>
-                    </Link>{" "}
-                    50
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <p className="text-center mt-4">
-            <Link to="/catalog" className="btn_1 gradient pulse_bt">
-              View New Items
-            </Link>
-          </p>
-        </div>
+					</div> : <div className='d-flex row justify-content-center align-items-center m-5 p-5'> <Loader /> </div>}
+					<p className="text-center mt-4" ><Link to="/catalog" className="btn_1 gradient pulse_bt">View New Items</Link></p>
+				</div>
 
         <div className="bg_gray">
           <div className="container margin_120_90">

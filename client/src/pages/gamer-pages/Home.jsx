@@ -367,6 +367,7 @@ export default function Home() {
             {user && (
               <Card
                 gamerName={user.userName}
+                id={user._id}
                 walletMoney={user.walletMoney}
                 memberSince={user.joiningTime}
                 pending={pendingOrders}

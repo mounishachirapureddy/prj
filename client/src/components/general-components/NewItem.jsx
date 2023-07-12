@@ -4,7 +4,7 @@ import Loader from "./Loader";
 import axios from "axios"
 import ImgLoader from "./ImgLoader";
 
-function Product(props) {
+const NewItem = (props) => {
     const [imageLoaded, setImageLoaded] = useState(false);
     const [imageSrc, setImageSrc] = useState("");
     const [ProfPicLoaded, setProfPicLoaded] = useState(false)
@@ -36,7 +36,7 @@ function Product(props) {
     }, [props.img, props.profpic, ProfilePic]);
 
     return (
-        <div className="col-xl-4 col-lg-4 col-md-4 col-sm-6">
+        <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6">
             <div className="strip">
                 <figure >
                     {!imageLoaded && <div > <Loader /> </div>}<Link to="#modal-dialog" className={`btn_1 modal_popup lazy ${imageLoaded ? "" : "visually-hidden"} `}>Snapp Now!</Link>
@@ -63,19 +63,9 @@ function Product(props) {
                         <Link to="#0" className="wish_bt"></Link><i class="bi bi-stack"></i> {props.count}
                     </li>
                 </ul>
-                <ul>
-                    <li className="container-fluid"  >{ props.genre.length > 0 ?  props.genre.map((g) => {
-                        return <span className="badge bg-success me-1" >{g}</span>
-                    }) : <span className="badge bg-danger me-1" >No Category</span>}</li>
-                </ul>
-                <ul>
-                    <li className="">{props.desc.slice(0, 20) + "..."}</li>
-                    <li className="text-uppercase link">{props.brand}</li>
-                </ul>
             </div>
-        </div>
-    )
+        </div>)
 }
 
 
-export default Product;
+export default NewItem;
