@@ -67,14 +67,14 @@ const Catalog = (props) => {
   const pagelength = Math.ceil(search_count / itemsPerPage);
   const start = 1;
   const end = pagelength;
-  const pages = ["«", "<"]; // represents  the starting page
+  const pages = ["<<", "<"]; // represents  the starting page
 
   for (var i = start; i <= end; i++) {
     pages.push(i);
   }
 
   pages.push(">"); // represents the ending page
-  pages.push("»");
+  pages.push(">>");
 
   const Category = [
     "Art",
@@ -235,7 +235,7 @@ const Catalog = (props) => {
                               key={i}
                               pagenum={i}
                               handleClick={handleClick}
-                              isActive={currentPage === i ? true : false}
+                              isActive={currentPage == i ? true : false}
                             />
                           );
                         })

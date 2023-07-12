@@ -108,16 +108,16 @@ const ProductDetail = (props) => {
                             <div className="container justify-content-center align-items-center">
                                 <div className="box_bid">
                                     <h2>Product Name</h2>
-                                    <a href="#0" className="close_panel_mobile"><i className="icon_close"></i></a>
+                                    <a  className="close_panel_mobile"><i className="icon_close"></i></a>
                                     <div className="item_meta"> <h3>Redeem With <strong>1.31  snapps</strong></h3>
                                     </div>
-                                    <hr /> <a href="#modal-dialog" className="btn_1 full-width mb-2 modal_popup">Snapp Now!</a>
+                                    <hr /> <a  className="btn_1 full-width mb-2 modal_popup">Snapp Now!</a>
                                 </div>
                                 <ul className="share-buttons">
-                                    <li><a href="#0"><i className="bi bi-instagram"></i></a></li>
-                                    <li><a href="#0"><i className="bi bi-facebook"></i></a></li>
-                                    <li><a href="#0"><i className="bi bi-twitter"></i></a></li>
-                                    <li><a href="#0"><i className="bi bi-youtube"></i></a></li>
+                                    <li><a><i className="bi bi-instagram"></i></a></li>
+                                    <li><a><i className="bi bi-facebook"></i></a></li>
+                                    <li><a><i className="bi bi-twitter"></i></a></li>
+                                    <li><a><i className="bi bi-youtube"></i></a></li>
                                 </ul>
                             </div>
                         </div>

@@ -51,7 +51,7 @@ function Product(props) {
                 </figure >
                 <ul>
                     <li>
-                        <Link to="author.html" className="author">
+                        <Link  className="author">
                             <div className="author_thumb veryfied"><i className="bi bi-check"></i>
                                 <figure>{!ProfPicLoaded && <div > <ImgLoader /> </div>}
                                     <img src={ProfilePic} data-src="img/avatar2.jpg" alt="" className={`lazy ${ProfPicLoaded ? "" : "visually-hidden"}`} width="100px" onLoad={() => setProfPicLoaded(true)} onError={() => setProfPicLoaded(false)} /></figure>
@@ -61,7 +61,7 @@ function Product(props) {
                     </li>
                     <li></li>
                     <li>
-                        <Link to="#0" className="wish_bt"></Link><i class="bi bi-stack"></i> {props.count}
+                        <Link  className="wish_bt"></Link><i class="bi bi-stack"></i> {props.count}
                     </li>
                 </ul>
                 <ul>
