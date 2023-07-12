@@ -8449,7 +8449,7 @@ ul.bullets li span {
   content: '';
   display: block;
   height: 8px;
-  margin-top: -4px;
+  margin-top: -7px;
   pointer-events: none;
   position: absolute;
   right: 15px;
