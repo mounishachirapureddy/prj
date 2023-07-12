@@ -28,13 +28,13 @@ function Footer() {
               <div className="links">
                 <ul>
                   <li>
-                    <Link to="/connect">Connect Wallet</Link>
+                    <Link to="/connect">Become a Partner</Link>
                   </li>
                   <li>
-                    <Link to="#">Faq</Link>
+                    <Link to="#">Become a Merchant</Link>
                   </li>
                   <li>
-                    <Link to="/gaming-vendor-login">Become a Partner</Link>
+                    <Link to="/gaming-vendor-login">Login as Snapp admin</Link>
                   </li>
                 </ul>
               </div>
