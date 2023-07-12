@@ -47,13 +47,12 @@ const Content = () => {
   return (
     <div>
       <Hero />
-
       <div className="container margin_30_40">
         {user ? (
           <div className="row justify-content-center">
             <div className="col-lg-3 col-md-6">
               <ProfileCard
-                merchantName={user.firstName + " " + user.lastName}
+                merchantName={user.companyName}
                 walletMoney={user.walletMoney}
                 memberSince={user.joiningTime}
                 redeemed={user.redeemed}

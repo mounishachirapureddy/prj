@@ -25,8 +25,7 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const config = { url: `/auth/register`, method: "post", data: formData };
-    fetchData(config)
-      .then((data) => {
+    fetchData(config).then((data) => {
         localStorage.setItem("verify", true);
         localStorage.removeItem("token");
         navigate("/gamer-verify", {

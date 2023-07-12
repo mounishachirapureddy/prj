@@ -9,7 +9,7 @@ const ProfileCard = (props) => {
         setImageSrc(
             props.image
             ? `${process.env.REACT_APP_MERCHANT_MODULE_URL}/api/profile/img/${props.image}`
-            : "default-prod.png"
+            : "assets/img/avatar-gamer.jpg"
         );
         }, [props.image]);
 
@@ -35,10 +35,11 @@ const ProfileCard = (props) => {
                     {!imageLoaded && <div className="loading-spinner"><Loader /></div>}
                     <img
                         src={imageSrc}
-                        className={`lazy ${imageLoaded ? "" : "hidden"}`}
+                        className={`lazy ${imageLoaded ? "" : "hidden"} height="154.375rem"
+                        width="154.375rem"`}
                         alt=""
                         width="100px"
-                        style={{ width : "100px" , height : "100px" , borderRadius : "50%" }}
+                        // style={{ width : "100px" , height : "100px" }}
                         onLoad={() => setImageLoaded(true)}
                         onError={() => setImageLoaded(false)}
                     />

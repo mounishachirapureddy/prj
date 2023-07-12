@@ -21,6 +21,10 @@ const gamingMerchantSchema = new Schema(
       type: String,
       required: true,
     },
+    address: {
+      type: String,
+      required:true
+  },
     verified: {
       type: Boolean,
       default: false,

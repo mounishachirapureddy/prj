@@ -451,7 +451,7 @@ const Home = () => {
                   </li>
                 </ul>{" "}
                 <p className="add_top_30">
-                  <Link to="/gamer-signup" className="btn_1">
+                  <Link to="/gamer-login" className="btn_1">
                     Join Now!
                   </Link>
                 </p>

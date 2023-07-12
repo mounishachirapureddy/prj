@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Loader from "./Loader";
 import axios from "axios"
 import SnappnowLink from "./SnappnowLink";
+
 import ImgLoader from "./ImgLoader"; const CarouselPro = (props) => {
     const [imageLoaded, setImageLoaded] = useState(false);
     const [imageSrc, setImageSrc] = useState("");
