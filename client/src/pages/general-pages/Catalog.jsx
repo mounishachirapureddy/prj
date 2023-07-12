@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Product from "../../components/general-components/Product";
 import axios from "axios";
 import Header from "../../components/general-components/Header";
@@ -16,6 +16,8 @@ const Catalog = (props) => {
   const [total_count, setCount] = useState(0);
   const [search_count, setSearchCount] = useState(0);
   const [genre, setgenre] = useState([]);
+
+  const navigate = useNavigate();
 
   //pagination
   const [searchTerm, setSearchTerm] = useState(
@@ -65,22 +67,21 @@ const Catalog = (props) => {
   const pagelength = Math.ceil(search_count / itemsPerPage);
   const start = 1;
   const end = pagelength;
-  const pages = ["«", "<"]; // represents  the starting page
+  const pages = ["<<", "<"]; // represents  the starting page
 
   for (var i = start; i <= end; i++) {
     pages.push(i);
   }
 
   pages.push(">"); // represents the ending page
-  pages.push("»");
+  pages.push(">>");
 
   const Category = [
     "Art",
     "Electronics",
     "Stationary",
     "Music",
-    "Wellness",
-    "Featured",
+    "Wellness"
   ];
   const handleClick = (e) => {
     e.preventDefault();
@@ -114,7 +115,7 @@ const Catalog = (props) => {
 
   //search functionality
   return (
-    <div className="catalog"> 
+    <div className="catalog">
       <Header />
       <br /><br /><br /><br />
       <main>
@@ -182,16 +183,17 @@ const Catalog = (props) => {
               {
                 <div >
                   <div className="range_input">
-                    Price range from {l_price} to <span>{UptoSnapp}</span>{" "}
+                    Price range from {l_price} to <span>{h_price}</span>{" "}
                     snapps
                   </div>
-                  <div className="mb-4">
+                  
+                  <div className="mb-4 d-flex justify-content-center">
                     <input
                       type="range"
                       min={l_price}
-                      max={h_price + 100}
+                      max={h_price}
                       step="1"
-                      value={UptoSnapp}
+                      value={UptoSnapp==0 ? h_price : UptoSnapp}
                       onChange={(e) => {
                         e.target.value == 0
                           ? setUptoSnapp({ h_price })
@@ -199,7 +201,9 @@ const Catalog = (props) => {
                       }}
                       data-orientation="horizontal"
                     />
+                    <div className="ms-3 text-center">{ UptoSnapp==0 ? h_price : UptoSnapp }</div>
                   </div>
+                    
                 </div>
               }
             </Filter>
@@ -218,6 +222,7 @@ const Catalog = (props) => {
                           img={product.image}
                           userid={product.userid}
                           genre={product.category}
+                          datatopass={product}
                         ></Product>
                       ))
                     ) : (
@@ -228,15 +233,15 @@ const Catalog = (props) => {
                     <div className="pagination_fg mb-4">
                       {search_count !== 0
                         ? pages.map((i) => {
-                            return (
-                              <PageComp
-                                key={i}
-                                pagenum={i}
-                                handleClick={handleClick}
-                                isActive={currentPage === i ? true : false}
-                              />
-                            );
-                          })
+                          return (
+                            <PageComp
+                              key={i}
+                              pagenum={i}
+                              handleClick={handleClick}
+                              isActive={currentPage == i ? true : false}
+                            />
+                          );
+                        })
                         : null}
                     </div>
                   </div>
