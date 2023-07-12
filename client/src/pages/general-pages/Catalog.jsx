@@ -7,6 +7,7 @@ import Filter from "../../components/general-components/Filter";
 import PageComp from "../../components/general-components/PageComp";
 import FilterUp from "../../components/general-components/FilterUp";
 import Loader from "../../components/general-components/Loader";
+import Modal from "../../components/general-components/Modal";
 
 const Catalog = (props) => {
   const { state } = useLocation();
@@ -113,7 +114,7 @@ const Catalog = (props) => {
 
   //search functionality
   return (
-    <>
+    <div className="catalog"> 
       <Header />
       <br /><br /><br /><br />
       <main>
@@ -217,7 +218,7 @@ const Catalog = (props) => {
                           img={product.image}
                           userid={product.userid}
                           genre={product.category}
-                        />
+                        ></Product>
                       ))
                     ) : (
                       <p className="text-center">No products Available</p>
@@ -399,53 +400,10 @@ const Catalog = (props) => {
 
       <div id="toTop"></div>
 
-      <div id="modal-dialog" className="zoom-anim-dialog mfp-hide">
-        <div className="modal_header">
-          <h3>Snapp Now!</h3>
-        </div>
-        <form>
-          <div className="sign-in-wrapper">
-            <p>
-              You are about to purchase <strong>"Amazing Art" #304</strong> from{" "}
-              <strong>George Lucas</strong>
-            </p>
-            <div className="form-group">
-              {" "}
-              <label>Redeem With</label>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="3.5 snapps"
-                disabled
-              />
-            </div>
-
-            <ul>
-              <li>
-                Your balance <span>8.498 snapps</span>
-              </li>
-              <li>
-                Service fee 1.5%<span>0.125 snapps</span>
-              </li>
-            </ul>
-            <div className="text-center">
-              {" "}
-              <input
-                type="submit"
-                className="btn_1 full-width mb-2"
-                formaction="detail-page.html"
-                value="Snapp It!"
-              />
-              <input
-                type="submit"
-                value="Cancel"
-                className="btn_1 full-width outline"
-              />
-            </div>
-          </div>
-        </form>
+      <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+        <Modal />
       </div>
-    </>
+    </div>
   );
 };
 export default Catalog;
