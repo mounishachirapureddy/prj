@@ -32,7 +32,7 @@ function MyItems(props) {
   return (
    
     <div
-      className="col-lg-4 col-md-6"
+      classNameName="col-lg-4 col-md-6"
       
       data-show={true}
       style={{
@@ -42,7 +42,8 @@ function MyItems(props) {
         animationDelay: "0ms",
         animationDirection: "normal",
         animationFillMode: "both",
-      }}>
+      }}
+      >
     <a href="#" class="history">
        
         <div class="history_thumb veryfied">

@@ -4,7 +4,7 @@ import axios from "axios";
 import Loader from "../../components/general-components/Loader";
 import Header from "../../components/general-components/Header";
 import Footer from "../../components/general-components/Footer";
-
+// import Loader from "../../components/general-components/Loader";
 
 const ProductDetail = (props) => {
     const [imageLoaded, setImageLoaded] = useState(false);

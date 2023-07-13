@@ -9,7 +9,8 @@ import Card from "../../components/gamer-components/Card";
 import TransactionHistory from "../../components/gamer-components/TransactionHistory";
 import Recommended from "../../components/gamer-components/Recommended";
 import PageComp from "../../components/gamer-components/PageComp";
-import MyItems from '../../components/gamer-components/myItems';
+import MyItems from "../../components/gamer-components/myItems";
+
 import useFetch from "../../hooks/useFetch-gamer";
 
 
