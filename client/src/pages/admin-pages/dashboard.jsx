@@ -6,7 +6,7 @@ import FullpageLoader from "../../components/general-components/FullpageLoader";
 export default function Home() {
   return (
     <>
-      <FullpageLoader />
+      {/* <FullpageLoader /> */}
       <Header />
       <main>
         <div className="hero_single version_2 jarallax" data-jarallax="">

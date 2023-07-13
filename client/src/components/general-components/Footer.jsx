@@ -15,10 +15,10 @@ function Footer() {
                     <Link to="/catalog">Explore</Link>
                   </li>
                   <li>
-                    <Link to="#">Login</Link>
+                    <Link to="/gamer-login">Login</Link>
                   </li>
                   <li>
-                    <Link to="#">Register</Link>
+                    <Link to="/gamer-signup">Register</Link>
                   </li>
                 </ul>
               </div>
@@ -28,13 +28,13 @@ function Footer() {
               <div className="links">
                 <ul>
                   <li>
-                    <Link to="/gaming-vendor-login">Become a Partner</Link>
+                    <a href="/gaming-vendor-login">Become a Partner</a>
                   </li>
                   <li>
-                    <Link to="/merchant-login">Become a Merchant</Link>
+                    <a href="/merchant-login">Become a Merchant</a>
                   </li>
                   <li>
-                    <Link to="/admin-dashboard">Login as Snapp admin</Link>
+                    <a href="/admin-dashboard">Login as Snapp admin</a>
                   </li>
                 </ul>
               </div>
@@ -50,7 +50,7 @@ function Footer() {
                     <Link to="#">How it Works</Link>
                   </li>
                   <li>
-                    <Link to="#">Latest Products</Link>
+                    <a href="/catalog">Latest Products</a>
                   </li>
                 </ul>
               </div>
@@ -59,7 +59,7 @@ function Footer() {
               <h3>Keep in touch</h3>
               <div id="newsletter">
                 <div id="message-newsletter"></div>
-                <form method="post" name="newsletter_form" id="newsletter_form">
+                <form  name="newsletter_form" id="newsletter_form">
                   <div className="form-group">
                     <input
                       type="email"

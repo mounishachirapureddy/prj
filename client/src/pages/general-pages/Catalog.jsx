@@ -267,10 +267,10 @@ const Catalog = (props) => {
                     <Link to="/catalog">Explore</Link>
                   </li>
                   <li>
-                    <Link to="/login">Login</Link>
+                    <Link to="/gamer-login">Login</Link>
                   </li>
                   <li>
-                    <Link to="/register">Register</Link>
+                    <Link to="/gamer-signup">Register</Link>
                   </li>
                 </ul>
               </div>
@@ -283,10 +283,10 @@ const Catalog = (props) => {
                     <Link to="/connect">Connect Wallet</Link>
                   </li>
                   <li>
-                    <Link to="help.html">Faq</Link>
+                    <Link to="#">Faq</Link>
                   </li>
                   <li>
-                    <Link to="become-partner.html">Become a Partner</Link>
+                  <a href="/gaming-vendor-login">Become a Partner</a>
                   </li>
                 </ul>
               </div>
@@ -302,7 +302,7 @@ const Catalog = (props) => {
                     <Link to="#">How it Works</Link>
                   </li>
                   <li>
-                    <Link to="#">Latest Products</Link>
+                    <Link to="/catalog">Latest Products</Link>
                   </li>
                 </ul>
               </div>
@@ -311,7 +311,7 @@ const Catalog = (props) => {
               <h3>Keep in touch</h3>
               <div id="newsletter">
                 <div id="message-newsletter"></div>
-                <form method="post" name="newsletter_form" id="newsletter_form">
+                <form name="newsletter_form" id="newsletter_form">
                   <div className="form-group">
                     <input
                       type="email"
