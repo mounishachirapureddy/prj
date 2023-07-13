@@ -51,7 +51,7 @@ const ProfileCard = (props) => {
         <h2 className="content-h2">
             <span className="badge d-block">
             {props.walletMoney}
-            <br /> <small> snapps</small>
+            <br /> <small> Snapps</small>
         </span>
         </h2>
         <p>Member since {formatDate(props.memberSince)}</p>
