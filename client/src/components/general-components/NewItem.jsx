@@ -4,6 +4,7 @@ import Loader from "./Loader";
 import axios from "axios"
 import ImgLoader from "./ImgLoader";
 import SnappnowLink from "./SnappnowLink";
+import { Fade } from "react-awesome-reveal"
 
 const NewItem = (props) => {
     const [imageLoaded, setImageLoaded] = useState(false);
@@ -37,7 +38,7 @@ const NewItem = (props) => {
     }, [props.img, props.profpic, ProfilePic]);
 
     return (
-        <div className="col-xl-3 col-lg-3 col-md-3 col-sm-3">
+        <Fade cascade className="col-xl-3 col-lg-3 col-md-3 col-sm-3">
             <div className="strip">
                 <figure >
                     {!imageLoaded && <div > <Loader /> </div>}<SnappnowLink imageLoaded={imageLoaded} url="/detail-page" datatopass={props.datatopass} />
@@ -65,7 +66,7 @@ const NewItem = (props) => {
                     </li>
                 </ul>
             </div>
-        </div>)
+        </Fade>)
 }
 
 
