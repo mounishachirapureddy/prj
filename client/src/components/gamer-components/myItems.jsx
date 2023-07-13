@@ -65,9 +65,9 @@ function MyItems(props) {
             <span class="badge" style={{"background-color": "#FF1493"}}>{props.money} snapps</span>
             <div class="clearfix"></div>
 
-            <small><strong>Transaction ID :</strong> {props.tId}</small>
+            <small style={{color:"#48e0a4"}}><strong >Transaction ID :</strong> {props.tId}</small>
             <div class="clearfix"></div>
-            <small><strong>Date : </strong>{formatDate(props.tdate)}</small>
+            <small style={{color:"#48e0a4"}}><strong>Date : </strong>{formatDate(props.tdate)}</small>
         </div>
     </a>
 </div>
