@@ -161,10 +161,6 @@
 }
 
 .transaction-container {
-  display: grid;
-  grid-auto-columns: calc(100% - 4rem);
-  grid-auto-flow: column;
-  grid-gap: 16px;
   height: 33rem;
   overflow: 'scroll';
 }

@@ -36,9 +36,9 @@ function Header() {
             </span>
           </li>
           <li style={{ paddingTop: "5px" }}>
-            <Link to="/connect" className="btn_access">
+            <a href="/connect" className="btn_access">
               Connect Snappcoins
-            </Link>
+            </a>
           </li>
           <li>
             <div className="nice-select">
@@ -71,9 +71,9 @@ function Header() {
             </a>
           </li>
           <li className="submenu">
-            <Link to="/catalog" className="show-submenu">
+            <a href="/catalog" className="show-submenu">
               Explore
-            </Link>
+            </a>
           </li>
         </ul>
       </nav>

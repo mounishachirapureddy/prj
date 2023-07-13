@@ -25,27 +25,11 @@ function ProductCard(props) {
         <>
             <div className="col-xl-4 col-lg-6 col-md-6 col-sm-6">
                 <div className="strip">
-                    {/* <figure>
-                        {!imageLoaded && <div> <Loader /> </div>}
-                        <img
-                        src={imageSrc}
-                        data-src="img/items/item-4.jpg"
-                        className={`lazy ${imageLoaded ? "" : "hidden"}`}
-                        alt=""
-                        width="53px" 
-                        height="40px"
-                        onLoad={() => setImageLoaded(true)}
-                        onError={() => setImageLoaded(false)}
-                        />
-                        <div className="strip_info">
-                            <div class="item_title"> 
-                                <span class="badge bg-primary">3.25  snapps</span>
-                            </div>
-                        </div>
-                    </figure> */}
                     {props.featured && <div className="ribbon">
                         <span>Featured</span>
                     </div>}
+
+                    
                     <figure> {!imageLoaded && <div> <Loader /> </div>}
                     <img
                         src={imageSrc}

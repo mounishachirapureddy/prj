@@ -1,4 +1,8 @@
 import React, { useCallback, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { gamerProfile } from "../../redux/actions/gamerAction";
+
 import Footer from "../../components/general-components/Footer";
 import Header from "../../components/gamer-components/Navbar";
 import Card from "../../components/gamer-components/Card";
@@ -7,10 +11,7 @@ import Recommended from "../../components/gamer-components/Recommended";
 import PageComp from "../../components/gamer-components/PageComp";
 import MyItems from "../../components/gamer-components/myItems";
 import useFetch from "../../hooks/useFetch-gamer";
-import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { gamerProfile } from "../../redux/actions/gamerAction";
-import FullpageLoader from "../../components/general-components/FullpageLoader";
+
 
 export default function Home() {
   const [user, setUser] = useState();

@@ -1,8 +1,9 @@
-import React from 'react'
-import Header from '../../components/merchant-components/Header'
-import Footer from '../../components/general-components/Footer'
-import EditProfile from '../../components/merchant-components/EditProfile'
-import ProfileNav from '../../components/merchant-components/ProfileNav'
+import React from 'react';
+
+import Header from '../../components/merchant-components/Header';
+import Footer from '../../components/general-components/Footer';
+import EditProfile from '../../components/merchant-components/EditProfile';
+import ProfileNav from '../../components/merchant-components/ProfileNav';
 
 const Profile = () => {
   return (
@@ -18,7 +19,7 @@ const Profile = () => {
       </div>
       <Footer />
     </div>
-  )
-}
+  );
+};
 
-export default Profile
+export default Profile;

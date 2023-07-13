@@ -17,7 +17,6 @@ const NewItem = (props) => {
             try {
                 const response = await axios.get(`http://127.0.0.1:3002/api/getprofile${props.userid}`)
                 const imgsrc = response.data.user.image
-                console.log(imgsrc)
                 setProfilePic(
                     (imgsrc)
                         ? `http://127.0.0.1:3002/api/img${imgsrc}`
@@ -61,7 +60,7 @@ const NewItem = (props) => {
                     </li>
                     <li></li>
                     <li>
-                        <Link to="#0" className="wish_bt"></Link><i class="bi bi-stack"></i> {props.count}
+                        <Link to="#0" className="wish_bt"></Link><i className="bi bi-stack"></i> {props.count}
                     </li>
                 </ul>
             </div>
