@@ -9,7 +9,7 @@ import Card from "../../components/gamer-components/Card";
 import TransactionHistory from "../../components/gamer-components/TransactionHistory";
 import Recommended from "../../components/gamer-components/Recommended";
 import PageComp from "../../components/gamer-components/PageComp";
-import MyItems from "../../components/gamer-components/MyItems";
+import MyItems from "../../components/gamer-components/myItems";
 
 import useFetch from "../../hooks/useFetch-gamer";
 
@@ -139,36 +139,8 @@ export default function Home() {
   const [currentPage2, setCurrentPage2] = useState(1);
   const [totalHistory, setTotalHistory] = useState();
   const itemsPerPage2 = 6;
-  const games = ['Junglee Rummy', 'Tic Tac Toe', 'Ludo King', 'Cricket League', 'Call Break', 'Free Fire', 'Basketball League', 'Carroms', 'Chess'];
-  const moneys = ['10000','1000','3000','13000','1000','2000','3000','5000','2000'];
-
-  {/* const [snaps,setsnaps] = useState([])
-
-  const fetchSnapps =  useCallback(()=>{
-
-    const config = {
-      url:`/snapps/snappscollected/uid=${user?._id}`,
-      method: "get",
-      headers: {Authorization : token}
-    }
-    return fetchData(config, { showSuccessToast: false })
-      .then((data) => {
-        setsnaps(data)
-        return data;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [fetchData, token, user, currentPage2, itemsPerPage2]);
-
-  useEffect(() => {
-
-    fetchSnapps();
-
-  }, [fetchSnapps]);*/}
-
-
-  console.log("user id: ",user?._id);
+ 
+  //console.log("user id: ",user?._id);
 
   const fetchhistory = useCallback(() => {
     const userId = user?._id;
@@ -554,9 +526,7 @@ export default function Home() {
                             {transactions.length > 0 ? (
                               <div className="row history_list">
                                 {snaphistory.map((transaction, index) => {
-                                  // Get the corresponding game for the current index
-                                  //const game = games[index % games.length];
-                                  //const money = moneys[index % moneys.length];
+                                  
                                   return (
                                     <div
                                       className="col-xl-4 col-lg-6 col-md-6 col-sm-12"
@@ -566,7 +536,7 @@ export default function Home() {
                                                game = {transaction.name}  
                                                tId = {transaction.tid}   
                                                tdate = {transaction.date} 
-                                               index = {index}                             
+                                                                            
                                       />
                                     </div>
                                   );

@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect} from "react";
 
 function MyItems(props) {
-  console.log("myitems props are:", props);
+  //console.log("myitems props are:", props);
 
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageSrc, setImageSrc] = useState("");
@@ -33,7 +33,7 @@ function MyItems(props) {
    
     <div
       classNameName="col-lg-4 col-md-6"
-      // data-cue="slideInUp"
+      
       data-show={true}
       style={{
         animationName: "slideInUp",
