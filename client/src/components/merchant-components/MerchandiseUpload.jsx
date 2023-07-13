@@ -1,14 +1,91 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Header from './Header'
 import Hero from '../gaming-vendor-components/Hero'
 import Footer from '../general-components/Footer'
+import useFetch from '../../hooks/useFetch-merchant'
+import Select from 'react-select'
+import FullpageLoader from '../general-components/FullpageLoader'
+import { useSelector } from 'react-redux'
 
 const MerchandiseUpload = () => {
+    const [fetchData ,{loading}] = useFetch();
+    const merchantState = useSelector((state) => state.merchantReducer);
+    const merchant = merchantState.merchant;
+
+    const initialFormData = {
+        title: "",
+        description: "",
+        brand: "",
+        price: "",
+        count: "",
+        image:null,
+        category: []
+    };
+    const [formData, setFormData] = useState(initialFormData);
+    const [checked, setChecked] = useState(false);
+
+    const handleCategoryChange = (selectedOptions) => {
+        const selectedValues = selectedOptions.map(option => option.value);
+        setFormData({
+          ...formData,
+          category: selectedValues
+        });
+      };
+
+    const handleChange = async(e) => {
+        if (e.target.name === "image") {
+
+            console.log(e.target.files[0])
+            setFormData({
+              ...formData,
+              [e.target.name]: e.target.files[0],
+            });
+          } else {
+            setFormData({
+              ...formData,
+              [e.target.name]: e.target.value,
+            });
+          }
+    }
+    
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const token = localStorage.getItem('merchant-token')
+        const formDataToSend = new FormData();
+
+        formDataToSend.append("title", formData.title);
+        formDataToSend.append("description", formData.description);
+        formDataToSend.append("brand", formData.brand);
+        formDataToSend.append("price", formData.price);
+        formDataToSend.append("count", formData.count);
+        // formDataToSend.append("category", category);
+        formData.category.forEach(category => {
+            formDataToSend.append("category", category);
+        });
+        formDataToSend.append("featured",checked);
+
+        if(formData.image) formDataToSend.append("image", formData.image , formData.image.name);
+
+        const config = { url: `/merchandise/add`, method: "post", data: formDataToSend, headers: { Authorization: token}, params: { id: merchant._id } };
+        await fetchData(config).then(() => {
+            setFormData(initialFormData)
+            // props.onFormSubmit();
+        })
+            .catch(error => {
+                // Handle the error here, e.g., log the error or display an error message
+                console.error('Error adding merchandises:', error);
+            });
+    }
+
+    const handleFeatured = () =>{
+        setChecked(prev => !prev)
+    }
+
   return (
     <>
     <Header />
     <Hero />
-    <div className="filters_full version_2 mt-3">
+    {loading ?<FullpageLoader /> : <div className="filters_full version_2 mt-3">
         <div className="container clearfix">
             <div className="pb-3 clearfix">
                 <a href="/merchant-dashboard" className="btn_1"><i className="bi bi-cart-check-fill"></i> Back to Product List</a>
@@ -54,7 +131,7 @@ const MerchandiseUpload = () => {
                     </div>
                 </div>--> */}
                 
-                <aside className="col-lg-3" id="sidebar_fixed">
+                {/* <aside className="col-lg-3" id="sidebar_fixed"> --filter
 	                <div className="filter_col">
 	                    <div className="inner_bt"><a href="#" className="open_filters"><i className="bi bi-x"></i></a></div>
 	                    <div className="filter_type">
@@ -92,9 +169,9 @@ const MerchandiseUpload = () => {
 	                                    </label>
 	                                </li>
 	                            </ul>
-	                        </div>
+	                        </div> */}
 	                        {/* <!-- /filter_type --> */}
-	                    </div>
+	                    {/* </div>  --filter*/ }
 	                    {/* <!-- /filter_type --> */}
 	                  {/* <!--  <div className="filter_type">
 	                        <h4><a href="#filter_2" data-bs-toggle="collapse" className="closed">Colors</a></h4>
@@ -134,7 +211,7 @@ const MerchandiseUpload = () => {
 	                        </div>
 	                    </div> --> */}
 	                   
-	                   <div className="filter_type">
+	                   {/* <div className="filter_type"> --filter
 	                        <h4><a href="#filter_4" data-bs-toggle="collapse" className="closed">Status</a></h4>
 	                        <div className="collapse" id="filter_4">
 	                            <ul>
@@ -158,37 +235,37 @@ const MerchandiseUpload = () => {
 	                                </li>
 	                            </ul>
 	                        </div>
-	                    </div> 
+	                    </div>  */}
 	                    {/* <!-- /filter_type --> */}
-	                    <div className="buttons">
+	                    {/* <div className="buttons"> --filter
 	                        <a href="#0" className="btn_1 full-width outline">Filter</a>
 	                    </div>
 	                </div>
-	            </aside>
-                <div className="col-lg-9 ps-lg-5">
-                {/* <div className="ps-lg-5"> */}
+	            </aside> */}
+                {/* <div className="col-lg-9 ps-lg-5"> */}
+                <div className="ps-lg-5">
                     <div className="main_title version_2">
                         <span><em></em></span>
                         <h2>Upload Product</h2>
                     </div>
 
                     <div className="row">
-                        <div className="col-md-9">
+                        {/* <div className="col-md-9"> */}
                             <div className="form-group">
                                 <label>Upload file</label>
                                 <div className="file_upload">
-                                <input type="file" />
+                                <input type="file" name="image" onChange={handleChange}/>
                                 <i className="bi bi-file-earmark-arrow-up"></i>
-                                <div>PNG, GIF, JPG, WEBP, MP4 or MP3. Max 1Gb</div>
+                                <div>{formData.image?formData.image.name:"PNG, JPEG , JPG Max 1Gb"}</div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="col-md-3">
+                        {/* </div> */}
+                        {/* <div className="col-md-3">
                             <div className="form-group">
                                 <label>Preview</label>
                                 <figure><img src="https://distil.in/demo/snappcoins/img/items/item-3.jpg" alt="" width="533" height="400" className="img-fluid rounded" /></figure>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                     {/* <!-- /row --> */}
 
@@ -196,7 +273,7 @@ const MerchandiseUpload = () => {
                         <div className="col-md-8">
                             <div className="form-group">
                                 <label>Item title</label>
-                                <input type="text" className="form-control" placeholder="e.g. Brand Name" />
+                                <input type="text" name='title' value={formData.title} className="form-control" placeholder="e.g. Item Name" onChange={handleChange} />
                             </div>
                         </div>
                         
@@ -210,23 +287,38 @@ const MerchandiseUpload = () => {
                                         <option>Stationary</option>
                                     </select>
                                 </div> */}
-                                <div class="custom_select">
-                                    <div class="nice-select wide">
-                                        <span class="current">Select</span>
+                                {/* <div class="custom_select mt-1">
+                                    <div className="nice-select wide">
+                                        <span className="current">Select</span>
                                         <ul class="list">
                                             <li class="option">Art</li>
                                             <li class="option">Electronics</li>
                                             <li class="option">Stationary</li>
                                         </ul>
                                     </div>
-                                </div>
+                                </div> */}
+                                <Select
+                                    isMulti
+                                    name="category"
+                                    className="text-dark"
+                                    value={formData.category.map(value => ({ value, label: value }))}
+                                    options={[
+                                      { value: "Art", label: "Art" },
+                                      { value: "Electronics", label: "Electronics" },
+                                      { value: "Stationary", label: "Stationary" },
+                                      { value: "Music", label: "Music" },
+                                      { value: "Wellness", label: "Wellness" },
+                                    ]}
+                                    onChange={handleCategoryChange}
+                                    // closeMenuOnSelect={false}
+                                />
                             </div>
                         </div>
                     
                         <div className="col-md-12">
                             <div className="form-group">
                                 <label>Description</label>
-                                <input type="text" className="form-control" placeholder="e.g. Abstract modern art" />
+                                <input type="text" className="form-control" name='description' value={formData.description} placeholder="e.g. Abstract modern art" onChange={handleChange} />
                             </div>
                         </div>
                     {/* <!-- <div className="col-md-4">
@@ -237,28 +329,28 @@ const MerchandiseUpload = () => {
                         </div>--> */}
                         <div className="col-md-6">
                             <div className="form-group">
-                                <label>Size</label>
-                                <input type="text" className="form-control" placeholder="e.g. 1000x800" />
+                                <label>Brand</label>
+                                <input type="text" className="form-control" name='brand' value={formData.brand} placeholder="e.g. Brand Name" onChange={handleChange} />
                             </div>
                         </div>
                         <div className="col-md-6">
                             <div className="form-group">
                                 <label>Stock</label>
-                                <input type="text" className="form-control" placeholder="12" />
+                                <input type="text" className="form-control" name='count' value={formData.count} placeholder="12" onChange={handleChange} />
                             </div>
                         </div>
-                        <div className="col-md-6">
+                        {/* <div className="col-md-6"> */}
                             <div className="form-group">
                                 <label>Price</label>
-                                <input type="text" className="form-control" placeholder="Enter price" />
+                                <input type="text" className="form-control" name='price' value={formData.price} placeholder="Enter price" onChange={handleChange} />
                             </div>
-                        </div>
-                        <div className="col-md-6">
+                        {/* </div> */}
+                        {/* <div className="col-md-6">
                             <div className="form-group">
                                 <label>Sale Price</label>
                                 <input type="text" className="form-control" placeholder="Enter price" />
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                     {/* <!-- /row --> */}
 
@@ -267,10 +359,12 @@ const MerchandiseUpload = () => {
                     <div className="row">
                         <div className="col-md-12">
                             <div className="form-group switch_wrapper">
-                                <label>Put on sale</label>
-                                <p className="mb-0">Check if you want to put this product on sale.</p>
+                                {/* <label>Put on sale</label>
+                                <p className="mb-0">Check if you want to put this product on sale.</p> */}
+                                <label>Make it Featured Product</label>
+                                <p className="mb-0">Sponser to show your product as a featured product and be on top.</p>
                                 <div className="form-check form-switch">
-                                <input className="form-check-input" type="checkbox" role="switch" checked="checked" />
+                                <input className="form-check-input" type="checkbox" onClick={handleFeatured} checked={checked} />
                                 </div>
                             </div>
                         </div>
@@ -278,14 +372,14 @@ const MerchandiseUpload = () => {
                     </div>
                     {/* <!-- /row --> */}
 
-                    <p className="text-end mt-4"><a href="merchant-inventory.html" className="btn_1">Save changes</a></p>
+                    <p className="text-end mt-4"><a type="button" href="merchant-inventory.html" className="btn_1" onClick={handleSubmit}>Save changes</a></p>
                     
                 </div>
             </div>
             {/* <!-- /row --> */}
         </div>
             {/* <!-- /row --> */}
-    </div>
+    </div>}
     <Footer />
     </>
   )

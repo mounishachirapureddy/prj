@@ -62,12 +62,12 @@ const ProfileCard = (props) => {
         </p>--> */}
         <hr/>
         
-        <ul>
-            <li>Redeemed <span className="badge bg-success">{props.redeemed}</span></li>
+        {/* <ul> */}
+            {/* <li>Redeemed <span className="badge bg-success">{props.redeemed}</span></li> */}
             {/* <li>Pending Orders <span className="badge bg-warning">56</span></li> */}
-            </ul>
+            {/* </ul> */}
         
-        <small>Member since {formatDate(props.memberSince)}</small>
+        {/* <small>Member since {formatDate(props.memberSince)}</small> */}
         {/* <!--  <div className="follow_buttons">
             <ul>
                 <li><a href="#0"><i className="bi bi-instagram"></i></a></li>

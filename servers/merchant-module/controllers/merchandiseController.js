@@ -21,13 +21,23 @@ exports.getMerchandises = async(req,res) =>{
     try{
         const {id} = req.query
         const { size, pagenum } = req.query
-        var query = {}
-        query.skip = size * (pagenum - 1)
-        query.limit = size
-        const merchandises = await Merchandise.find({userid:id} , {} , query)
-        const count = await Merchandise.count({userid:id}).then((data) => {
-            return data
-        })
+        // var query = {}
+        // query.skip = size * (pagenum - 1)
+        // query.limit = size
+        const query = {
+            userid: id,
+          };
+        const skip = size * (pagenum - 1);
+        const limit = size;
+        // const merchandises = await Merchandise.find({userid:id} , {} , query)
+        const merchandises = await Merchandise.find(query)
+        .sort({ _id: -1 }) // Sorting in reverse order based on _id field
+        .skip(skip)
+        .limit(limit);
+        // const count = await Merchandise.count({userid:id}).then((data) => {
+        //     return data
+        // })
+        const count = await Merchandise.countDocuments(query);
         res.status(200).json({merchandises,status:true,msg:`Merchandises of ${id}` , count : count})
     }catch(err){
         console.error(err);

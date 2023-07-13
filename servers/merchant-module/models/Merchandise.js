@@ -33,6 +33,10 @@ const MerchandiseSchema = new mongoose.Schema({
   },
   image : {
     type : String,
+  },
+  featured:{
+    type:Boolean,
+    default:false
   }
 }, {
   timestamps: true
