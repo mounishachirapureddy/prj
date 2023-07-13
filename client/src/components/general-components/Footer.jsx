@@ -34,7 +34,7 @@ function Footer() {
                     <Link to="/merchant-login">Become a Merchant</Link>
                   </li>
                   <li>
-                    <Link to="/admin-login">Login as Snapp admin</Link>
+                    <Link to="/admin-dashboard">Login as Snapp admin</Link>
                   </li>
                 </ul>
               </div>
