@@ -122,7 +122,7 @@ const Header = () => {
                     </p>*/}
                     <div className="balance">
                       <h4>Balance</h4>
-                      <span>{gamer.walletMoney} snapps</span>
+                      <span>{gamer.walletMoney} Snapps</span>
                     </div>
                     <ul>
                       <li>

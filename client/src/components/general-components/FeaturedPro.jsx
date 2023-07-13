@@ -18,7 +18,7 @@ const FeaturedPro = (props) => {
                         />
                         <Link to="detail-page.html" className="strip_info">
                             <div className="item_title">
-                                <span className="badge bg-primary">3.25 snapps</span>
+                                <span className="badge bg-primary">3.25 Snapps</span>
                             </div>
                         </Link>
                     </figure>

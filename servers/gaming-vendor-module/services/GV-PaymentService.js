@@ -20,7 +20,7 @@ export async function performTransaction(
     try {
       session.startTransaction();
 
-      const db = client.db("Snappshot");
+      const db = client.db("test");
 
       const collection1Query = { vendor_id: vendor_id };
       const collection1Update = { $inc: { vendor_coins: vendor_coins } };
@@ -83,7 +83,7 @@ export async function updateTransactionStatus(
     try {
       session.startTransaction();
 
-      const db = client.db("Snappshot");
+      const db = client.db("test");
 
       const collection2Query = { transaction_id: transaction_id };
       const collection2Update = {

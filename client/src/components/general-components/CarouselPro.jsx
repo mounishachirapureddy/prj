@@ -41,7 +41,7 @@ import ImgLoader from "./ImgLoader"; const CarouselPro = (props) => {
                         onError={() => setImageLoaded(false)} />
                     <Link  className="strip_info" >
                         <div className="item_title">
-                            <span className="badge bg-voilet">{props.price} snapps</span>
+                            <span className="badge bg-violet">{props.price} Snapps</span>
                         </div>
                     </Link>
                 </figure >

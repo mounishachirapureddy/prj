@@ -63,7 +63,7 @@ function MyItems(props) {
         </div>
         <div>
             <h6>{props.game}</h6>
-            <span class="badge" style={{"background-color": "#FF1493"}}>{props.money} snapps</span>
+            <span class="badge" style={{"background-color": "#FF1493"}}>{props.money} Snapps</span>
             <div class="clearfix"></div>
 
             <small style={{color:"#48e0a4"}}><strong >Transaction ID :</strong> {props.tId}</small>

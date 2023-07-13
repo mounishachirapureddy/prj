@@ -85,7 +85,7 @@ const Login = () => {
                     className="img-fluid"
                   />
                 </figure>
-                <h3>Manage snapps</h3>
+                <h3>Manage Snapps</h3>
                 <p className="lead">
                   Multiple Games? No problem. Allocate Snapps to your game
                   portfolio.

@@ -123,7 +123,7 @@ function TransactionHistory(props) {
                 <br />
               </h7>
               <h7 className="my-1">
-                Amount: <Link to="#"> {transaction.snappcoin_count} snaps</Link>
+                Amount: <Link to="#"> {transaction.snappcoin_count} Snapps</Link>
                 <br />
               </h7>
               <h7 className="my-1">

@@ -175,7 +175,7 @@ const ProductDetail = (props) => {
                     {" "}
                     <h3>
                       Redeem With{" "}
-                      <strong>{state.datatopass.price} snapps</strong>
+                      <strong>{state.datatopass.price} Snapps</strong>
                     </h3>
                   </div>
                   <hr />{" "}
@@ -246,12 +246,12 @@ const ProductDetail = (props) => {
                     <ul>
                       <li>
                         Product Cost{" "}
-                        <span>{state.datatopass.price} snapps</span>
+                        <span>{state.datatopass.price} Snapps</span>
                       </li>
                       <li>
                         Service fee 1.5%
                         <span>
-                          {state.datatopass.price * (1.5 / 100)} snapps
+                          {state.datatopass.price * (1.5 / 100)} Snapps
                         </span>
                       </li>
                       <li>
@@ -261,7 +261,7 @@ const ProductDetail = (props) => {
                             state.datatopass.price * (1 + 1.5 / 100) * 10 ** 3
                           ) /
                             10 ** 3}{" "}
-                          snapps
+                          Snapps
                         </span>
                       </li>
                     </ul>

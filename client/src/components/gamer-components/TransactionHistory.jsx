@@ -46,26 +46,39 @@ export default function TransactionHistory(props) {
         </div>
         <small>{formatDate(props.tdate)}</small>
         <h3>
-          <a href="#" title="">
+          <a href="#" >
             {props.tId}
           </a>
         </h3>
-        {props.status === "Delivered" && (
-          <span>
-            <span className="badge bg-success text-light mx-1">Delivered</span> |
-            <span ><a href="#"  style={{ color: "red"}}>| Raise An Issue</a></span>
-          </span>
-        )}
-        {props.status === "In transit" && (
-          <span>
-            <span className="badge bg-warning text-light mx-1">In Transit</span> |
-            <span>&nbsp;<a href="#"  style={{color: "red "}}>| &nbsp;Cancel</a></span>
-          </span>
-        )}
-        {props.status === "Cancelled" && (
-          <span className="badge bg-danger text-light mx-1">Cancelled</span>
-        )}
-
+        <div style={{ marginTop: "2px" }}>
+          {props.status === "Delivered" && (
+            <span>
+              <span className="badge bg-success text-light">
+                Delivered
+              </span>
+              <span>
+                <a href="#">{" "}
+                  | Raise An Issue
+                </a>
+              </span>
+            </span>
+          )}
+          {props.status === "In transit" && (
+            <span>
+              <span className="badge bg-warning text-light">
+                In Transit
+              </span>
+              <span>
+                <a href="#">{" "}
+                  | Cancel
+                </a>
+              </span>
+            </span>
+          )}
+          {props.status === "Cancelled" && (
+            <span className="badge bg-danger text-light">Cancelled</span>
+          )}
+        </div>
       </li>
     </ul>
   );

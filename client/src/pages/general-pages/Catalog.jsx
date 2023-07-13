@@ -178,7 +178,7 @@ const Catalog = (props) => {
               {
                 <div>
                   <div className="range_input">
-                    Price range from {l_price} to <span>{h_price}</span> snapps
+                    Price range from {l_price} to <span>{h_price}</span> Snapps
                   </div>
 
                   <div className="mb-4 d-flex justify-content-center">

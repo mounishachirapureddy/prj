@@ -10,6 +10,7 @@ import TransactionHistory from "../../components/gamer-components/TransactionHis
 import Recommended from "../../components/gamer-components/Recommended";
 import PageComp from "../../components/gamer-components/PageComp";
 import MyItems from "../../components/gamer-components/myItems";
+import Hero from "../../components/gaming-vendor-components/Hero"
 
 import useFetch from "../../hooks/useFetch-gamer";
 
@@ -367,7 +368,7 @@ export default function Home() {
       
       <Header />
 
-      <div className="banner">
+      {/* <div className="banner">
         <img
           src="assets/img/hero_general.jpg"
           alt=""
@@ -380,7 +381,8 @@ export default function Home() {
             paddingBottom: "0px",
           }}
         />
-      </div>
+      </div> */}
+      <Hero />
 
       <div class="container margin_30_40">
         <div class="row justify-content-center">

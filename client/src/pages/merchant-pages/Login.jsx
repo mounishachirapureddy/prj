@@ -118,7 +118,9 @@ const Login = () => {
                 </strong>
               </div>
             </form>
-            <div className="copy">© 2023 Snappcoins</div>
+            <div class="copy">
+              © 2023 <a href="/">Snappcoins</a>
+            </div>
           </aside>
         </div>
       </div>
