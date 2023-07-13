@@ -64,7 +64,7 @@ const EditProfile = () => {
 
     const handleUpdate = async (e) =>{
         e.preventDefault();
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem('merchant-token');
         const formDataToSend = new FormData();
         console.log(formData.address)
         formDataToSend.append("companyName", formData.companyName);

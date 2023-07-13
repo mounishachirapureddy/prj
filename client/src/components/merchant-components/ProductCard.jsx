@@ -33,7 +33,7 @@ function ProductCard(props) {
                     <figure> {!imageLoaded && <div> <Loader /> </div>}
                     <img
                         src={imageSrc}
-                        data-src="img/items/item-4.jpg"
+                        // data-src="img/items/item-4.jpg"
                         className={`lazy ${imageLoaded ? "" : "hidden"}`}
                         alt=""
                         width="533px" 
@@ -41,11 +41,11 @@ function ProductCard(props) {
                         onLoad={() => setImageLoaded(true)}
                         onError={() => setImageLoaded(false)}
                         />	                                
-                        <a href="detail-page.html" class="strip_info">
+                        <div class="strip_info">
                             <div class="item_title">
                                 {/* custom */}
                             </div>
-	                    </a>
+	                    </div>
 	                 </figure>
                     <div className="card-body py-2">
                         <h5 className="card-title pt-4">{props.title}</h5>

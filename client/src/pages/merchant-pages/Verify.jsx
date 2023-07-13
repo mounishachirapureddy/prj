@@ -11,7 +11,7 @@ const Verify = () => {
   const [visible, setVisibility] = useState(false);
   const location = useLocation();
   const { id, email } = location.state;
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("merchant-token");
 
   const handleChange = (e) => {
     const { value, id } = e.target;

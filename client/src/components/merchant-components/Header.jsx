@@ -127,8 +127,8 @@ const Header = () => {
                           <i className="bi bi-image"></i>Dashboard
                         </Link>
                       </li>
-                      <li onClick={handleLogoutClick}>
-                        <a href="/">
+                      <li>
+                        <a href="/" onClick={handleLogoutClick}>
                           <i className="bi bi-box-arrow-right"></i>Log out
                         </a>
                       </li>

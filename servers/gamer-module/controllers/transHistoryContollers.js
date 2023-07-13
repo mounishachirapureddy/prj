@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 exports.additem = async (req, res) => {
   try {
     const {user_id} = req.query
-    const { orderStatus } = req.body;
+    const { orderStatus,snaps } = req.body;
     //console.log(orderStatus);
     //console.log(user_id);
 
@@ -14,9 +14,9 @@ exports.additem = async (req, res) => {
     const randomDigits = Math.floor(Math.random() * 9000) + 1000;
     const tId = `#ID ${currentYear}${randomDigits}`;
 
-    console.log(tId);
+    //console.log(tId);
     
-    const createTransaction = await transaction.create( {transactionId:tId,orderStatus,user_id} );
+    const createTransaction = await transaction.create( {transactionId:tId,orderStatus,user_id,snaps} );
   
     res.status(200).send({ msg: "Transaction stored successfully" });
 
@@ -36,8 +36,8 @@ exports.additem = async (req, res) => {
     const size = req.query.size;
     const searchTerm = req.query.searchTerm;
 
-    console.log("user_id:", user_id);
-    console.log("searchTerm:", searchTerm);
+    //console.log("user_id:", user_id);
+    //console.log("searchTerm:", searchTerm);
 
     const skip = size * (pagenum - 1);
     const limit = parseInt(size);
@@ -46,7 +46,7 @@ exports.additem = async (req, res) => {
 
     if (searchTerm) {
       const trimmedSearchTerm = searchTerm.trim();
-      console.log("trimmedSearchTerm: ", trimmedSearchTerm);
+      //console.log("trimmedSearchTerm: ", trimmedSearchTerm);
       query.orderStatus = { $regex: trimmedSearchTerm, $options: 'i' };
     }
     
@@ -63,7 +63,9 @@ exports.additem = async (req, res) => {
 
     console.log(count);
 
+
     let pendingOrders = 0;
+    let redeem_total=0;
 
     const orders = await transaction.find({ user_id });
 
@@ -71,8 +73,12 @@ exports.additem = async (req, res) => {
       if (transaction.orderStatus === 'In transit') {
         pendingOrders++;
       }
+      if(transaction.orderStatus === 'In transit' || transaction.orderStatus === 'Delivered'){
+        redeem_total=redeem_total+transaction.snaps;
+      }
     });
 
+    //console.log("redd: ",redeem_total);
     // Slice the revTrans array based on skip and limit
     const slicedTransactions = revTrans.slice(skip, skip + limit);
 
@@ -82,6 +88,7 @@ exports.additem = async (req, res) => {
       msg: "Products displayed successfully",
       total_counts: count,
       pendingOrders: pendingOrders,
+      redeemed: redeem_total,
     });
   } catch (error) {
     res.status(500).json({ error: `Internal server error ${error}` });

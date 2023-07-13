@@ -19,6 +19,7 @@ const EditProd = (props)  =>{
     };
     
     const [formData, setFormData] = useState(initialFormData);
+    const [checked, setChecked] = useState(product.featured);
 
     useEffect(()=>{
         setFormData({
@@ -30,6 +31,7 @@ const EditProd = (props)  =>{
             image:product.image,
             category: product.category
         })
+        setChecked(product.featured)
     },[product,setFormData])
 
 
@@ -59,7 +61,7 @@ const EditProd = (props)  =>{
 
     const handleUpdate = async (e) =>{
         e.preventDefault();
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem('merchant-token');
         const formDataToSend = new FormData();
 
         formDataToSend.append("title", formData.title);
@@ -71,6 +73,7 @@ const EditProd = (props)  =>{
             formDataToSend.append("category", category);
           });
         if(typeof(formData.image) !== 'string') formDataToSend.append("image", formData.image , formData.image.name);
+        formDataToSend.append("featured",checked);
 
         const config = { url: `/merchandise/update`, method: "put", data: formDataToSend, headers: { Authorization: token }, params: { id: product._id ,prevImgId: product.image} };
         await fetchData(config).then(() => {
@@ -85,6 +88,10 @@ const EditProd = (props)  =>{
     const handleClose = () =>{
         setFormData(initialFormData)
         props.onEditForm();
+    }
+
+    const handleFeatured = () =>{
+        setChecked(prev => !prev)
     }
 
     return (
@@ -140,7 +147,20 @@ const EditProd = (props)  =>{
                             <span className="input-group-text" id="basic-addon1">Count</span>
                             <input type="number" className="form-control" name='count' value={formData.count} aria-label="Username" aria-describedby="basic-addon1" onChange={handleChange} />
                         </div>
-
+                        <div className="row">
+                        <div className="col-md-12">
+                            <div className="form-group switch_wrapper">
+                                {/* <label>Put on sale</label>
+                                <p className="mb-0">Check if you want to put this product on sale.</p> */}
+                                <label>Make it Featured Product</label>
+                                <p className="mb-0">Sponser to show your product as a featured product and be on top.</p>
+                                <div className="form-check form-switch">
+                                <input className="form-check-input" type="checkbox" onClick={handleFeatured} checked={checked}/>
+                                </div>
+                            </div>
+                        </div>
+                       
+                    </div>
                     </form>
                 </div>
                 <div className="modal-footer justify-content-center">

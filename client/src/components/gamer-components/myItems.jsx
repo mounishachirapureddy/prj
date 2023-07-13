@@ -11,7 +11,7 @@ function MyItems(props) {
     setImageSrc(
       props.img
         ? `${process.env.REACT_APP_GAMER_MODULE_URL}/api/merchant/img/${props.img}`
-        : "assets/img/avatar1.jpg"
+        : `assets/img/avatar${props.index+1}.jpg`
     );
     setImageLoaded(false);
   }, [props.img]);
@@ -61,13 +61,13 @@ function MyItems(props) {
             </figure>
         </div>
         <div>
-            <h6>Ludo King</h6>
-            <span class="badge" style={{"background-color": "#FF1493"}}>2300 snapps</span>
+            <h6>{props.game}</h6>
+            <span class="badge" style={{"background-color": "#FF1493"}}>{props.money} snapps</span>
             <div class="clearfix"></div>
 
-            <small><strong>Transaction ID :</strong> {props.tId}</small>
+            <small style={{color:"#48e0a4"}}><strong >Transaction ID :</strong> {props.tId}</small>
             <div class="clearfix"></div>
-            <small><strong>Date : </strong>{formatDate(props.tdate)}</small>
+            <small style={{color:"#48e0a4"}}><strong>Date : </strong>{formatDate(props.tdate)}</small>
         </div>
     </a>
 </div>

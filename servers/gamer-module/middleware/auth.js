@@ -11,7 +11,7 @@ exports.verifyToken = async(req, res, next) => {
       user = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
     }
     catch (err) {
-      return res.status(401).json({ status: false, msg: "Invalid token" });
+      return res.status(401).json({ status: false});
     }
   
     try {

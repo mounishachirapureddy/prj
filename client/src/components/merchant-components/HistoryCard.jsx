@@ -38,11 +38,11 @@ function HistoryCard(props) {
                 <h3 className="my-2"><Link to="#">Date of transaction: {props.time}</Link></h3>
                 {props.transactionEntry === 'credit' ?<>
                     <h3 className="my-2"><Link to="#">Transaction Details: Gamer {props.gamer} purchased  {props.itemsPurchased + " " + props.product} merchandise{props.itemsPurchased>1?"s":" "}</Link></h3>
-                    <h3 className="my-2"><Link to="#">Amount: {props.snaps * props.itemsPurchased} snaps</Link></h3>
+                    <h3 className="my-2"><Link to="#">Amount: {props.snaps * props.itemsPurchased} snapps</Link></h3>
                     <span className="badge bg-success text-light mx-1">Credit</span>
                 </>:
                 <>   
-                    <h3 className="my-2"><Link to="#">Redeemed {props.snaps} snaps</Link></h3>
+                    <h3 className="my-2"><Link to="#">Redeemed {props.snaps} snapps</Link></h3>
                     <span className="badge bg-danger text-light mx-1">Debit</span>
                 </>}
                 {props.status === "success" && <span className="badge bg-success text-light mx-1">Success</span>}

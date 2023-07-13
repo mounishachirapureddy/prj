@@ -53,17 +53,16 @@ const Card = (props) => {
         </a>
       </p> */}
       <h3 className="content-h2">
-        <span className="badge d-block">
-          {props.walletMoney}
-          <small> snapps</small>
-        </span>
+      <span class="badge  d-block" style={{"background-color": "#FF1493"}}>{props.walletMoney}<small>snapps</small></span>
       </h3>
       <p>Member since {localDate}</p>
       <hr />
 
+      
+
       <ul>
         <li>
-          Redeemed <span className="badge bg-success">0</span>
+          Redeemed <span className="badge bg-success">{props.redeemed} snapps</span>
         </li>
         <li>
           Pending Orders <span className="badge bg-warning">{props.pending}</span>

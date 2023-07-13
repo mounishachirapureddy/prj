@@ -40,19 +40,22 @@ exports.getTransactions = async(req,res) =>{
     try{
         const {id} = req.query
         const { size, pagenum ,tid} = req.query
-        var query = {}
-        query.skip = size * (pagenum - 1)
-        query.limit = size
+        const query = {
+            userid: id,
+          };
+        const skip = size * (pagenum - 1);
+        const limit = size;
         let transactions,count;
         if(tid){
             transactions = [await merchantTransaction.findById({_id:tid})]
             count=1;
         }
         else{
-            transactions = await merchantTransaction.find({userid:id} , {} , query)
-            count = await merchantTransaction.count({userid:id}).then((data) => {
-                return data
-            })
+            transactions = await merchantTransaction.find(query)
+            .sort({ _id: -1 }) // Sorting in reverse order based on _id field
+            .skip(skip)
+            .limit(limit);
+            count = await merchantTransaction.countDocuments(query);
         }
         res.status(200).json({transactions, status:true, msg:"Transactions found succesfully", count : count});
     }catch(err){

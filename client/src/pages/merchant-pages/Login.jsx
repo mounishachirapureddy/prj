@@ -27,7 +27,7 @@ const Login = () => {
     const config = { url: `/auth/login`, method: "post", data: formData };
     fetchData(config)
       .then((data) => {
-        localStorage.setItem("token", data.token);
+        localStorage.setItem("merchant-token", data.token);
         localStorage.setItem("verify", true);
         dispatch(merchantProfile(data.user));
         navigate("/merchant-verify", {

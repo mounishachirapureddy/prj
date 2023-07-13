@@ -15,7 +15,8 @@ const Content = () => {
 
   const dispatch = useDispatch();
 
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("merchant-token");
+  console.log(token)
   const [fetchData] = useFetch();
 
   const fetchUser = useCallback(() => {

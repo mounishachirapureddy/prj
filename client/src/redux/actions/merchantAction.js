@@ -25,7 +25,7 @@ export const merchantProfile = (merchant) => async(dispatch) =>{
 }
 
 export const logout = () => (dispatch) => {
-    localStorage.removeItem('token');
+    localStorage.removeItem('merchant-token');
     dispatch({ type: LOGOUT });
-    // document.location.href = '/login';
+    // document.location.href = '/';
   }
