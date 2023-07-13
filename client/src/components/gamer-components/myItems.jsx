@@ -33,7 +33,7 @@ function MyItems(props) {
    
     <div
       classNameName="col-lg-4 col-md-6"
-      data-cue="slideInUp"
+      // data-cue="slideInUp"
       data-show={true}
       style={{
         animationName: "slideInUp",
@@ -42,7 +42,8 @@ function MyItems(props) {
         animationDelay: "0ms",
         animationDirection: "normal",
         animationFillMode: "both",
-      }}>
+      }}
+      >
     <a href="#" class="history">
        
         <div class="history_thumb veryfied">
