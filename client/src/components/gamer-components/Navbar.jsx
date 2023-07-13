@@ -96,7 +96,7 @@ const Header = () => {
                   </figure>
                   <div className="balance">
                     <h6 className="mb-0">{gamer.userName}</h6>
-                    <span>{gamer.walletMoney} snapps</span>
+                    <span>{gamer.walletMoney} Snapps</span>
                   </div>
                 </Link>
                 <div

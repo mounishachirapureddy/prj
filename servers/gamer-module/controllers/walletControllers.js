@@ -1,5 +1,6 @@
 const wallet = require("../models/walletModel");
 const User = require("../models/gamerModel");
+
 exports.wallet = async (req, res) => {
   try {
     const { gamerId, num_of_tokens } = req.body;
@@ -32,9 +33,11 @@ exports.getCoins = async (req, res) => {
   }
 };
 
+
+
 exports.addMoney = async (req, res) => {
   try {
-    const { id, money } = req.query;
+    const { id, money, gameName } = req.query;
 
     const user = await User.findById(id);
 
@@ -42,37 +45,31 @@ exports.addMoney = async (req, res) => {
       return res.status(404).json({ error: "User not found" });
     }
 
-    user.walletMoney += parseInt(money);
-    await user.save();
+    const currentYear = new Date().getFullYear().toString();
+    const randomDigits = Math.floor(Math.random() * 9000) + 1000;
+    const tId = `#ID ${currentYear}${randomDigits}`;
+    
+    //update total wallet money
 
-    return res
-      .status(200)
-      .json({ message: "Wallet money updated successfully" });
+    user.walletMoney += parseInt(money);
+
+    //push the game details into the gamer account
+
+    user.games.push({
+      name: gameName,
+      moneyWon: parseInt(money),
+      tid: tId,
+      date: new Date().toISOString(),
+    });
+
+    await user.save();  //save the gamer 
+
+    return res.status(200).json({ message: "Wallet money updated successfully" });
   } catch (err) {
     console.error(err);
     return res.status(500).json({ error: "Internal server error" });
   }
 };
 
-exports.addMoney = async (req, res) => {
-  try {
-    const { id, money } = req.query;
 
-    const user = await User.findById(id);
-    user.games.push({ name: "Ludo King", moneyWon: parseInt(money) });
 
-    if (!user) {
-      return res.status(404).json({ error: "User not found" });
-    }
-
-    user.walletMoney += parseInt(money);
-    await user.save();
-
-    return res
-      .status(200)
-      .json({ message: "Wallet money updated successfully" });
-  } catch (err) {
-    console.error(err);
-    return res.status(500).json({ error: "Internal server error" });
-  }
-};

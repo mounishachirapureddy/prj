@@ -3,8 +3,11 @@ import { Modal, ModalBody, ModalHeader } from "reactstrap";
 import Loader from "./utils/Loader";
 import useFetch from "../../hooks/useFetch-gamer";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 export default function Recommended(props) {
+
+  console.log("propsRR ",props)
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageSrc, setImageSrc] = useState("");
   const [modal, setModal] = useState(false);
@@ -15,15 +18,36 @@ export default function Recommended(props) {
   const token = localStorage.getItem("token");
   const [fetchData, { loading }] = useFetch();
 
+  const [ProfPicLoaded, setProfPicLoaded] = useState(false)
+  const [ProfilePic, setProfilePic] = useState("");
+
   useEffect(() => {
     // Assuming you receive the image URL from props
+
+    const fetch = async () => {
+      try {
+          const response = await axios.get(`http://127.0.0.1:3002/api/getprofile${props.userid}`)
+          const imgsrc = response.data.user.image
+          console.log(imgsrc)
+          setProfilePic(
+              (imgsrc)
+                  ? `http://127.0.0.1:3002/api/img${imgsrc}`
+                  : "assets/img/items/default-prof.png"
+          );
+      }
+      catch (err) {
+          console.log(err);
+      }
+  }
+  fetch();
+
     setImageSrc(
       props.img
         ? `${process.env.REACT_APP_GAMER_MODULE_URL}/api/merchant/img/${props.img}`
         : "assets/img/default-prod.png"
     );
     setImageLoaded(false);
-  }, [props.img]);
+  }, [props.img,props.profpic, ProfilePic]);
 
   const toggleModal = () => {
     setModal((prevState) => !prevState);
@@ -166,26 +190,25 @@ export default function Recommended(props) {
         </a>
       </figure>
       <ul>
-        <li>
-          <a href="author.html" className="author">
-            <div className="author_thumb veryfied">
-              <i className="bi bi-check"></i>
+          <li>
+            <div className="author_thumb verified" style={{ display: "flex", alignItems: "center" }}>
+              
               <figure>
                 <img
-                  src="assets/img/avatar1.jpg"
+                  src={ProfilePic}
                   data-src="img/avatar2.jpg"
                   alt=""
-                  className="lazy loaded"
-                  width="100"
-                  height="100"
-                  data-was-processed="true"
-                />
+                  className={`lazy ${ProfPicLoaded ? "" : "visually-hidden"}`}
+                  style={{ width: "25px", height: "25px", borderRadius: "5px"}}
+                  onLoad={() => setProfPicLoaded(true)}
+                  onError={() => setProfPicLoaded(false)}
+                /><i className="bi bi-check"></i>
               </figure>
+              <h6 style={{ marginLeft: "10px" }}>{props.title}</h6>
             </div>
-            <h6>{props.title}</h6>
-          </a>
-        </li>
-        <li>
+          </li>
+
+      <li>
           <a href="#0" className="wish_bt">
             <i className="bi bi-heart-fill"></i>
           </a>{" "}

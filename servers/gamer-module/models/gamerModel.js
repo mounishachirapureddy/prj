@@ -10,6 +10,13 @@ const gameSchema = new Schema({
     type: Number,
     default: 0,
   },
+  tid: {
+    type:String,
+     
+  },
+  date: {
+    type:String,
+  },
 });
 
 const gamerSchema = new Schema({
