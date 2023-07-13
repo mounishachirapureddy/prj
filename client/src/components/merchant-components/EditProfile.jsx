@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import useFetch from '../../hooks/useFetch-merchant'
 import { merchantProfile } from '../../redux/actions/merchantAction'
 import PreLoader from './utils/PreLoader'
+import Loader from './utils/Loader'
+import FullpageLoader from '../general-components/FullpageLoader'
 
 const EditProfile = () => {
     const merchandise = useSelector(state => state.merchantReducer)
@@ -86,14 +88,14 @@ const EditProfile = () => {
   return (
     <div className="col-8 p-3 mb-5">
     <center><h5 className="card-title my-2">Merchant Profile</h5></center>
-   {loading? <PreLoader /> :<div className="row">
+   {loading? <FullpageLoader /> :<div className="row">
     <div className="col-xl-4 my-4">
             {/* <!-- Profile picture card--> */}
             <div className="card mb-1 mb-xl-0 bg-dark">
                 <div className="card-header">Profile Picture</div>
                 <div className="card-body text-center">
                     {/* <!-- Profile picture image--> */}
-                    {!imageLoaded && <div className="loading-spinner"></div>}
+                    {!imageLoaded && <div className="loading-spinner"> <Loader /></div>}
                     <img 
                         className={`img-account py-3 rounded mb-4 ${imageLoaded ? "" : "hidden"}`}
                         src={imageSrc}
