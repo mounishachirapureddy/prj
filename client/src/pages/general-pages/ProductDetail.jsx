@@ -47,8 +47,8 @@ const ProductDetail = (props) => {
                         <div className="col-xl-8 col-lg-7 margin_detail">
 
                             <div className="box_general">
-                                
-                                    <img src={imageSrc} width={"100%"} alt="" className="img-fluid" onLoad={() => setImageLoaded(true)}  onError={() => setImageLoaded(false)}/>
+                                    {!imageLoaded && <div className="d-flex justify-content-center align-items-center m-5 p-5"><Loader /></div>}
+                                    <img src={imageSrc} width={"100%"} alt="" className={`img-fluid ${imageLoaded ? `` :`visually-hidden` }`} onLoad={() => setImageLoaded(true)}  onError={() => setImageLoaded(false)}/>
                                 <div className="main_info_wrapper">
                                     <div className="main_info">
                                         <div className="clearfix mb-3">
@@ -57,7 +57,11 @@ const ProductDetail = (props) => {
                                                     <a className="author">
                                                         <div className="author_thumb veryfied"><i className="bi bi-check"></i>
                                                             <figure>
-                                                                <img src={ProfilePic} data-src="img/avatar1.jpg" alt="" className="lazy loaded" width="100" height="100" data-was-processed="true" /></figure>
+                                                                {!ProfPicLoaded && <div style={{
+                                                                    transform : "scale(0.4)"
+                                                                }}>
+                                                                    <Loader /></div>}
+                                                                <img src={ProfilePic} data-src="img/avatar1.jpg" alt="" className={`lazy${ProfPicLoaded ? `` : `visually-hidden`}`} width="100" height="100" data-was-processed="true" onLoad={() => setProfPicLoaded(true)} /></figure>
                                                         </div>
                                                         <h6 className="ms-1">{state.datatopass.brand}</h6>
                                                     </a>
