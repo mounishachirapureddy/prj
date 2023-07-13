@@ -118,9 +118,9 @@ const Header = () => {
                     </div>
                     <ul>
                       <li>
-                        <Link to="/merchant-profile">
+                        <a href="/merchant-profile">
                           <i className="bi bi-pen"></i>Edit profile
-                        </Link>
+                        </a>
                       </li>
                       <li>
                         <a href="/merchant-dashboard">
@@ -174,7 +174,7 @@ const Header = () => {
                 </a>
               </li>
               <li className="submenu">
-                <a href="catalog.html" className="show-submenu">
+                <a href="/catalog" className="show-submenu">
                   Explore
                 </a>
               </li>
