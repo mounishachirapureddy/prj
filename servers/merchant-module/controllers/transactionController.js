@@ -57,6 +57,7 @@ exports.getTransactions = async(req,res) =>{
             .limit(limit);
             count = await merchantTransaction.countDocuments(query);
         }
+        // console.log(count,id)
         res.status(200).json({transactions, status:true, msg:"Transactions found succesfully", count : count});
     }catch(err){
         console.error(err);
