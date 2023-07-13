@@ -11,7 +11,7 @@ function MyItems(props) {
     setImageSrc(
       props.img
         ? `${process.env.REACT_APP_GAMER_MODULE_URL}/api/merchant/img/${props.img}`
-        : "assets/img/avatar1.jpg"
+        : `assets/img/avatar${props.index+1}.jpg`
     );
     setImageLoaded(false);
   }, [props.img]);

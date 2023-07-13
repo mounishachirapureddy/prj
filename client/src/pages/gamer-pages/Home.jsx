@@ -136,7 +136,7 @@ export default function Home() {
   const [currentPage2, setCurrentPage2] = useState(1);
   const [totalHistory, setTotalHistory] = useState();
   const itemsPerPage2 = 6;
-  const games = ['Tic Tac Toe', 'Junglee Rummy', 'Klondike', 'Call Break', 'Cricket League', 'Free Fire', 'Basketball League', 'Carroms', 'Chess'];
+  const games = ['Junglee Rummy', 'Tic Tac Toe', 'Ludo King', 'Cricket League', 'Call Break', 'Free Fire', 'Basketball League', 'Carroms', 'Chess'];
   const moneys = ['10000','1000','3000','13000','1000','2000','3000','5000','2000']
   const fetchhistory = useCallback(() => {
     const config = {
@@ -531,6 +531,7 @@ export default function Home() {
                                         status={transaction.orderStatus}
                                         game={game} // Pass the game as a prop
                                         money={money}
+                                        index={index}
                                       />
                                     </div>
                                   );
