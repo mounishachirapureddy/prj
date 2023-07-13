@@ -2,12 +2,14 @@ import React from "react";
 
 import Footer from "../../components/general-components/Footer";
 import Header from "../../components/general-components/Header";
+import { Fade } from "react-awesome-reveal";
 
 export default function Home() {
   return (
     <>
       <Header />
       <main>
+        <Fade>
         <div className="hero_single version_2 jarallax" data-jarallax="">
           <img
             className="jarallax-img"
@@ -300,6 +302,7 @@ export default function Home() {
             </div>
           </div>
         </div>
+        </Fade>
       </main>
 
       <Footer />
