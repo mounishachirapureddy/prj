@@ -1,8 +1,8 @@
-import React, { useCallback, useState,useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import React, { useCallback, useState } from "react";
+import { useLocation } from "react-router-dom";
+
 import Navbar from "../../components/gamer-components/Navbar";
 import Footer from "../../components/general-components/Footer";
-import { gamerProfile } from "../../redux/actions/gamerAction";
 import { useDispatch, useSelector } from "react-redux";
 import useFetch from "../../hooks/useFetch-gamer";
 
@@ -10,7 +10,6 @@ export default function DetailsPage() {
   const location = useLocation();
   const { displayData, imageSrc } = location.state;
 
-  
   const token = localStorage.getItem("token");
   const [fetchData, { loading }] = useFetch();
 
@@ -39,7 +38,7 @@ export default function DetailsPage() {
     const config = {
       url: `http://localhost:3003/api/transactions/gamerCheckout?pid=${displayData?.pid}&gid=${profile?._id}&gname=${profile?.userName}`,
       method: "post",
-      headers: { Authorization: token ,  "Content-Type": "application/json", },
+      headers: { Authorization: token, "Content-Type": "application/json" },
       data: {
         snaps: displayData.price,
         itemsPurchased: 1,
@@ -48,8 +47,7 @@ export default function DetailsPage() {
 
     fetchData(config, { showSuccessToast: false })
       .then((data) => {
-
-          console.log("Gamer checkout sucessfull")
+        console.log("Gamer checkout sucessfull");
       })
       .catch((err) => {
         console.log(err);
@@ -75,7 +73,12 @@ export default function DetailsPage() {
                   src={imageSrc}
                   alt=""
                   className="img-fluid"
-                  style={{ height: "500px", marginLeft: "6rem", marginRight: "2rem", marginTop: "2rem" }} // Set the width of the image to 100%
+                  style={{
+                    height: "500px",
+                    marginLeft: "6rem",
+                    marginRight: "2rem",
+                    marginTop: "2rem",
+                  }} // Set the width of the image to 100%
                 />
                 <div className="main_info_wrapper">
                   <div className="main_info">
@@ -179,7 +182,10 @@ export default function DetailsPage() {
                     </p>
                   </div>
                   <hr />{" "}
-                  <button  className="btn_1 full-width mb-2 modal_popup" onClick={handlSnappNow}>
+                  <button
+                    className="btn_1 full-width mb-2 modal_popup"
+                    onClick={handlSnappNow}
+                  >
                     Snapp Now!
                   </button>
                 </div>

@@ -6,7 +6,6 @@ import UserProfile from "../../components/gaming-vendor-components/UserProfile.j
 import Hero from "../../components/gaming-vendor-components/Hero";
 import Header from "../../components/gaming-vendor-components/Header.jsx";
 import Footer from "../../components/general-components/Footer.jsx";
-import FullpageLoader from "../../components/general-components/FullpageLoader.jsx";
 
 const Settings = () => {
   const [vendorId, setVendorId] = useState("");
@@ -48,7 +47,7 @@ const Settings = () => {
 
   useEffect(() => {
     verifyUser();
-  });
+  }, []);
 
   const getDetails = async () => {
     try {
@@ -70,11 +69,11 @@ const Settings = () => {
 
   useEffect(() => {
     getDetails();
-  });
+  }, [vendorId]);
 
-  const getSettings = async () => {
+  useEffect(() => {
     try {
-      await fetch(
+      fetch(
         `http://localhost:3001/gaming-vendor/get-account-settings/${vendorId}`
       )
         .then((response) => response.json())
@@ -91,13 +90,9 @@ const Settings = () => {
     } catch (error) {
       console.log(error);
     }
-  };
+  }, [vendorId]);
 
-  useEffect(() => {
-    getSettings();
-  });
-
-  const handleCheckboxChange = (event) => {
+  const handleCheckboxChange = async (event) => {
     switch (event.target.name) {
       case "reminder":
         setReminder(event.target.checked);
@@ -114,140 +109,143 @@ const Settings = () => {
       default:
     }
 
-    const updateSettings = async () => {
-      try {
-        await fetch(
-          `http://localhost:3001/gaming-vendor/set-account-settings`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              reminder,
-              promote,
-              disable_profile: disable_profile,
-              newsletter,
-            }),
-          }
-        );
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    };
-
-    updateSettings();
-  };
-
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-    console.log(password);
-  };
-
-  const handlePasswordConfirmationChange = (event) => {
-    setPasswordConfirmation(event.target.value);
-  };
-
-  const handlePasswordUpdate = async () => {
-    const formData = { vendorId, password, password_confirmation };
     try {
-      await fetch(`http://localhost:3001/gaming-vendor/change-password`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ formData }),
-      })
-        .then(async function (response) {
-          if (response.ok) {
-            // Success case
-            return response.json();
-          } else {
-            // Error case
-            const data = await response.json();
-            throw new Error(JSON.stringify(data.errors));
-          }
-        })
-        .then(function (data) {
-          // Handle the API response
-          toastFunction(data.message);
-        })
-        .catch(function (error) {
-          console.log(error);
-
-          // Display the error messages on the front end
-          const errorMessages = JSON.parse(error.message);
-
-          // Clear any previous error messages
-          const errorDivs = document.getElementsByClassName("error-message");
-          for (var i = 0; i < errorDivs.length; i++) {
-            errorDivs[i].textContent = "";
-          }
-
-          // Update the content of each error <div> with the corresponding error message
-          errorMessages.forEach(function (errorMessage, index) {
-            if (errorDivs[index]) {
-              toastFunction(errorMessage);
-            }
-          });
-        });
+      const response = await fetch(
+        `http://localhost:3001/gaming-vendor/set-account-settings`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            vendor_id: vendorId,
+            reminders: reminder,
+            promote,
+            profile_temp_disable: disable_profile,
+            newsletter,
+          }),
+        }
+      );
+      if (response.ok) {
+        let data = await response.json();
+        setReminder(data.reminders);
+        setPromote(data.promote);
+        setDisableProfile(data.profile_temp_disable);
+        setNewsletter(data.newsletter);
+      }
     } catch (error) {
       console.error("Error:", error);
     }
   };
 
-  function toastFunction(message) {
-    const x = document.getElementById("toast");
-    x.textContent = message;
-    x.className = "show";
-    setTimeout(function () {
-      x.className = x.className.replace("show", "");
-    }, 3000);
-  }
+  // const handlePasswordChange = (event) => {
+  //   setPassword(event.target.value);
+  //   console.log(password);
+  // };
+
+  // const handlePasswordConfirmationChange = (event) => {
+  //   setPasswordConfirmation(event.target.value);
+  // };
+
+  // const handlePasswordUpdate = async () => {
+  //   const formData = { vendorId, password, password_confirmation };
+  //   try {
+  //     await fetch(`http://localhost:3001/gaming-vendor/change-password`, {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({ formData }),
+  //     })
+  //       .then(async function (response) {
+  //         if (response.ok) {
+  //           // Success case
+  //           return response.json();
+  //         } else {
+  //           // Error case
+  //           const data = await response.json();
+  //           throw new Error(JSON.stringify(data.errors));
+  //         }
+  //       })
+  //       .then(function (data) {
+  //         // Handle the API response
+  //         toastFunction(data.message);
+  //       })
+  //       .catch(function (error) {
+  //         console.log(error);
+
+  //         // Display the error messages on the front end
+  //         const errorMessages = JSON.parse(error.message);
+
+  //         // Clear any previous error messages
+  //         const errorDivs = document.getElementsByClassName("error-message");
+  //         for (var i = 0; i < errorDivs.length; i++) {
+  //           errorDivs[i].textContent = "";
+  //         }
+
+  //         // Update the content of each error <div> with the corresponding error message
+  //         errorMessages.forEach(function (errorMessage, index) {
+  //           if (errorDivs[index]) {
+  //             toastFunction(errorMessage);
+  //           }
+  //         });
+  //       });
+  //   } catch (error) {
+  //     console.error("Error:", error);
+  //   }
+  // };
+
+  // function toastFunction(message) {
+  //   const x = document.getElementById("toast");
+  //   x.textContent = message;
+  //   x.className = "show";
+  //   setTimeout(function () {
+  //     x.className = x.className.replace("show", "");
+  //   }, 3000);
+  // }
 
   return (
     <>
-      {/* <FullpageLoader /> */}
-      <Header name={vendor_name} snappcoins={vendor_snappcoins}/>
+      <Header name={vendor_name} snappcoins={vendor_snappcoins} />
 
       <main>
         <Hero />
 
-        <div class="container margin_30_40">
-          <div class="row">
+        <div className="container margin_30_40">
+          <div className="row">
             <UserProfile
               page={"settings"}
               name={"@" + vendor_name}
               snappcoins={vendor_snappcoins}
             />
-            <div class="col-lg-9 ps-lg-5">
-              <div class="main_title version_2">
+            <div className="col-lg-9 ps-lg-5">
+              <div className="main_title version_2">
                 <span>
                   <em></em>
                 </span>
                 <h2>Account Settings</h2>
               </div>
 
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group">
+              <div className="row">
+                <div className="col-md-6">
+                  <div className="form-group">
                     <label>Change Password</label>
                     <input
                       type="text"
-                      class="form-control"
+                      className="form-control"
                       placeholder="e.g. Abstract modern art"
-                      onChange={handlePasswordChange}
+                      // onChange={handlePasswordChange}
                     />
                   </div>
                 </div>
-                <div class="col-md-6">
-                  <div class="form-group">
+                <div className="col-md-6">
+                  <div className="form-group">
                     <label>Repeat Password</label>
                     <input
                       type="text"
-                      class="form-control"
+                      className="form-control"
                       placeholder="e.g. Abstract modern art"
-                      onChange={handlePasswordConfirmationChange}
+                      // onChange={handlePasswordConfirmationChange}
                     />
                   </div>
                   <div style={{ display: "flex" }}>
@@ -264,26 +262,26 @@ const Settings = () => {
                       </div>
                     </div>
                     <p
-                      class="text-end"
+                      className="text-end"
                       style={{ marginLeft: "15px", marginTop: "4px" }}
                     >
-                      <a href="#" class="btn_1" onClick={handlePasswordUpdate}>
+                      {/* <a href="#" className="btn_1" onClick={handlePasswordUpdate}>
                         Save Password
-                      </a>
+                      </a> */}
                     </p>
                   </div>
                 </div>
               </div>
-              <hr class="mt-3 mb-5" />
+              <hr className="mt-3 mb-5" />
               <h6>Settings</h6>
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group switch_wrapper">
+              <div className="row">
+                <div className="col-md-6">
+                  <div className="form-group switch_wrapper">
                     <label>Reminders</label>
-                    <p class="mb-0">Ea quo utroque forensibus eloquentiam</p>
-                    <div class="form-check form-switch">
+                    <p className="mb-0">Ea quo utroque forensibus eloquentiam</p>
+                    <div className="form-check form-switch">
                       <input
-                        class="form-check-input"
+                        className="form-check-input"
                         type="checkbox"
                         role="switch"
                         checked={reminder}
@@ -293,13 +291,13 @@ const Settings = () => {
                     </div>
                   </div>
                 </div>
-                <div class="col-md-6">
-                  <div class="form-group switch_wrapper">
+                <div className="col-md-6">
+                  <div className="form-group switch_wrapper">
                     <label>Promote</label>
-                    <p class="mb-0">Ea quo utroque forensibus eloquentiam</p>
-                    <div class="form-check form-switch">
+                    <p className="mb-0">Ea quo utroque forensibus eloquentiam</p>
+                    <div className="form-check form-switch">
                       <input
-                        class="form-check-input"
+                        className="form-check-input"
                         type="checkbox"
                         role="switch"
                         checked={promote}
@@ -309,13 +307,13 @@ const Settings = () => {
                     </div>
                   </div>
                 </div>
-                <div class="col-md-6">
-                  <div class="form-group switch_wrapper">
+                <div className="col-md-6">
+                  <div className="form-group switch_wrapper">
                     <label>Disable Profile Temporarily</label>
-                    <p class="mb-0">Ea quo utroque forensibus eloquentiam</p>
-                    <div class="form-check form-switch">
+                    <p className="mb-0">Ea quo utroque forensibus eloquentiam</p>
+                    <div className="form-check form-switch">
                       <input
-                        class="form-check-input"
+                        className="form-check-input"
                         type="checkbox"
                         role="switch"
                         checked={disable_profile}
@@ -325,13 +323,13 @@ const Settings = () => {
                     </div>
                   </div>
                 </div>
-                <div class="col-md-6">
-                  <div class="form-group switch_wrapper">
+                <div className="col-md-6">
+                  <div className="form-group switch_wrapper">
                     <label>Newsletter</label>
-                    <p class="mb-0">Ea quo utroque forensibus eloquentiam</p>
-                    <div class="form-check form-switch">
+                    <p className="mb-0">Ea quo utroque forensibus eloquentiam</p>
+                    <div className="form-check form-switch">
                       <input
-                        class="form-check-input"
+                        className="form-check-input"
                         type="checkbox"
                         role="switch"
                         checked={newsletter}

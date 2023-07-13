@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+
 import Header from "../../components/general-components/Header.jsx";
 import Footer from "../../components/general-components/Footer.jsx";
-import LoginForm from "../../components/gaming-vendor-components/LoginForm.jsx";
-import FullpageLoader from "../../components/general-components/FullpageLoader.jsx";
 import Hero from "../../components/gaming-vendor-components/Hero.jsx";
 
 const Register = () => {
@@ -58,7 +57,7 @@ const Register = () => {
         throw new Error(data.message);
       }
     } else {
-        toastFunction("Please agree with the Terms and Conditions");
+      toastFunction("Please agree with the Terms and Conditions");
     }
   };
 
@@ -70,7 +69,6 @@ const Register = () => {
       <meta name="author" content="Snappcoins" />
       <title>Snappcoins - Ready , Steady, Snapp!</title>
 
-      <FullpageLoader />
       <Header />
 
       <main>

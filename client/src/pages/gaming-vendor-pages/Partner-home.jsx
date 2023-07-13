@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate, Link } from "react-router-dom";
+
 import UserProfile from "../../components/gaming-vendor-components/UserProfile.jsx";
 import Hero from "../../components/gaming-vendor-components/Hero.jsx";
 import Header from "../../components/gaming-vendor-components/Header.jsx";
 import Footer from "../../components/general-components/Footer.jsx";
-import { useNavigate, Link } from "react-router-dom";
 import TransactionHistory from "../../components/gaming-vendor-components/TransactionHistory.jsx";
-import FullpageLoader from "../../components/general-components/FullpageLoader.jsx";
 
 const Dashboard = () => {
   const navigate = useNavigate();

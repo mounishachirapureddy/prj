@@ -122,7 +122,7 @@ exports.verifyOtp = async (req, res) => {
     const { verified } = await User.findById({ _id: uid });
     const result = await bcrypt.compare(otp, req.app.locals.OTP);
     if (result) {
-      res.status(201).json({ status: true, msg: "Email Verified" });
+      res.status(201).json({ status: true, msg: verified ? "Login Successful" : "Email Verified" });;
       if (!verified) await User.findByIdAndUpdate(uid, { verified: true });
       req.app.locals.OTP = null;
     } else {

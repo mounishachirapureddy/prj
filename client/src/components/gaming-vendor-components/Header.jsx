@@ -1,6 +1,5 @@
 import React from "react";
 import Dropdown from "./Dropdown"; 
-import { Link } from "react-router-dom";
 
 const Header = (props) => {
   return (
@@ -8,7 +7,7 @@ const Header = (props) => {
       <div className="layer"></div>
       <div className="container">
         <div className="logo">
-          <Link to="/">
+          <a href="/">
             <img
               src="assets/img/logo.svg"
               alt=""
@@ -23,7 +22,7 @@ const Header = (props) => {
               height="35"
               className="light"
             />
-          </Link>
+          </a>
         </div>
         <ul className="top_menu drop_user">
           <li>
@@ -43,14 +42,14 @@ const Header = (props) => {
         <nav className="main-menu">
           <ul>
             <li className="submenu">
-              <Link to="/" className="show-submenu">
+              <a href="/" className="show-submenu">
                 Home
-              </Link>
+              </a>
             </li>
             <li className="submenu">
-              <Link to="/catalog" className="show-submenu">
+              <a href="/catalog" className="show-submenu">
                 Explore
-              </Link>
+              </a>
             </li>
           </ul>
         </nav>

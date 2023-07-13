@@ -1,8 +1,7 @@
 import React from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const SignInForm = () => {
-  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,7 +31,7 @@ const SignInForm = () => {
         const data = await response.json();
         toastFunction(data.message);
         if (data.success) {
-          navigate("/gaming-vendor-dashboard");
+          window.location.href = '/gaming-vendor-dashboard';
         }
       } else {
         const data = await response.json();

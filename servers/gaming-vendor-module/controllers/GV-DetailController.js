@@ -31,6 +31,8 @@ async function getAccountSettings(req, res, next) {
 
 // Set account settings for a vendor
 async function setAccountSettings(req, res, next) {
+  console.log("entered the setAccountSettings Function");
+
   try {
     const { vendor_id, reminders, promote, profile_temp_disable, newsletter } =
       req.body;
@@ -50,10 +52,16 @@ async function setAccountSettings(req, res, next) {
 
     // Save the updated vendor document
     await vendor.save();
+    console.log("Saved account settings");
 
+    // Return the updated account settings
     res.status(200).json({
       success: true,
       message: "Account settings updated successfully",
+      reminders: vendor.vendor_account_settings.reminders,
+      promote: vendor.vendor_account_settings.promote,
+      profile_temp_disable: vendor.vendor_account_settings.profile_temp_disable,
+      newsletter: vendor.vendor_account_settings.newsletter,
     });
   } catch (error) {
     console.log(error);

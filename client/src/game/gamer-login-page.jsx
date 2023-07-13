@@ -1,9 +1,9 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+
 import Footer from "../components/general-components/Footer";
 
 const Game = () => {
-
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -14,20 +14,17 @@ const Game = () => {
 
     const formData = {
       email,
-      password
+      password,
     };
 
     try {
-      const response = await fetch(
-        "http://localhost:3004/api/auth/login",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        }
-      );
+      const response = await fetch("http://localhost:3004/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
       if (response.ok) {
         const data = await response.json();

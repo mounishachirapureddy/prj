@@ -1,9 +1,8 @@
 import React from "react";
-import { Link } from "react-router-dom";
+
 import Header from "../../components/general-components/Header.jsx";
 import Footer from "../../components/general-components/Footer.jsx";
 import LoginForm from "../../components/gaming-vendor-components/LoginForm.jsx";
-// import FullpageLoader from "../../components/general-components/FullpageLoader.jsx";
 
 const Login = () => {
   return (
@@ -14,7 +13,6 @@ const Login = () => {
       <meta name="author" content="Snappcoins" />
       <title>Snappcoins - Ready , Steady, Snapp!</title>
 
-      {/* <FullpageLoader /> */}
       <Header />
 
       <main>
@@ -134,8 +132,8 @@ const Login = () => {
                   </span>
                   <h2>Please fill the form below</h2>
                   <p>
-                  Interested in partnering with us? <br />
-                  Drop us a line and we will be happy to connect. Promise!
+                    Interested in partnering with us? <br />
+                    Drop us a line and we will be happy to connect. Promise!
                   </p>
                 </div>
                 <div id="message-register" />
