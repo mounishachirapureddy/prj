@@ -14,7 +14,7 @@ exports.additem = async (req, res) => {
     const randomDigits = Math.floor(Math.random() * 9000) + 1000;
     const tId = `#ID ${currentYear}${randomDigits}`;
 
-    console.log(tId);
+    //console.log(tId);
     
     const createTransaction = await transaction.create( {transactionId:tId,orderStatus,user_id,snaps} );
   
@@ -36,8 +36,8 @@ exports.additem = async (req, res) => {
     const size = req.query.size;
     const searchTerm = req.query.searchTerm;
 
-    console.log("user_id:", user_id);
-    console.log("searchTerm:", searchTerm);
+    //console.log("user_id:", user_id);
+    //console.log("searchTerm:", searchTerm);
 
     const skip = size * (pagenum - 1);
     const limit = parseInt(size);
@@ -46,7 +46,7 @@ exports.additem = async (req, res) => {
 
     if (searchTerm) {
       const trimmedSearchTerm = searchTerm.trim();
-      console.log("trimmedSearchTerm: ", trimmedSearchTerm);
+      //console.log("trimmedSearchTerm: ", trimmedSearchTerm);
       query.orderStatus = { $regex: trimmedSearchTerm, $options: 'i' };
     }
     
@@ -78,7 +78,7 @@ exports.additem = async (req, res) => {
       }
     });
 
-    console.log("redd: ",redeem_total);
+    //console.log("redd: ",redeem_total);
     // Slice the revTrans array based on skip and limit
     const slicedTransactions = revTrans.slice(skip, skip + limit);
 

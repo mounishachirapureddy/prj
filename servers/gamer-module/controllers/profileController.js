@@ -33,7 +33,7 @@ exports.updateProfile = async (req, res) => {
   try {
     const { id, prevImgId } = req.query;
 
-    console.log("ID: ",prevImgId);
+    //console.log("ID: ",prevImgId);
     const file = req.file;
     let fid;
 
