@@ -22,7 +22,7 @@ function HistoryCard(props) {
                         {!imageLoaded && <div><Loader /></div>}
                         <img
                         src={imageSrc}
-                        data-src="img/items/item-4.jpg"
+                        // data-src="img/items/item-4.jpg"
                         className={`lazy ${imageLoaded ? "" : "hidden"}`}
                         alt=""
                         height="50px"

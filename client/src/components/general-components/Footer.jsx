@@ -49,7 +49,7 @@ function Footer() {
                     <a href="#">How it Works</a>
                   </li>
                   <li>
-                    <a href="#">Latest Products</a>
+                    <a href="/catalog">Latest Products</a>
                   </li>
                 </ul>
               </div>
@@ -58,7 +58,7 @@ function Footer() {
               <h3>Keep in touch</h3>
               <div id="newsletter">
                 <div id="message-newsletter"></div>
-                <form method="post" name="newsletter_form" id="newsletter_form">
+                <form  name="newsletter_form" id="newsletter_form">
                   <div className="form-group">
                     <input
                       type="email"

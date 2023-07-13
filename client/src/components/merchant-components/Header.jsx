@@ -43,7 +43,7 @@ const Header = () => {
                 className="dark"
               />
               <img
-                src="assets/img/logo-light-mode.svg"
+                src="assets/img/logo-light.svg"
                 alt=""
                 width="170"
                 height="35"
@@ -90,7 +90,7 @@ const Header = () => {
                   </figure>
                   <div className="balance">
                     <h6 className="mb-0">{merchant.companyName}</h6>
-                    <span>{merchant.walletMoney} snapps</span>
+                    <span>{merchant.walletMoney} Snapps</span>
                   </div>
                 </Link>
                 <div className={`dropdown-menu dropdown-menu-end animate ${
@@ -114,7 +114,7 @@ const Header = () => {
                     </p> */}
                     <div className="balance">
                       <h4>Balance</h4>
-                      <span>{merchant.walletMoney} snapps</span>
+                      <span>{merchant.walletMoney} Snapps</span>
                     </div>
                     <ul>
                       <li>
@@ -123,9 +123,9 @@ const Header = () => {
                         </Link>
                       </li>
                       <li>
-                        <Link to="/merchant-dashboard">
+                        <a href="/merchant-dashboard">
                           <i className="bi bi-image"></i>Dashboard
-                        </Link>
+                        </a>
                       </li>
                       <li>
                         <a href="/" onClick={handleLogoutClick}>

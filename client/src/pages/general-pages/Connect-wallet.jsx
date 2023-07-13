@@ -22,7 +22,7 @@ const Connect = () => {
                 <div className="col-xl-8 col-lg-10 col-md-8">
                   <h1 className="slide-animated one">Connect your Wallet</h1>
                   <p className="slide-animated two">
-                    Vim te audiam impetus interpretaris impedit
+                   connect your wallet and stream seamlessly
                   </p>
                 </div>
               </div>
