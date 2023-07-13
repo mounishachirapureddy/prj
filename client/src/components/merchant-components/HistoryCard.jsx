@@ -10,7 +10,7 @@ function HistoryCard(props) {
         setImageSrc(
           props.image
             ? `${process.env.REACT_APP_MERCHANT_MODULE_URL}/api/merchandise/img/${props.image}`
-            : "default-prod.png"
+            : "assets/img/default-prod.png"
         );
       }, [props.image]);
 
