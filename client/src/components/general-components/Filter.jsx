@@ -8,11 +8,11 @@ function Filter({ children }) {
     const [ClickedRange, setClickedRange] = useState(false)
 
     return (
-        <aside class="col-lg-3" id="sidebar_fixed">
-            <div class="filter_col">
-                <div class="inner_bt"><a href="#" class="open_filters"><i class="bi bi-x"></i></a></div>
-                <div class="filter_type">
-                    <h4><a href="" data-bs-toggle="collapse" class={ClickedCat ?  "collapsed closed" : "opened"} onClick={(e) => {
+        <aside className="col-lg-3" id="sidebar_fixed">
+            <div className="filter_col">
+                <div className="inner_bt"><a href="#" className="open_filters"><i className="bi bi-x"></i></a></div>
+                <div className="filter_type">
+                    <h4><a href="" data-bs-toggle="collapse" className={ClickedCat ?  "collapsed closed" : "opened"} onClick={(e) => {
                         e.preventDefault();
                         setClickedCat((prev) => !prev)
                     }} aria-expanded={ClickedCat ? "false" : "true"} >Categories</a></h4>
@@ -22,17 +22,17 @@ function Filter({ children }) {
                         </ul>
                     </div>
                 </div>
-                <div class="filter_type">
-                    <h4><a href="" data-bs-toggle="collapse" class={ClickedRange ? "collaped closed" : "opened"} onClick={(e) => {
+                <div className="filter_type">
+                    <h4><a href="" data-bs-toggle="collapse" className={ClickedRange ? "collaped closed" : "opened"} onClick={(e) => {
                         e.preventDefault();
                         setClickedRange((prev) => !prev)
                     }} aria-expanded={ClickedRange ? "false" : "true"} >Snapps</a></h4>
-                    <div class={`collapse ${ClickedRange ? "" : "show"}`}>
+                    <div className={`collapse ${ClickedRange ? "" : "show"}`}>
                         {children[1]}
                     </div>
                 </div>
-                {/* <div class="buttons">
-                    <a href="#0" class="btn_1 full-width outline">Filter</a>
+                {/* <div className="buttons">
+                    <a href="#0" className="btn_1 full-width outline">Filter</a>
                 </div> */}
             </div>
         </aside>

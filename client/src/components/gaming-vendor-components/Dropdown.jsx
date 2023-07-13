@@ -19,7 +19,7 @@ const Dropdown = (props) => {
         })
         .then(function (data) {
           if (data.success) {
-            navigate("/gaming-vendor-login");
+            window.location.href = '/gaming-vendor-login';
           } else {
             throw new Error("Log out unsuccessful");
           }

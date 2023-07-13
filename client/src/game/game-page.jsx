@@ -1,12 +1,10 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { Link } from "react-router-dom";
-import Footer from "../components/general-components/Footer";
-
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+
+import Footer from "../components/general-components/Footer";
 import { gamerProfile } from "../redux/actions/gamerAction";
 import useFetch from "../hooks/useFetch-gamer";
-
-import { useNavigate } from "react-router-dom";
 
 const Game = () => {
   const [gamer_name, setGamerName] = useState("");
@@ -144,8 +142,8 @@ const Game = () => {
                 "Content-Type": "application/json",
               },
               body: JSON.stringify({
-                vendor_id: "GV001",
-                vendor_name: "Tic-tac-toe",
+                vendor_id: "GV002",
+                vendor_name: "99 Games",
                 vendor_email: "siddharthjain1220@gmail.com",
                 gamer_id: gamer_id,
                 gamer_name: gamer_name,
@@ -168,10 +166,9 @@ const Game = () => {
 
         const params = new URLSearchParams(window.location.search);
         const id = params.get("id");
-        console.log("Id: " + id + ", Amount: " + tokensToAllocate);
-
+        const game_name = "Tic-Tac-Toe";
         fetch(
-          `http://localhost:3004/api/wallet/addMoney?id=${id}&money=${tokensToAllocate}`,
+          `http://localhost:3004/api/wallet/addMoney?id=${id}&money=${tokensToAllocate}&gameName=${game_name}`,
           {
             method: "POST",
             headers: {

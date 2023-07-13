@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+
 import Header from "../../components/general-components/Header";
 import Footer from "../../components/general-components/Footer";
 import NewItem from '../../components/general-components/NewItem';
@@ -12,42 +13,32 @@ import FeaturedPro from '../../components/general-components/FeaturedPro';
 import { Slide, Fade } from "react-awesome-reveal"
 import "animate.css"
 const Home = () => {
-  const [products, setProducts] = useState([])
-  // const [searchLoad, setSearchLoad] = useState(false)
-  const [productsLoaded, setLoaded] = useState(false)
+  const [products, setProducts] = useState([]);
+  const [productsLoaded, setLoaded] = useState(false);
   const [featuredProducts, setFeaturedProducts] = useState([]);
-  const [searchTerm_home, setSearchTerm_home] = useState('')
-  // const [search_filter, setSearchFilter] = useState([])
+  const [searchTerm_home, setSearchTerm_home] = useState("");
   const navigate = useNavigate();
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setLoaded(false)
-        const response_prod = await axios.get('http://localhost:3002/api/merchandise/gethome');
-        //const total = response_prod.headers.get("x-total-count");
+        setLoaded(false);
+        const response_prod = await axios.get(
+          "http://localhost:3002/api/merchandise/gethome"
+        );
         setProducts(response_prod.data.merchandises);
-        setLoaded(true)
+        setLoaded(true);
         setFeaturedProducts(response_prod.data.featured_products);
-        // setSearchLoad(false)
-        // const search_filter_prod = await axios.get("http://localhost:5000/api/merchandise/getall", { params: { searchTerm: searchTerm_home } })
-        // setSearchFilter(search_filter_prod.data.merchandises);
-        // setSearchLoad(true)
-        console.log("hitted")
-        console.log(featuredProducts)
       } catch (error) {
         console.error(error);
       }
     };
     fetchData();
-
-
   }, [searchTerm_home]);
 
 
 
   return (
     <>
-      <FullpageLoader />
       <Header />
 
       <main>
@@ -162,9 +153,9 @@ const Home = () => {
             </div>
 
             <p className="text-center mt-4">
-              <Link to="/catalog" className="btn_1 medium pulse_bt">
+              <a href="/catalog" className="btn_1 medium pulse_bt">
                 Start Redeeming
-              </Link>
+              </a>
             </p>
           </div>
 
@@ -398,12 +389,12 @@ const Home = () => {
                     <p>Showcase your games and attract loyal fans!</p>
                   </div>
                   <div>
-                    <Link
-                      to="/gaming-vendor-login"
+                    <a
+                      href="/gaming-vendor-login"
                       className="btn_1 medium pulse_bt"
                     >
                       Join Now
-                    </Link>
+                    </a>
                   </div>
                 </div>
               </div>
@@ -415,7 +406,7 @@ const Home = () => {
               <span><em></em></span>
               <h2>New Items</h2>
               <p>Redeem your Snapps from the latest products in our catalog!</p>
-              <Link to="\catalog">View All <i className="bi bi-arrow-right"></i></Link>
+              <a href="\catalog">View All <i className="bi bi-arrow-right"></i></a>
             </div>
 
             <Fade cascade>
@@ -428,7 +419,7 @@ const Home = () => {
 
             </div> : <div className='d-flex row justify-content-center align-items-center m-5 p-5'> <Loader /> </div>}
               </Fade>
-            <p className="text-center mt-4" ><Link to="/catalog" className="btn_1 gradient pulse_bt">View New Items</Link></p>
+            <p className="text-center mt-4" ><a href="/catalog" className="btn_1 gradient pulse_bt">View New Items</a></p>
           </div>
 
           <div className="bg_gray">
@@ -480,9 +471,9 @@ const Home = () => {
                     </li>
                   </ul>{" "}
                   <p className="add_top_30">
-                    <Link to="/gamer-login" className="btn_1">
+                    <a href="/gamer-login" className="btn_1">
                       Join Now!
-                    </Link>
+                    </a>
                   </p>
                 </div>
               </div>

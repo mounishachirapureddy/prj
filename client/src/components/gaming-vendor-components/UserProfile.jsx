@@ -1,8 +1,7 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const UserProfile = (props) => {
-  const navigate = useNavigate();
 
   const handleLogOut = () => {
     try {
@@ -14,7 +13,7 @@ const UserProfile = (props) => {
         })
         .then(function (data) {
           if (data.success) {
-            navigate("/gaming-vendor-login");
+            window.location.href = '/gaming-vendor-login';
           } else {
             throw new Error("Log out unsuccessful");
           }
@@ -23,14 +22,6 @@ const UserProfile = (props) => {
       console.log(error);
       return;
     }
-  };
-
-  const handleSettings = () => {
-    navigate("/gaming-vendor-settings");
-  };
-
-  const handleDashboard = () => {
-    navigate("/gaming-vendor-dashboard");
   };
 
   return (
@@ -60,25 +51,23 @@ const UserProfile = (props) => {
         </h1>
         <ul>
           <li>
-            <a
-              href="#"
-              onClick={handleDashboard}
+            <Link
+              to="/gaming-vendor-dashboard"
               className={props.page === "dashboard" ? "active" : ""}
             >
               <i className="bi bi-file-earmark-arrow-up" />
               Dashboard
-            </a>
+            </Link>
           </li>
           <li>
-            <a
-              href="#"
+            <Link
+              to="/gaming-vendor-settings"
               id="account-settings"
-              onClick={handleSettings}
               className={props.page === "settings" ? "active" : ""}
             >
               <i className="bi bi-gear" />
               Account settings
-            </a>
+            </Link>
           </li>
           <li>
             <a href="#" onClick={handleLogOut}>

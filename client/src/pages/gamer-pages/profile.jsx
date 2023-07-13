@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { gamerProfile } from '../../redux/actions/gamerAction';
+import { useDispatch, useSelector } from 'react-redux';
+
 import Navbar from '../../components/gamer-components/Navbar';
 import Footer from '../../components/general-components/Footer';
 import EditProfile from '../../components/gamer-components/EditProfile';
-
-import { gamerProfile } from '../../redux/actions/gamerAction';
-import { useDispatch, useSelector } from 'react-redux';
 
 const Profile = () => {
   const dispatch = useDispatch();

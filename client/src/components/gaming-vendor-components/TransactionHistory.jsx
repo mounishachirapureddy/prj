@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function TransactionHistory(props) {
   const [vendorId, setVendorId] = useState("");
   const [transactions, setTransactions] = useState([]);
-  const navigate = useNavigate();
 
   const getVendorId = async () => {
     try {
@@ -18,7 +17,7 @@ function TransactionHistory(props) {
       if (response.ok && data.success) {
         setVendorId(data.vendor_id);
       } else {
-        navigate("/gaming-vendor-login");
+        window.location.href = "/gaming-vendor-login";
       }
     } catch (error) {
       console.log(error);
@@ -84,7 +83,7 @@ function TransactionHistory(props) {
   }, [vendorId, props.searchKeyword]);
 
   return (
-    <ul id="transaction-list" style={{ listStyleType: "none", padding: 0 }}>
+    <ul id="transaction-list" style={{ listStyleType: "none", paddingRight: "30px" }}>
       {transactions.map((transaction) => {
         const transactionDate = new Date(transaction.transaction_date)
           .toLocaleDateString("en-GB", {
@@ -110,33 +109,37 @@ function TransactionHistory(props) {
             </div>
             <div
               className="text-start col-6 w-75"
-              style={{ marginTop: "20px" }}
+              style={{ marginTop: "20px", color: "white" }}
             >
               <h7 className="my-1">
+                Transaction id: {" "}
                 <Link to="#" title="">
-                  Transaction id # {transaction.transaction_id}
+                  {"#" + transaction.transaction_id}
                 </Link>
                 <br />
               </h7>
-              <h7 className="my-2">
-                <Link to="#">Date of transaction: {transactionDate}</Link>
+              <h7 className="my-1">
+                Date of transaction: <Link to="#"> {transactionDate}</Link>
                 <br />
               </h7>
-              <h7 className="my-2">
-                <Link to="#">Amount: {transaction.snappcoin_count} snaps</Link>
+              <h7 className="my-1">
+                Amount: <Link to="#"> {transaction.snappcoin_count} snaps</Link>
                 <br />
               </h7>
-              <span
-                className={`badge ${
-                  transaction.transaction_status === "success"
-                    ? "bg-success"
-                    : transaction.transaction_status === "pending"
-                    ? "bg-warning"
-                    : "bg-danger"
-                } text-light`}
-              >
-                {transaction.transaction_status}
-              </span>
+              <h7 className="my-1">
+                Status:{" "}
+                <span
+                  className={`badge ${
+                    transaction.transaction_status === "success"
+                      ? "bg-success"
+                      : transaction.transaction_status === "pending"
+                      ? "bg-warning"
+                      : "bg-danger"
+                  } text-light`}
+                >
+                  {transaction.transaction_status}
+                </span>
+              </h7>
             </div>
           </div>
         );

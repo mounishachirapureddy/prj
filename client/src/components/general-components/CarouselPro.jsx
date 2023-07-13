@@ -14,7 +14,6 @@ import ImgLoader from "./ImgLoader"; const CarouselPro = (props) => {
             try {
                 const response = await axios.get(`http://localhost:3002/api/getprofile${props.userid}`)
                 const imgsrc = response.data.user.image
-                console.log(imgsrc)
                 setProfilePic(
                     (imgsrc)
                         ? `http://localhost:3002/api/merchandise/img${imgsrc}`
@@ -58,7 +57,7 @@ import ImgLoader from "./ImgLoader"; const CarouselPro = (props) => {
                     </li>
                     <li></li>
                     <li>
-                        <Link className="wish_bt"></Link><i class="bi bi-stack"></i> {props.count}
+                        <Link className="wish_bt"></Link><i className="bi bi-stack"></i> {props.count}
                     </li>
                 </ul>
                 <ul>

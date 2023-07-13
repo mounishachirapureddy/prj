@@ -37,7 +37,6 @@ const SignUpForm = () => {
 
       if (response.ok) {
         const data = await response.json();
-        // toastFunction(data.message);
         setTimeout(() => {
           navigate("/gaming-vendor-register", {
             state: { companyName: vendorName, email: vendorEmail, vendorId: data.vendor_id },

@@ -71,9 +71,9 @@ function Header() {
             </a>
           </li>
           <li className="submenu">
-            <Link to="/catalog" className="show-submenu">
+            <a href="/catalog" className="show-submenu">
               Explore
-            </Link>
+            </a>
           </li>
         </ul>
       </nav>

@@ -1,12 +1,11 @@
 import React from "react";
-import FullpageLoader from "../../components/general-components/FullpageLoader";
+
 import Header from "../../components/general-components/Header";
 import Footer from "../../components/general-components/Footer";
 
 const Connect = () => {
   return (
     <>
-      {/* <FullpageLoader /> */}
       <Header />
 
       <main>
@@ -33,12 +32,12 @@ const Connect = () => {
           <div className="wave hero"></div>
         </div>
 
-        <div class="container margin_90_60">
-          <div class="row justify-content-center">
-            <div class="col-lg-4">
-              <a href="#0" class="box_general wallet_connect">
-                <div class="ribbon_top">
-                  <span class="top_selling">Popular</span>
+        <div className="container margin_90_60">
+          <div className="row justify-content-center">
+            <div className="col-lg-4">
+              <a href="#0" className="box_general wallet_connect">
+                <div className="ribbon_top">
+                  <span className="top_selling">Popular</span>
                 </div>
                 <figure>
                   <img
@@ -50,12 +49,13 @@ const Connect = () => {
                 </figure>
                 <h3>A23 Rummy</h3>
                 <p>
-                  A23 Games is India's Leading Online Gaming Portal completely owned and operated by Head Digital Works Private Limited.
+                  A23 Games is India's Leading Online Gaming Portal completely
+                  owned and operated by Head Digital Works Private Limited.
                 </p>
               </a>
             </div>
-            <div class="col-lg-4">
-              <a href="#0" class="box_general wallet_connect">
+            <div className="col-lg-4">
+              <a href="#0" className="box_general wallet_connect">
                 <figure>
                   <img
                     src="assets/img/wallet_connect.svg"
@@ -66,12 +66,14 @@ const Connect = () => {
                 </figure>
                 <h3>Call Break</h3>
                 <p>
-                  Play against humans to compete with players around the world. Compete with players around the world and target the scores to compare, beat and surpass other ...
+                  Play against humans to compete with players around the world.
+                  Compete with players around the world and target the scores to
+                  compare, beat and surpass other ...
                 </p>
               </a>
             </div>
-            <div class="col-lg-4">
-              <a href="#0" class="box_general wallet_connect">
+            <div className="col-lg-4">
+              <a href="#0" className="box_general wallet_connect">
                 <figure>
                   <img
                     src="assets/img/fortmatic.svg"
@@ -82,7 +84,9 @@ const Connect = () => {
                 </figure>
                 <h3>Ludo King</h3>
                 <p>
-                  A record breaking casual game in the history of mobile gaming · Voice Chat, 6 Player Ludo, Quick Ludo mode, Tournaments, and many other exciting features!
+                  A record breaking casual game in the history of mobile gaming
+                  · Voice Chat, 6 Player Ludo, Quick Ludo mode, Tournaments, and
+                  many other exciting features!
                 </p>
               </a>
             </div>

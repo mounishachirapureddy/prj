@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 function Footer() {
   return (
@@ -12,13 +11,13 @@ function Footer() {
               <div className="links">
                 <ul>
                   <li>
-                    <Link to="/catalog">Explore</Link>
+                    <a href="/catalog">Explore</a>
                   </li>
                   <li>
-                    <Link to="/gamer-login">Login</Link>
+                    <a href="#">Login</a>
                   </li>
                   <li>
-                    <Link to="/gamer-signup">Register</Link>
+                    <a href="#">Register</a>
                   </li>
                 </ul>
               </div>
@@ -44,10 +43,10 @@ function Footer() {
               <div className="links">
                 <ul>
                   <li>
-                    <Link to="#">Community</Link>
+                    <a href="#">Community</a>
                   </li>
                   <li>
-                    <Link to="#">How it Works</Link>
+                    <a href="#">How it Works</a>
                   </li>
                   <li>
                     <a href="/catalog">Latest Products</a>
@@ -77,40 +76,40 @@ function Footer() {
               <div className="follow_us">
                 <ul>
                   <li>
-                    <Link to="#0">
+                    <a href="#0">
                       <img
                         src="assets/img/twitter_icon.svg"
                         alt=""
                         className="lazy"
                       />
-                    </Link>
+                    </a>
                   </li>
                   <li>
-                    <Link to="#0">
+                    <a href="#0">
                       <img
                         src="assets/img/facebook_icon.svg"
                         alt=""
                         className="lazy"
                       />
-                    </Link>
+                    </a>
                   </li>
                   <li>
-                    <Link to="#0">
+                    <a href="#0">
                       <img
                         src="assets/img/instagram_icon.svg"
                         alt=""
                         className="lazy"
                       />
-                    </Link>
+                    </a>
                   </li>
                   <li>
-                    <Link to="#0">
+                    <a href="#0">
                       <img
                         src="assets/img/youtube_icon.svg"
                         alt=""
                         className="lazy"
                       />
-                    </Link>
+                    </a>
                   </li>
                 </ul>
               </div>
@@ -136,7 +135,7 @@ function Footer() {
             <div className="col-md-6">
               <ul className="additional_links">
                 <li>
-                  <a to="#">Terms and conditions</a>
+                  <a href="#">Terms and conditions</a>
                 </li>
                 <li>© 2023 Snappcoins</li>
               </ul>

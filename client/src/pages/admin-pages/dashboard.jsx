@@ -1,12 +1,11 @@
 import React from "react";
+
 import Footer from "../../components/general-components/Footer";
 import Header from "../../components/general-components/Header";
-import FullpageLoader from "../../components/general-components/FullpageLoader";
 
 export default function Home() {
   return (
     <>
-      {/* <FullpageLoader /> */}
       <Header />
       <main>
         <div className="hero_single version_2 jarallax" data-jarallax="">
@@ -15,7 +14,10 @@ export default function Home() {
             src="assets/img/hero_general.jpg"
             alt=""
           />
-          <div className="opacity-mask" style={{ backgroundColor: "rgba(0, 0, 0, 0.4)" }}>
+          <div
+            className="opacity-mask"
+            style={{ backgroundColor: "rgba(0, 0, 0, 0.4)" }}
+          >
             <div className="container">
               <div className="row">
                 <div className="col-xl-7 col-lg-8 pt-lg-5">
@@ -115,8 +117,8 @@ export default function Home() {
               </a>
             </div>
             <div className="row author_list">
-              <div className="col-lg-4 col-md-6" >
-                <a href="author.html" className="author">
+              <div className="col-lg-4 col-md-6">
+                <a href="" className="author">
                   <strong>1</strong>
                   <div className="author_thumb veryfied">
                     <i className="bi bi-check" />
@@ -136,7 +138,7 @@ export default function Home() {
                 </a>
               </div>
               <div className="col-lg-4 col-md-6">
-                <a href="author.html" className="author">
+                <a href="" className="author">
                   <strong>2</strong>
                   <div className="author_thumb veryfied">
                     <i className="bi bi-check" />
@@ -155,8 +157,8 @@ export default function Home() {
                   </div>
                 </a>
               </div>
-              <div className="col-lg-4 col-md-6" >
-                <a href="author.html" className="author">
+              <div className="col-lg-4 col-md-6">
+                <a href="" className="author">
                   <strong>3</strong>
                   <div className="author_thumb veryfied">
                     <i className="bi bi-check" />
@@ -175,8 +177,8 @@ export default function Home() {
                   </div>
                 </a>
               </div>
-              <div className="col-lg-4 col-md-6" >
-                <a href="author.html" className="author">
+              <div className="col-lg-4 col-md-6">
+                <a href="" className="author">
                   <strong>4</strong>
                   <div className="author_thumb veryfied">
                     <i className="bi bi-check" />
@@ -195,8 +197,8 @@ export default function Home() {
                   </div>
                 </a>
               </div>
-              <div className="col-lg-4 col-md-6" >
-                <a href="author.html" className="author">
+              <div className="col-lg-4 col-md-6">
+                <a href="" className="author">
                   <strong>5</strong>
                   <div className="author_thumb veryfied">
                     <i className="bi bi-check" />
@@ -215,8 +217,8 @@ export default function Home() {
                   </div>
                 </a>
               </div>
-              <div className="col-lg-4 col-md-6" >
-                <a href="author.html" className="author">
+              <div className="col-lg-4 col-md-6">
+                <a href="" className="author">
                   <strong>6</strong>
                   <div className="author_thumb veryfied">
                     <i className="bi bi-check" />
@@ -235,8 +237,8 @@ export default function Home() {
                   </div>
                 </a>
               </div>
-              <div className="col-lg-4 col-md-6" >
-                <a href="author.html" className="author">
+              <div className="col-lg-4 col-md-6">
+                <a href="" className="author">
                   <strong>7</strong>
                   <div className="author_thumb veryfied">
                     <i className="bi bi-check" />
@@ -255,8 +257,8 @@ export default function Home() {
                   </div>
                 </a>
               </div>
-              <div className="col-lg-4 col-md-6" >
-                <a href="author.html" className="author">
+              <div className="col-lg-4 col-md-6">
+                <a href="" className="author">
                   <strong>8</strong>
                   <div className="author_thumb veryfied">
                     <i className="bi bi-check" />
@@ -275,8 +277,8 @@ export default function Home() {
                   </div>
                 </a>
               </div>
-              <div className="col-lg-4 col-md-6" >
-                <a href="author.html" className="author">
+              <div className="col-lg-4 col-md-6">
+                <a href="" className="author">
                   <strong>9</strong>
                   <div className="author_thumb veryfied">
                     <i className="bi bi-check" />

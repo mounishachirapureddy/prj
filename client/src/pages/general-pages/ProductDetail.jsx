@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import axios from "axios";
+
 import Header from "../../components/general-components/Header";
 import Footer from "../../components/general-components/Footer";
 import Loader from "../../components/general-components/Loader";
-import axios from "axios"
-import ImgLoader from "../../components/general-components/ImgLoader";
 
 const ProductDetail = (props) => {
     const [imageLoaded, setImageLoaded] = useState(false);
@@ -71,7 +71,7 @@ const ProductDetail = (props) => {
                                                 </div>
                                             </div>
                                             <div className="score_in">
-                                                <i class="bi bi-stack me-1"></i> 123<a className="wish_bt"></a>
+                                                <i className="bi bi-stack me-1"></i> 123<a className="wish_bt"></a>
                                             </div>
                                         </div>
                                         <h1 className="mb-md-2">{state.datatopass.title}</h1>

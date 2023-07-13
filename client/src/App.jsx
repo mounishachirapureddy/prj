@@ -24,7 +24,7 @@ import GamerSignup from "./pages/gamer-pages/Signup";
 import GamerLogin from "./pages/gamer-pages/Login";
 import GamerVerify from "./pages/gamer-pages/Verify";
 import GamerDetailsPage from "./pages/gamer-pages/DetailsPage";
-import GamerMyprofile from './pages/gamer-pages/myProfile';
+import GamerMyprofile from "./pages/gamer-pages/myProfile";
 import ProductDetail from "./pages/general-pages/ProductDetail";
 import MerchandiseUpload from "./components/merchant-components/MerchandiseUpload";
 
@@ -36,7 +36,7 @@ function App() {
   const isVerify = localStorage.getItem("verify");
   console.log(localStorage.getItem("merchant-token"))
   const gamerState = useSelector((state) => state.gamerReducer);
-  console.log(gamerState,merchantState)
+  
   return (
     <div className="App">
       <Routes>
@@ -92,7 +92,7 @@ function App() {
 
         <Route exact path="/gamer-dashboard" element={<GamerHome />} />
         <Route path="/gamer-profile" element={<GamerProfile />} />
-        {/* <Route
+        <Route
           path="/gamer-dashboard"
           element={
             gamerState.isLoggedIn ? (
@@ -101,7 +101,7 @@ function App() {
               <Navigate to="/gamer-login" />
             )
           }
-        /> */}
+        />
         <Route path="/gamer-signup" element={<GamerSignup />} />
         <Route path="/gamer-login" element={<GamerLogin />} />
         <Route path="/gamer-verify" element={<GamerVerify />} />
@@ -109,8 +109,8 @@ function App() {
         <Route path="/profile" element={<GamerProfile />} />
         <Route path="/myprofile" element={<GamerMyprofile />} />
 
-        <Route path="/game-login" element={<GameLogin />}/>
-        <Route path="/game" element={<Game />}/>
+        <Route path="/game-login" element={<GameLogin />} />
+        <Route path="/game" element={<Game />} />
       </Routes>
     </div>
   );

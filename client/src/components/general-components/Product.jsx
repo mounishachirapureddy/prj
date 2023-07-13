@@ -61,7 +61,7 @@ function Product(props) {
                     </li>
                     <li></li>
                     <li>
-                        <Link  className="wish_bt"></Link><i class="bi bi-stack"></i> {props.count}
+                        <Link  className="wish_bt"></Link><i className="bi bi-stack"></i> {props.count}
                     </li>
                 </ul>
                 <ul>

@@ -18,7 +18,6 @@ const NewItem = (props) => {
             try {
                 const response = await axios.get(`http://127.0.0.1:3002/api/getprofile${props.userid}`)
                 const imgsrc = response.data.user.image
-                console.log(imgsrc)
                 setProfilePic(
                     (imgsrc)
                         ? `http://127.0.0.1:3002/api/img${imgsrc}`
@@ -52,7 +51,7 @@ const NewItem = (props) => {
                 </figure >
                 <ul>
                     <li>
-                        <Link to="author.html" className="author">
+                        <Link to="#" className="author">
                             <div className="author_thumb veryfied"><i className="bi bi-check"></i>
                                 <figure>{!ProfPicLoaded && <div > <ImgLoader /> </div>}
                                     <img src={ProfilePic} data-src="img/avatar2.jpg" alt="" className={`lazy ${ProfPicLoaded ? "" : "visually-hidden"}`} width="100px" onLoad={() => setProfPicLoaded(true)} onError={() => setProfPicLoaded(false)} /></figure>
@@ -62,7 +61,7 @@ const NewItem = (props) => {
                     </li>
                     <li></li>
                     <li>
-                        <Link to="#0" className="wish_bt"></Link><i class="bi bi-stack"></i> {props.count}
+                        <Link to="#0" className="wish_bt"></Link><i className="bi bi-stack"></i> {props.count}
                     </li>
                 </ul>
             </div>
