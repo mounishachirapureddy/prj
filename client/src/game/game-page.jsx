@@ -49,7 +49,7 @@ const Game = () => {
 
   useEffect(() => {
     if (!token) {
-      navigate("/gamer-login", {
+      navigate("/game-login", {
         state: { message: "You are not logged in." },
       });
     } else {

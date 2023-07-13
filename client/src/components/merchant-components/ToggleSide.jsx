@@ -194,9 +194,9 @@ const ToggleSide = (props) => {
             </div>
             {/* should have default another loader */}
             {loading ? <div className="justify-content-center mx-auto m-5 p-5"><div class="loader mx-auto m-5 p-5"></div></div>: <div className="card-body">
-                {merchantVisibility && <div id="merchandise">
+                {merchantVisibility && <div id="merchandise" className="my-5">
                     <div className="text-center">
-                        <button className="btn_1 medium pulse_bt my-3" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Merchandise</button>
+                        <button className="btn_1 medium pulse_bt mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Merchandise</button>
                     </div>
                     {products && products.length > 0 ? (
                         <div className="row my-2">
@@ -210,6 +210,7 @@ const ToggleSide = (props) => {
                                     brand={currentItems.brand}
                                     price={currentItems.price}
                                     category={currentItems.category}
+                                    featured={currentItems.featured}
                                     merchandise={currentItems}
                                     onDeleteMerchandise={() => handleDeleteMerchandise(currentItems._id, currentItems.image)}
                                 />

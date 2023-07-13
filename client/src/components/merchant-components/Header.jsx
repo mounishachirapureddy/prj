@@ -11,17 +11,21 @@ const Header = () => {
 
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageSrc, setImageSrc] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     setImageSrc(
       merchant.image
         ? `${process.env.REACT_APP_MERCHANT_MODULE_URL}/api/profile/img/${merchant.image}`
-        : "assets/img/avatar-user.jpg"
+        : "assets/img/avatar-gamer.jpg"
     );
   }, [merchant.image]);
 
   const handleLogoutClick = () => {
     dispatch(logout());
+  };
+  const toggleDropdown = () => {
+    setIsOpen((prevState) => !prevState);
   };
 
   return (
@@ -50,18 +54,19 @@ const Header = () => {
           <ul className="top_menu drop_user">
             <li>
               <span className="color_mode_bt">
-                <input id="theme_toggle" type="checkbox" name="theme_toggle" />
+                <input id="theme_toggle" type="checkbox" name="theme_toggle"/>
                 <label htmlFor="theme_toggle"></label>
               </span>
             </li>
             <li>
-              <div className="dropdown user clearfix">
+              <div className={`dropdown user clearfix ${isOpen ? "show" : ""}`}>
                 <Link
                   to="#"
                   role="button"
                   data-bs-toggle="dropdown"
                   aria-haspopup="true"
-                  aria-expanded="false"
+                  aria-expanded={isOpen}
+                  onClick={toggleDropdown}
                 >
                   <figure>
                     {/* <!-- Profile picture image--> */}
@@ -84,11 +89,13 @@ const Header = () => {
                     />
                   </figure>
                   <div className="balance">
-                    <h6 className="mb-0">Balance</h6>
+                    <h6 className="mb-0">{merchant.companyName}</h6>
                     <span>{merchant.walletMoney} snapps</span>
                   </div>
                 </Link>
-                <div className="dropdown-menu dropdown-menu-end animate fadeIn">
+                <div className={`dropdown-menu dropdown-menu-end animate ${
+                    isOpen ? "fadeIn show" : ""
+                  }`}>
                   <div className="dropdown-menu-content">
                     <figure>
                       <img
@@ -98,13 +105,13 @@ const Header = () => {
                         height="138"
                       />
                     </figure>
-                    <h4>@{merchant.firstName + merchant.lastName}</h4>
-                    <p className="author_number">
+                    <h4>@{merchant.companyName}</h4>
+                    {/* <p className="author_number">
                       Ox465d53...9df5{" "}
                       <a href="#0">
                         <i className="bi bi-clipboard"></i>
                       </a>
-                    </p>
+                    </p> */}
                     <div className="balance">
                       <h4>Balance</h4>
                       <span>{merchant.walletMoney} snapps</span>
@@ -121,9 +128,9 @@ const Header = () => {
                         </Link>
                       </li>
                       <li onClick={handleLogoutClick}>
-                        <Link to="/merchant-login">
+                        <a href="/">
                           <i className="bi bi-box-arrow-right"></i>Log out
-                        </Link>
+                        </a>
                       </li>
                     </ul>
                   </div>
@@ -162,9 +169,9 @@ const Header = () => {
             </div>
             <ul>
               <li className="submenu">
-                <Link to="/" className="show-submenu">
+                <a href="/" className="show-submenu">
                   Home
-                </Link>
+                </a>
               </li>
               <li className="submenu">
                 <a href="catalog.html" className="show-submenu">

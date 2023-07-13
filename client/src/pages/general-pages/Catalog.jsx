@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Product from "../../components/general-components/Product";
 import axios from "axios";
 import Header from "../../components/general-components/Header";
@@ -7,6 +7,7 @@ import Filter from "../../components/general-components/Filter";
 import PageComp from "../../components/general-components/PageComp";
 import FilterUp from "../../components/general-components/FilterUp";
 import Loader from "../../components/general-components/Loader";
+import Modal from "../../components/general-components/Modal";
 
 const Catalog = (props) => {
   const { state } = useLocation();
@@ -15,6 +16,8 @@ const Catalog = (props) => {
   const [total_count, setCount] = useState(0);
   const [search_count, setSearchCount] = useState(0);
   const [genre, setgenre] = useState([]);
+
+  const navigate = useNavigate();
 
   //pagination
   const [searchTerm, setSearchTerm] = useState(
@@ -78,8 +81,7 @@ const Catalog = (props) => {
     "Electronics",
     "Stationary",
     "Music",
-    "Wellness",
-    "Featured",
+    "Wellness"
   ];
   const handleClick = (e) => {
     e.preventDefault();
@@ -113,8 +115,9 @@ const Catalog = (props) => {
 
   //search functionality
   return (
-    <>
+    <div className="catalog">
       <Header />
+      <br /><br /><br /><br />
       <main>
         <FilterUp>
           <div className="search_bar_list">
@@ -178,18 +181,19 @@ const Catalog = (props) => {
                 );
               })}
               {
-                <div className="collapse" id="filter_3">
+                <div >
                   <div className="range_input">
-                    Price range from {l_price} to <span>{UptoSnapp}</span>{" "}
+                    Price range from {l_price} to <span>{h_price}</span>{" "}
                     snapps
                   </div>
-                  <div className="mb-4">
+                  
+                  <div className="mb-4 d-flex justify-content-center">
                     <input
                       type="range"
                       min={l_price}
-                      max={h_price + 100}
+                      max={h_price}
                       step="1"
-                      value={UptoSnapp}
+                      value={UptoSnapp==0 ? h_price : UptoSnapp}
                       onChange={(e) => {
                         e.target.value == 0
                           ? setUptoSnapp({ h_price })
@@ -197,7 +201,9 @@ const Catalog = (props) => {
                       }}
                       data-orientation="horizontal"
                     />
+                    <div className="ms-3 text-center">{ UptoSnapp==0 ? h_price : UptoSnapp }</div>
                   </div>
+                    
                 </div>
               }
             </Filter>
@@ -216,7 +222,8 @@ const Catalog = (props) => {
                           img={product.image}
                           userid={product.userid}
                           genre={product.category}
-                        />
+                          datatopass={product}
+                        ></Product>
                       ))
                     ) : (
                       <p className="text-center">No products Available</p>
@@ -226,15 +233,15 @@ const Catalog = (props) => {
                     <div className="pagination_fg mb-4">
                       {search_count !== 0
                         ? pages.map((i) => {
-                            return (
-                              <PageComp
-                                key={i}
-                                pagenum={i}
-                                handleClick={handleClick}
-                                isActive={currentPage === i ? true : false}
-                              />
-                            );
-                          })
+                          return (
+                            <PageComp
+                              key={i}
+                              pagenum={i}
+                              handleClick={handleClick}
+                              isActive={currentPage == i ? true : false}
+                            />
+                          );
+                        })
                         : null}
                     </div>
                   </div>
@@ -398,53 +405,10 @@ const Catalog = (props) => {
 
       <div id="toTop"></div>
 
-      <div id="modal-dialog" className="zoom-anim-dialog mfp-hide">
-        <div className="modal_header">
-          <h3>Snapp Now!</h3>
-        </div>
-        <form>
-          <div className="sign-in-wrapper">
-            <p>
-              You are about to purchase <strong>"Amazing Art" #304</strong> from{" "}
-              <strong>George Lucas</strong>
-            </p>
-            <div className="form-group">
-              {" "}
-              <label>Redeem With</label>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="3.5 snapps"
-                disabled
-              />
-            </div>
-
-            <ul>
-              <li>
-                Your balance <span>8.498 snapps</span>
-              </li>
-              <li>
-                Service fee 1.5%<span>0.125 snapps</span>
-              </li>
-            </ul>
-            <div className="text-center">
-              {" "}
-              <input
-                type="submit"
-                className="btn_1 full-width mb-2"
-                formaction="detail-page.html"
-                value="Snapp It!"
-              />
-              <input
-                type="submit"
-                value="Cancel"
-                className="btn_1 full-width outline"
-              />
-            </div>
-          </div>
-        </form>
+      <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+        <Modal />
       </div>
-    </>
+    </div>
   );
 };
 export default Catalog;

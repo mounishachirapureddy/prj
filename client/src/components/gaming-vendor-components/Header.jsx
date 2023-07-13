@@ -33,7 +33,7 @@ const Header = (props) => {
             </span>
           </li>
           <li>
-            <Dropdown name={props.name}/>
+            <Dropdown name={props.name} snappcoins={props.snappcoins}/>
           </li>
         </ul>
         <a href="#0" className="open_close">

@@ -76,10 +76,9 @@ function TransactionHistory(props) {
   };
 
   useEffect(() => {
-    if(props.searchKeyword === ""){
+    if (props.searchKeyword === "") {
       getTransactionHistory();
-    }
-    else{
+    } else {
       searchTransactions(vendorId, props.searchKeyword);
     }
   }, [vendorId, props.searchKeyword]);
@@ -109,19 +108,33 @@ function TransactionHistory(props) {
                 </figure>
               </Link>
             </div>
-            <div className="text-start col-6 w-75">
-              <h6 className="my-1">
+            <div
+              className="text-start col-6 w-75"
+              style={{ marginTop: "20px" }}
+            >
+              <h7 className="my-1">
                 <Link to="#" title="">
                   Transaction id # {transaction.transaction_id}
                 </Link>
-              </h6>
-              <h6 className="my-2">
+                <br />
+              </h7>
+              <h7 className="my-2">
                 <Link to="#">Date of transaction: {transactionDate}</Link>
-              </h6>
-              <h6 className="my-2">
+                <br />
+              </h7>
+              <h7 className="my-2">
                 <Link to="#">Amount: {transaction.snappcoin_count} snaps</Link>
-              </h6>
-              <span className="badge bg-success text-light mx-1">
+                <br />
+              </h7>
+              <span
+                className={`badge ${
+                  transaction.transaction_status === "success"
+                    ? "bg-success"
+                    : transaction.transaction_status === "pending"
+                    ? "bg-warning"
+                    : "bg-danger"
+                } text-light`}
+              >
                 {transaction.transaction_status}
               </span>
             </div>

@@ -6,7 +6,7 @@ import Footer from "../../components/general-components/Footer";
 const Connect = () => {
   return (
     <>
-      <FullpageLoader />
+      {/* <FullpageLoader /> */}
       <Header />
 
       <main>
@@ -50,8 +50,7 @@ const Connect = () => {
                 </figure>
                 <h3>A23 Rummy</h3>
                 <p>
-                  Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-                  accusantium doloremque.
+                  A23 Games is India's Leading Online Gaming Portal completely owned and operated by Head Digital Works Private Limited.
                 </p>
               </a>
             </div>
@@ -67,8 +66,7 @@ const Connect = () => {
                 </figure>
                 <h3>Call Break</h3>
                 <p>
-                  Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-                  accusantium doloremque.
+                  Play against humans to compete with players around the world. Compete with players around the world and target the scores to compare, beat and surpass other ...
                 </p>
               </a>
             </div>
@@ -84,8 +82,7 @@ const Connect = () => {
                 </figure>
                 <h3>Ludo King</h3>
                 <p>
-                  Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-                  accusantium doloremque.
+                  A record breaking casual game in the history of mobile gaming · Voice Chat, 6 Player Ludo, Quick Ludo mode, Tournaments, and many other exciting features!
                 </p>
               </a>
             </div>

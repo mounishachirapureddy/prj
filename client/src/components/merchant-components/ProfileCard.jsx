@@ -9,7 +9,7 @@ const ProfileCard = (props) => {
         setImageSrc(
             props.image
             ? `${process.env.REACT_APP_MERCHANT_MODULE_URL}/api/profile/img/${props.image}`
-            : "default-prod.png"
+            : "assets/img/avatar-gamer.jpg"
         );
         }, [props.image]);
 
@@ -35,10 +35,11 @@ const ProfileCard = (props) => {
                     {!imageLoaded && <div className="loading-spinner"><Loader /></div>}
                     <img
                         src={imageSrc}
-                        className={`lazy ${imageLoaded ? "" : "hidden"}`}
+                        className={`lazy ${imageLoaded ? "" : "hidden"} height="154.375rem"
+                        width="154.375rem"`}
                         alt=""
                         width="100px"
-                        style={{ width : "100px" , height : "100px" , borderRadius : "50%" }}
+                        // style={{ width : "100px" , height : "100px" }}
                         onLoad={() => setImageLoaded(true)}
                         onError={() => setImageLoaded(false)}
                     />
@@ -46,7 +47,7 @@ const ProfileCard = (props) => {
             </div>
         </div>
         <h1>@{props.merchantName}</h1>
-        <p className="author_number">Ox465d53...9df5 <a href="#0"><i className="bi bi-clipboard"></i></a></p>
+        {/* <p className="author_number">Ox465d53...9df5 <a href="#0"><i className="bi bi-clipboard"></i></a></p> */}
         <h2 className="content-h2">
             <span className="badge d-block">
             {props.walletMoney}
@@ -54,6 +55,7 @@ const ProfileCard = (props) => {
         </span>
         </h2>
         <p>Member since {formatDate(props.memberSince)}</p>
+        <a href="/merchant-product-upload" className="btn_1"><i className="bi bi-cart-check-fill"></i> Add New Product</a>
         {/* <!-- <p>
             <a href="#0" className="btn_1 full-width mb-2">Follow</a>
             <a href="#0" className="btn_1 full-width outline">Send a message</a>

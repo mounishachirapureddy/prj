@@ -115,7 +115,7 @@ const EditProd = (props)  =>{
                         </div>
                         <div className="form-group mb-3">
                             <label htmlFor="category" className="form-label fs-6 text-white" id="basic-addon1">Category</label>
-                            <Select
+                            {/* <Select
                                 isMulti
                                 name="category"
                                 className="text-dark"
@@ -130,7 +130,7 @@ const EditProd = (props)  =>{
                                 onChange={handleCategoryChange}
                                 closeMenuOnSelect={false}
                                 defaultValue={product.category ? product.category.map(value => ({ value, label: value })) : []}
-                            />
+                            /> */}
                         </div>
                         <div className="input-group mb-3">
                             <span className="input-group-text" id="baic-saddon1">Price $</span>

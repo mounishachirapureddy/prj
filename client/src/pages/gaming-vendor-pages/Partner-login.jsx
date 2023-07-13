@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Header from "../../components/general-components/Header.jsx";
 import Footer from "../../components/general-components/Footer.jsx";
 import LoginForm from "../../components/gaming-vendor-components/LoginForm.jsx";
-import FullpageLoader from "../../components/general-components/FullpageLoader.jsx";
+// import FullpageLoader from "../../components/general-components/FullpageLoader.jsx";
 
 const Login = () => {
   return (
@@ -14,7 +14,7 @@ const Login = () => {
       <meta name="author" content="Snappcoins" />
       <title>Snappcoins - Ready , Steady, Snapp!</title>
 
-      <FullpageLoader />
+      {/* <FullpageLoader /> */}
       <Header />
 
       <main>

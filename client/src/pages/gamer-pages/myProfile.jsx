@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../../components/gamer-components/Navbar";
-import Footer from "../../components/gamer-components/Footer";
+import Footer from "../../components/general-components/Footer";
 
 import MyProfile from "../../components/gamer-components/MyProfile";
 import { gamerProfile } from "../../redux/actions/gamerAction";

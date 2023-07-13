@@ -3,7 +3,7 @@ import UserProfile from "../../components/gaming-vendor-components/UserProfile.j
 import Hero from "../../components/gaming-vendor-components/Hero.jsx";
 import Header from "../../components/gaming-vendor-components/Header.jsx";
 import Footer from "../../components/general-components/Footer.jsx";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import TransactionHistory from "../../components/gaming-vendor-components/TransactionHistory.jsx";
 import FullpageLoader from "../../components/general-components/FullpageLoader.jsx";
 
@@ -194,8 +194,8 @@ const Dashboard = () => {
       <meta name="author" content="Snappcoins" />
       <title>Snappcoins - Ready , Steady, Snapp!</title>
 
-      <FullpageLoader />
-      <Header name={vendor_name} />
+      {/* <FullpageLoader /> */}
+      <Header name={vendor_name} snappcoins={vendor_snappcoins} />
 
       <main>
         <Hero />
@@ -230,6 +230,17 @@ const Dashboard = () => {
                       role="tab"
                     >
                       Purchase History
+                    </a>
+                  </li>
+                  <li className="nav-item">
+                    <a
+                      id="tab-C"
+                      href="#pane-C"
+                      className="nav-link"
+                      data-bs-toggle="tab"
+                      role="tab"
+                    >
+                      My Games
                     </a>
                   </li>
                 </ul>
@@ -288,8 +299,8 @@ const Dashboard = () => {
                           <div className="col-md-12">
                             <div className="form-group switch_wrapper">
                               <label>Set Reminders</label>
-                              <p className="mb-0">
-                              Notify me when my Snappcoins are depleted
+                              <p className="mb-0" style={{ color: "white" }}>
+                                Notify me when my Snappcoins are depleted
                               </p>
                               <div className="form-check form-switch">
                                 <input
@@ -362,11 +373,132 @@ const Dashboard = () => {
                               </div>
                             </div>
                           </div>
-                          <div className="widget transaction-container">
-                            <TransactionHistory searchKeyword={keyword}/>
+                          <div className="widget transaction-container" style={{ height: '33rem', overflowY: 'scroll' }}>
+                            <TransactionHistory searchKeyword={keyword} />
                           </div>
                         </aside>
                       </div>
+                    </div>
+                  </div>
+                  <div
+                    id="pane-C"
+                    className="card tab-pane fade"
+                    role="tabpanel"
+                  >
+                    <div className="card-header" role="tab" id="heading-C">
+                      <h5>
+                        <a
+                          className="collapsed"
+                          data-bs-toggle="collapse"
+                          href="#collapse-C"
+                        >
+                          Game Registration
+                        </a>
+                      </h5>
+                    </div>
+                    <div
+                      className="d-flex align-items-center justify-content-center"
+                      style={{ height: "10vh" }}
+                    >
+                      <div>
+                        <button className="btn_1 pulse_bt">
+                          + Register a new Game
+                        </button>
+                      </div>
+                    </div>
+                    <div id="collapse-C" className="collapse" role="tabpanel">
+                      <div className="row mt-lg-1 mt-3">
+                        <div className="main_title version_2">
+                          <span>
+                            <em />
+                          </span>
+                          <h2>Registered Games</h2>
+                        </div>
+                      </div>
+                      <ul className="list-group">
+                        <li
+                          className="list-group-item d-flex align-items-center"
+                          style={{ backgroundColor: "transparent" }}
+                        >
+                          <img
+                            src="assets/img/tic-tac-toe.jpeg"
+                            alt="Game 1"
+                            className="me-3"
+                            style={{ height: "100px", width: "100px" }}
+                          />
+                          <div className="text-start col-6 w-75">
+                            <h6 className="my-1">
+                              <Link to="#" title="">
+                                Game Name: Tic-Tac-Toe
+                              </Link>
+                              <br />
+                            </h6>
+                            <h6 className="my-1">
+                              <Link to="#" title="">
+                                Game id # G-GV001-03
+                              </Link>
+                              <br />
+                            </h6>
+                            <h6 className="my-1">
+                              <Link to="#">Date of registration: 09.05.23</Link>
+                            </h6>
+                          </div>
+                        </li>
+                        <li
+                          className="list-group-item d-flex align-items-center"
+                          style={{ backgroundColor: "transparent" }}
+                        >
+                          <img
+                            src="assets/img/avatar2.jpg"
+                            alt="Callbreak"
+                            className="me-3"
+                          />
+                          <div className="text-start col-6 w-75">
+                            <h6 className="my-1">
+                              <Link to="#" title="">
+                                Game Name: Callbreak
+                              </Link>
+                              <br />
+                            </h6>
+                            <h6 className="my-1">
+                              <Link to="#" title="">
+                                Game id # G-GV001-02
+                              </Link>
+                              <br />
+                            </h6>
+                            <h6 className="my-1">
+                              <Link to="#">Date of registration: 16.03.23</Link>
+                            </h6>
+                          </div>
+                        </li>
+                        <li
+                          className="list-group-item d-flex align-items-center"
+                          style={{ backgroundColor: "transparent" }}
+                        >
+                          <img
+                            src="assets/img/avatar3.jpg"
+                            alt="Ludo King"
+                            className="me-3"
+                          />
+                          <div className="text-start col-6 w-75">
+                            <h6 className="my-1">
+                              <Link to="#" title="">
+                                Game Name: Ludo King
+                              </Link>
+                              <br />
+                            </h6>
+                            <h6 className="my-1">
+                              <Link to="#" title="">
+                                Game id # G-GV001-01
+                              </Link>
+                              <br />
+                            </h6>
+                            <h6 className="my-1">
+                              <Link to="#">Date of registration: 21.09.22</Link>
+                            </h6>
+                          </div>
+                        </li>
+                      </ul>
                     </div>
                   </div>
                 </div>

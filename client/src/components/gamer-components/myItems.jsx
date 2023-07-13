@@ -30,6 +30,7 @@ function MyItems(props) {
   };
 
   return (
+   
     <div
       classNameName="col-lg-4 col-md-6"
       data-cue="slideInUp"
@@ -41,42 +42,35 @@ function MyItems(props) {
         animationDelay: "0ms",
         animationDirection: "normal",
         animationFillMode: "both",
-      }}
-    >
-      <a href="#" className="history">
-        <div
-          className="history_thumb veryfied col-lg-6 col-md-8"
-          style={{ margin: "1rem" }}
-        >
-          <figure>
-            <img
-              src={imageSrc}
-              alt=""
-              data-src="img/items/item-4.jpg"
-              className={`lazy ${imageLoaded ? "" : "hidden"}`}
-              height="90px"
-              width="100%"
-              onLoad={() => setImageLoaded(true)}
-              onError={() => setImageLoaded(false)}
-            />
-          </figure>
+      }}>
+    <a href="#" class="history">
+       
+        <div class="history_thumb veryfied">
+           
+            <figure>
+                <img
+                  src={imageSrc}
+                  alt=""
+                  data-src="img/items/item-4.jpg"
+                  className={`lazy ${imageLoaded ? "" : "hidden"}`}
+                  height="90px"
+                  width="100%"
+                  onLoad={() => setImageLoaded(true)}
+                  onError={() => setImageLoaded(false)}
+                />
+            </figure>
         </div>
         <div>
-          <h6>Ludo King</h6>
-          <span className="badge bg-primary">2300 snapps</span>
-          <br />
-          <small>
-            <strong>Transaction ID:</strong>
-            {props.tId}{" "}
-          </small>
-          <div className="clearfix"></div>
-          <small>
-            <strong>Date:</strong>
-            {formatDate(props.tdate)}
-          </small>
+            <h6>Ludo King</h6>
+            <span class="badge" style={{"background-color": "#FF1493"}}>2300 snapps</span>
+            <div class="clearfix"></div>
+
+            <small><strong>Transaction ID :</strong> {props.tId}</small>
+            <div class="clearfix"></div>
+            <small><strong>Date : </strong>{formatDate(props.tdate)}</small>
         </div>
-      </a>
-    </div>
+    </a>
+</div>
   );
 }
 

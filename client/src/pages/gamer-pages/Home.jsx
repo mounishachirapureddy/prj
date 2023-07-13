@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import Footer from "../../components/gamer-components/Footer";
+import Footer from "../../components/general-components/Footer";
 import Header from "../../components/gamer-components/Navbar";
 import Card from "../../components/gamer-components/Card";
 import TransactionHistory from "../../components/gamer-components/TransactionHistory";
@@ -216,7 +216,7 @@ export default function Home() {
   const [totaltransactions, setTotaltransactions] = useState();
   const itemsPerPage1 = 3; // change the value here sasi
 
-  const [isSearchPerformed, setIsSearchPerformed] = useState(false);
+  //const [isSearchPerformed, setIsSearchPerformed] = useState(false);
   const [searchKeyword, setSearchKeyword] = useState("");
 
   console.log(searchKeyword);
@@ -350,7 +350,7 @@ export default function Home() {
 
   return (
     <>
-      {loading && <FullpageLoader />}
+      
       <Header />
 
       <div className="banner">
@@ -374,6 +374,7 @@ export default function Home() {
             {user && (
               <Card
                 gamerName={user.userName}
+                id={user._id}
                 walletMoney={user.walletMoney}
                 memberSince={user.joiningTime}
                 pending={pendingOrders}

@@ -46,12 +46,12 @@ const Card = (props) => {
         </div>
       </div>
       <h1>@{props.gamerName}</h1>
-      <p className="author_number">
-        Ox465d53...9df5{" "}
+       {/* <p className="author_number">
+        {props.id}{" "}
         <a href="#0">
           <i className="bi bi-clipboard"></i>
         </a>
-      </p>
+      </p> */}
       <h3 className="content-h2">
         <span className="badge d-block">
           {props.walletMoney}

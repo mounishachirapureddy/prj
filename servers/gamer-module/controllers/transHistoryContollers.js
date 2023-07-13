@@ -49,10 +49,9 @@ exports.additem = async (req, res) => {
       console.log("trimmedSearchTerm: ", trimmedSearchTerm);
       query.orderStatus = { $regex: trimmedSearchTerm, $options: 'i' };
     }
-
-    const transactions = await transaction.find(query)
-      .skip(skip)
-      .limit(limit);
+    
+    const transactions = await transaction.find(query);
+    revTrans = transactions.reverse();
 
     let count;
 
@@ -66,7 +65,7 @@ exports.additem = async (req, res) => {
 
     let pendingOrders = 0;
 
-    const orders = await transaction.find({user_id})
+    const orders = await transaction.find({ user_id });
 
     orders.forEach((transaction) => {
       if (transaction.orderStatus === 'In transit') {
@@ -74,8 +73,11 @@ exports.additem = async (req, res) => {
       }
     });
 
+    // Slice the revTrans array based on skip and limit
+    const slicedTransactions = revTrans.slice(skip, skip + limit);
+
     res.status(200).send({
-      transactions,
+      transactions: slicedTransactions,
       status: true,
       msg: "Products displayed successfully",
       total_counts: count,
@@ -85,6 +87,10 @@ exports.additem = async (req, res) => {
     res.status(500).json({ error: `Internal server error ${error}` });
   }
 };
+
+
+
+
 
 
 
