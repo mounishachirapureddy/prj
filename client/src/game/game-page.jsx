@@ -121,8 +121,8 @@ const Game = () => {
           announcer.innerHTML = 'Player <span class="playerX">X</span> Won';
           addBtn.style.display = "";
           gameMessage.textContent =
-            "Yay! You won 100 Snappcoins. Add them to your wallet now!";
-          tokensToAllocate = 100;
+            "Yay! You won 10000 Snappcoins. Add them to your wallet now!";
+          tokensToAllocate = 10000;
           break;
         case TIE:
           announcer.innerText = "Tie";

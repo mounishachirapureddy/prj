@@ -15,6 +15,7 @@ const ToggleSide = (props) => {
 
     const [products, setProducts] = useState([]);
     const [total_count, setCount] = useState(0)
+    const [total_transaction_count, setTransactionCount] = useState(0)
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 3; // change the value here sasi
     const [transactions, setTransactions] = useState([]);
@@ -52,6 +53,7 @@ const ToggleSide = (props) => {
         fetchData(transactionConfig, { showSuccessToast: false })
         .then((transactionData) => {
             setTransactions(transactionData.transactions);
+            setTransactionCount(transactionData.count)
         })
         .catch((err) => {
             console.log(err);
@@ -114,14 +116,21 @@ const ToggleSide = (props) => {
 
     //pagination logic
     const pagelength = Math.ceil(total_count / itemsPerPage)
+    const transactionPageLength = Math.ceil(total_transaction_count / itemsPerPage)
     const start = 1;
     const end = pagelength;
+    const transactionsend = transactionPageLength
     const pages = ["<<", "<"]; // represents  the starting page
+    const transaction_pages = ["<<", "<"];
 
     console.log("total count : ", total_count)
 
     for (var i = start; i <= end; i++) {
         pages.push(i);
+    }
+
+    for (var j = start; j <= transactionsend; j++) {
+        transaction_pages.push(j);
     }
 
     const handleClick = (e) => {
@@ -148,14 +157,52 @@ const ToggleSide = (props) => {
         }
         else if (temppage === "&gt;&gt;") {
             setCurrentPage(pages[pages.length - 3])
+            setCurrentPage(transaction_pages[transaction_pages.length - 3])
         }
         else {
             setCurrentPage(temppage)
         }
         setProducts([])
+        setTransactions([])
+    }
+    
+    const handleTransactionClick = (e) => {
+        e.preventDefault();
+        var temppage = e.target.innerHTML
+        if (temppage === "&lt;") {
+            setCurrentPage((prev) => {
+                if (prev > 1) {
+                    return prev - 1
+                }
+                return prev
+            })
+        }
+        else if (temppage === "&lt;&lt;") {
+            setCurrentPage(1)
+        }
+        else if (temppage === "&gt;") {
+            setCurrentPage((prev) => {
+                if (prev < pagelength) {
+                    return prev + 1
+                }
+                return prev
+            })
+        }
+        else if (temppage === "&gt;&gt;") {
+            // setCurrentPage(pages[pages.length - 3])
+            setCurrentPage(transaction_pages[transaction_pages.length - 3])
+        }
+        else {
+            setCurrentPage(temppage)
+        }
+        // setProducts([])
+        setTransactions([])
     }
     pages.push(">") // represents the ending page
     pages.push(">>")
+
+    transaction_pages.push(">") // represents the ending page
+    transaction_pages.push(">>")
 
     const handleSearch= () =>{
         const transactionConfig = {
@@ -169,7 +216,7 @@ const ToggleSide = (props) => {
         .then((transactionData) => {
             setTransactions(transactionData.transactions);
             console.log(transactionData.count)
-            setCount(transactionData.count);
+            setTransactionCount(transactionData.count);
         })
         .catch((err) => {
             console.log(err);
@@ -275,8 +322,8 @@ const ToggleSide = (props) => {
                         )}
                             <form action="">
                                 <div className="pagination_fg mb-4">
-                                    {pages.map((i) => {
-                                        return <PageComp key={i} pagenum={i} handleClick={handleClick} isActive={currentPage === i ? true : false} />
+                                    {transaction_pages.map((i) => {
+                                        return <PageComp key={i} pagenum={i} handleClick={handleTransactionClick} isActive={currentPage === i ? true : false} />
                                     })}
                                 </div>
                             </form>

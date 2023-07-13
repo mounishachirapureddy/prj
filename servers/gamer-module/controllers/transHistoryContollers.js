@@ -61,7 +61,7 @@ exports.additem = async (req, res) => {
       count = await transaction.countDocuments({ user_id });
     }
 
-    console.log(count);
+    //console.log(count);
 
 
     let pendingOrders = 0;

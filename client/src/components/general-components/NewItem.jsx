@@ -4,6 +4,7 @@ import Loader from "./Loader";
 import axios from "axios"
 import ImgLoader from "./ImgLoader";
 import SnappnowLink from "./SnappnowLink";
+import { Fade } from "react-awesome-reveal"
 
 const NewItem = (props) => {
     const [imageLoaded, setImageLoaded] = useState(false);
@@ -36,7 +37,7 @@ const NewItem = (props) => {
     }, [props.img, props.profpic, ProfilePic]);
 
     return (
-        <div className="col-xl-3 col-lg-3 col-md-3 col-sm-3">
+        <Fade cascade className="col-xl-3 col-lg-3 col-md-3 col-sm-3">
             <div className="strip">
                 <figure >
                     {!imageLoaded && <div > <Loader /> </div>}<SnappnowLink imageLoaded={imageLoaded} url="/detail-page" datatopass={props.datatopass} />
@@ -50,7 +51,7 @@ const NewItem = (props) => {
                 </figure >
                 <ul>
                     <li>
-                        <Link to="author.html" className="author">
+                        <Link to="#" className="author">
                             <div className="author_thumb veryfied"><i className="bi bi-check"></i>
                                 <figure>{!ProfPicLoaded && <div > <ImgLoader /> </div>}
                                     <img src={ProfilePic} data-src="img/avatar2.jpg" alt="" className={`lazy ${ProfPicLoaded ? "" : "visually-hidden"}`} width="100px" onLoad={() => setProfPicLoaded(true)} onError={() => setProfPicLoaded(false)} /></figure>
@@ -64,7 +65,7 @@ const NewItem = (props) => {
                     </li>
                 </ul>
             </div>
-        </div>)
+        </Fade>)
 }
 
 

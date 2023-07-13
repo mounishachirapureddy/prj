@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect} from "react";
 
 function MyItems(props) {
-  console.log("myitems props are:", props);
+  //console.log("myitems props are:", props);
 
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageSrc, setImageSrc] = useState("");
@@ -11,7 +11,7 @@ function MyItems(props) {
     setImageSrc(
       props.img
         ? `${process.env.REACT_APP_GAMER_MODULE_URL}/api/merchant/img/${props.img}`
-        : `assets/img/avatar${props.index+1}.jpg`
+        : `assets/img/tic-tac-toe.jpeg`
     );
     setImageLoaded(false);
   }, [props.img]);
@@ -33,7 +33,7 @@ function MyItems(props) {
    
     <div
       classNameName="col-lg-4 col-md-6"
-      data-cue="slideInUp"
+      
       data-show={true}
       style={{
         animationName: "slideInUp",
@@ -42,7 +42,8 @@ function MyItems(props) {
         animationDelay: "0ms",
         animationDirection: "normal",
         animationFillMode: "both",
-      }}>
+      }}
+      >
     <a href="#" class="history">
        
         <div class="history_thumb veryfied">

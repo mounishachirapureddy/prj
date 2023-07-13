@@ -38,6 +38,7 @@ exports.getMerchandises = async(req,res) =>{
         //     return data
         // })
         const count = await Merchandise.countDocuments(query);
+        console.log(count)
         res.status(200).json({merchandises,status:true,msg:`Merchandises of ${id}` , count : count})
     }catch(err){
         console.error(err);

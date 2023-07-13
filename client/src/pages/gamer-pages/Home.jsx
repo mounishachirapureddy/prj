@@ -10,6 +10,7 @@ import TransactionHistory from "../../components/gamer-components/TransactionHis
 import Recommended from "../../components/gamer-components/Recommended";
 import PageComp from "../../components/gamer-components/PageComp";
 import MyItems from "../../components/gamer-components/myItems";
+
 import useFetch from "../../hooks/useFetch-gamer";
 
 
@@ -21,6 +22,7 @@ export default function Home() {
   const [pendingOrders,setPendingOrders]=useState(0);
   const [Redeemed,setRedeemed]=useState(0);
 
+  console.log("SH: ",snaphistory)
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
   const [fetchData, { loading }] = useFetch();
@@ -137,16 +139,22 @@ export default function Home() {
   const [currentPage2, setCurrentPage2] = useState(1);
   const [totalHistory, setTotalHistory] = useState();
   const itemsPerPage2 = 6;
-  const games = ['Junglee Rummy', 'Tic Tac Toe', 'Ludo King', 'Cricket League', 'Call Break', 'Free Fire', 'Basketball League', 'Carroms', 'Chess'];
-  const moneys = ['10000','1000','3000','13000','1000','2000','3000','5000','2000']
+ 
+  //console.log("user id: ",user?._id);
+
   const fetchhistory = useCallback(() => {
+    const userId = user?._id;
+    if (!userId) {
+      return; // Return early if user ID is not available
+    }
+    
     const config = {
-      url: `/transaction/displayItems?user_id=${user?._id}`,
+      url: `http://localhost:3004/api/snapps/snappscollected?uid=${userId}`,
       method: "get",
       headers: { Authorization: token },
-      params: { pagenum: currentPage2, size: itemsPerPage2 }, // Use currentPage1 here instead of currentPage
+      params: { pagenum: currentPage2, size: itemsPerPage2 },
     };
-
+  
     return fetchData(config, { showSuccessToast: false })
       .then((data) => {
         setTotalHistory(data.total_counts);
@@ -155,14 +163,15 @@ export default function Home() {
       .catch((err) => {
         console.log(err);
       });
-  }, [fetchData, token, user, currentPage2, itemsPerPage2]);
+  }, [fetchData, token, user,currentPage2, itemsPerPage2]);
+  
 
   useEffect(() => {
     const fetchTransDatas = async () => {
       try {
         const response = await fetchhistory();
         if (response) {
-          setSnaphistory(response.transactions);
+          setSnaphistory(response.games);
         }
       } catch (error) {
         console.log(error);
@@ -213,6 +222,8 @@ export default function Home() {
       setCurrentPage2(parseInt(temppage));
     }
   };
+
+  //snapps redeemed 
 
   const [currentPage1, setCurrentPage1] = useState(1);
   const [totaltransactions, setTotaltransactions] = useState();
@@ -454,6 +465,7 @@ export default function Home() {
                               desc={product.description}
                               brand={product.brand}
                               price={product.price}
+                              userid={product.userid}
                               index={index}
                             />
                           </div>
@@ -511,28 +523,20 @@ export default function Home() {
                           </div>
                         </div>
                         <div class="widget">
-                        // Assuming you have an array of games like this:
-                            
-
-                            // Inside the JSX code:
                             {transactions.length > 0 ? (
                               <div className="row history_list">
                                 {snaphistory.map((transaction, index) => {
-                                  // Get the corresponding game for the current index
-                                  const game = games[index % games.length];
-                                  const money = moneys[index % moneys.length];
+                                  
                                   return (
                                     <div
                                       className="col-xl-4 col-lg-6 col-md-6 col-sm-12"
                                       key={index}
                                     >
-                                      <MyItems
-                                        tdate={transaction.transactionDate}
-                                        tId={transaction.transactionId}
-                                        status={transaction.orderStatus}
-                                        game={game} // Pass the game as a prop
-                                        money={money}
-                                        index={index}
+                                      <MyItems money = {transaction.moneyWon}  
+                                               game = {transaction.name}  
+                                               tId = {transaction.tid}   
+                                               tdate = {transaction.date} 
+                                                                            
                                       />
                                     </div>
                                   );
@@ -540,25 +544,25 @@ export default function Home() {
                               </div>
                             ) : (
                               <center>
-                                <h3>No Snaps Collected</h3>
+                                <h3>No Snapps Collected</h3>
                               </center>
                             )}
 
                         </div>
 
                         <div className="text-center">
-                          <div className="pagination_fg mb-4">
-                            {pages2.map((i) => {
-                              return (
-                                <PageComp
-                                  key={i}
-                                  pagenum={i}
-                                  handleClick={handleClick2}
-                                  isActive={currentPage === i ? true : false}
-                                />
-                              );
-                            })}
-                          </div>
+                        <div className="pagination_fg mb-4">
+                        {pages2.map((i) => {
+                          return (
+                            <PageComp
+                              key={i}
+                              pagenum={i}
+                              handleClick={handleClick2}
+                              isActive={currentPage === i ? true : false}
+                            />
+                          );
+                        })}
+                      </div>
                         </div>
                       </aside>
                     </div>
@@ -612,7 +616,7 @@ export default function Home() {
                             </div>
                           ) : (
                             <center>
-                              <h3>No Snaps Redeemed</h3>
+                              <h3>No Snapps Redeemed</h3>
                             </center>
                           )}
                         </div>

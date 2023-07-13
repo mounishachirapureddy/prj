@@ -54,7 +54,7 @@ function ProductCard(props) {
                         <p className="card-text">Brand : {props.brand}</p>
                         <p className="card-text">Category : {(props.category).map((category,index)=>` ${category} `)}</p>
                         <p className="card-text">In stock : {props.count}</p>
-                        <p className="card-text">Price : {props.price}</p>
+                        <p className="card-text">Price : {props.price} Snapps</p>
                         <div className="d-flex justify-content-around m-2">
                             <button className="btn btn-primary btn-sm mx-1 w-25" data-bs-toggle="modal" data-bs-target="#editPro" onClick={handleUpdate} ><i className="fa-solid fa-pen-to-square"></i></button>
                             <button className="btn btn-danger btn-sm mx-1 w-25" onClick={props.onDeleteMerchandise}><i className="fa-solid fa-trash-can"></i></button>
