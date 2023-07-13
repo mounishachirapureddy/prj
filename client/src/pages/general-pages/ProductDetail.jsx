@@ -16,13 +16,13 @@ const ProductDetail = (props) => {
     useEffect(() => {
         const fetch = async () => {
             try {
-                const response = await axios.get(`http://127.0.0.1:3001/api/getprofile${state.datatopass.userid}`)
+                const response = await axios.get(`http://127.0.0.1:3002/api/getprofile${state.datatopass.userid}`)
                 const imgsrc = response.data.user.image
                 console.log("image src for prod", imgsrc)
                 console.log(state)
                 setProfilePic(
                     (imgsrc)
-                        ? `http://127.0.0.1:3001/api/img${imgsrc}`
+                        ? `http://127.0.0.1:3002/api/img${imgsrc}`
                         : "assets/img/items/default-prof.png"
                 );
             }
@@ -33,7 +33,7 @@ const ProductDetail = (props) => {
         fetch();
         setImageSrc(
             state.datatopass.image
-                ? `http://127.0.0.1:3001/api/merchandise/img${state.datatopass.image}`
+                ? `http://127.0.0.1:3002/api/merchandise/img${state.datatopass.image}`
                 : "assets/img/items/default-prod.png"
         );
         console.log("the src for prod img : ", state.datatopass.image)
