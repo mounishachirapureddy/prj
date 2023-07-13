@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import Footer from "../../components/gamer-components/Footer";
+import Footer from "../../components/general-components/Footer";
 import Header from "../../components/gamer-components/Navbar";
 import Card from "../../components/gamer-components/Card";
 import TransactionHistory from "../../components/gamer-components/TransactionHistory";
@@ -136,7 +136,8 @@ export default function Home() {
   const [currentPage2, setCurrentPage2] = useState(1);
   const [totalHistory, setTotalHistory] = useState();
   const itemsPerPage2 = 6;
-
+  const games = ['Tic Tac Toe', 'Junglee Rummy', 'Klondike', 'Call Break', 'Cricket League', 'Free Fire', 'Basketball League', 'Carroms', 'Chess'];
+  const moneys = ['10000','1000','3000','13000','1000','2000','3000','5000','2000']
   const fetchhistory = useCallback(() => {
     const config = {
       url: `/transaction/displayItems?user_id=${user?._id}`,
@@ -359,7 +360,13 @@ export default function Home() {
           src="assets/img/hero_general.jpg"
           alt=""
           className="card-img-top w-100"
-          style={{ height: "60rem",marginTop:"0px",marginBottom:'0px',paddingTop:'0px',paddingBottom:'0px' }}
+          style={{
+            height: "60rem",
+            marginTop: "0px",
+            marginBottom: "0px",
+            paddingTop: "0px",
+            paddingBottom: "0px",
+          }}
         />
       </div>
 
@@ -485,7 +492,7 @@ export default function Home() {
                     <div class="row mt-lg-5 mt-3">
                       <aside class="col-lg-12">
                         <div class="widget search_blog">
-                        <div class="form-group d-flex">
+                          <div class="form-group d-flex">
                             <input
                               class="form-control me-2 w-100 bg-white text-dark"
                               type="search"
@@ -503,26 +510,40 @@ export default function Home() {
                           </div>
                         </div>
                         <div class="widget">
-                          {transactions.length > 0 ? (
-                            <div className="row history_list">
-                            {snaphistory.map((transaction, index) => (
-                              <div
-                                className="col-xl-4 col-lg-6 col-md-6 col-sm-12"
-                                key={index}
-                              >
-                                <MyItems
-                                  tdate={transaction.transactionDate}
-                                  tId={transaction.transactionId}
-                                  status={transaction.orderStatus}
-                                />
+                        // Assuming you have an array of games like this:
+                            
+
+                            // Inside the JSX code:
+                            {transactions.length > 0 ? (
+                              <div className="row history_list">
+                                {snaphistory.map((transaction, index) => {
+                                  // Get the corresponding game for the current index
+                                  const game = games[index % games.length];
+                                  const money = moneys[index % moneys.length];
+                                  return (
+                                    <div
+                                      className="col-xl-4 col-lg-6 col-md-6 col-sm-12"
+                                      key={index}
+                                    >
+                                      <MyItems
+                                        tdate={transaction.transactionDate}
+                                        tId={transaction.transactionId}
+                                        status={transaction.orderStatus}
+                                        game={game} // Pass the game as a prop
+                                        money={money}
+                                      />
+                                    </div>
+                                  );
+                                })}
                               </div>
-                            ))}
-                          </div>
-                          ) : (
-                            <center><h3>No Snaps Collected</h3></center> 
-                          )}
+                            ) : (
+                              <center>
+                                <h3>No Snaps Collected</h3>
+                              </center>
+                            )}
+
                         </div>
-                       
+
                         <div className="text-center">
                           <div className="pagination_fg mb-4">
                             {pages2.map((i) => {
@@ -588,7 +609,9 @@ export default function Home() {
                               ))}
                             </div>
                           ) : (
-                            <center><h3>No Snaps Redeemed</h3></center> 
+                            <center>
+                              <h3>No Snaps Redeemed</h3>
+                            </center>
                           )}
                         </div>
                         <div class="text-center">

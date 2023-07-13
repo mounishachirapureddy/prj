@@ -42,7 +42,7 @@ const MerchandiseForm = (props) => {
     
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const token = localStorage.getItem('token')
+        const token = localStorage.getItem('merchant-token')
         const formDataToSend = new FormData();
 
         formDataToSend.append("title", formData.title);
@@ -71,11 +71,11 @@ const MerchandiseForm = (props) => {
     }
 
     return (
-        <div className="modal" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div className="modal-dialog  modal-dialog-centered">
+        <div className="modal" id="product-upload" tabIndex="-1" aria-labelledby="productLabel" aria-hidden="true">
+            <div className="modal-dialog modal-dialog-centered">
                 <div className="modal-content bg-dark">
                     <div className="modal-header">
-                        <h3 className="modal-title fs-5" id="exampleModalLabel">Add your Merchandise Now!</h3>
+                        <h3 className="modal-title fs-5" id="productLabel">Add your Merchandise Now!</h3>
                     </div>
                     <div className="modal-body">
                         <form encType="multipart/form-data">

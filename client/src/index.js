@@ -14,7 +14,7 @@ const persistor = persistStore(store);
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <>
-    <ToastContainer bodyStyle={{ fontFamily: "Roboto" }} />
+    <ToastContainer autoClose={2000} style={{ zIndex: 999999 }} bodyStyle={{ fontFamily: "Roboto" }} />
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <BrowserRouter>

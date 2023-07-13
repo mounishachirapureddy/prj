@@ -12,22 +12,22 @@ function Filter({ children }) {
             <div class="filter_col">
                 <div class="inner_bt"><a href="#" class="open_filters"><i class="bi bi-x"></i></a></div>
                 <div class="filter_type">
-                    <h4><a href="" data-bs-toggle="collapse" class={ClickedCat ? "opened" : "collapsed closed"} onClick={(e) => {
+                    <h4><a href="" data-bs-toggle="collapse" class={ClickedCat ?  "collapsed closed" : "opened"} onClick={(e) => {
                         e.preventDefault();
                         setClickedCat((prev) => !prev)
-                    }} aria-expanded={ClickedCat ? "true" : "false"} >Categories</a></h4>
-                    <div className={`collapse ${ClickedCat ? "show" : ""}` } id="">
+                    }} aria-expanded={ClickedCat ? "false" : "true"} >Categories</a></h4>
+                    <div className={`collapse ${ClickedCat ? "" : "show"}` } id="">
                         <ul>
                             {children[0]}
                         </ul>
                     </div>
                 </div>
                 <div class="filter_type">
-                    <h4><a href="" data-bs-toggle="collapse" class={ClickedRange ? "opened" : "collaped closed"} onClick={(e) => {
+                    <h4><a href="" data-bs-toggle="collapse" class={ClickedRange ? "collaped closed" : "opened"} onClick={(e) => {
                         e.preventDefault();
                         setClickedRange((prev) => !prev)
-                    }} aria-expanded={ClickedRange ? "true" : "false"} >Snapps</a></h4>
-                    <div class={`collapse ${ClickedRange ? "show" : ""}`}>
+                    }} aria-expanded={ClickedRange ? "false" : "true"} >Snapps</a></h4>
+                    <div class={`collapse ${ClickedRange ? "" : "show"}`}>
                         {children[1]}
                     </div>
                 </div>

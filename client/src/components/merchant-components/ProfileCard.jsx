@@ -9,7 +9,7 @@ const ProfileCard = (props) => {
         setImageSrc(
             props.image
             ? `${process.env.REACT_APP_MERCHANT_MODULE_URL}/api/profile/img/${props.image}`
-            : "default-prod.png"
+            : "assets/img/avatar-gamer.jpg"
         );
         }, [props.image]);
 
@@ -35,10 +35,11 @@ const ProfileCard = (props) => {
                     {!imageLoaded && <div className="loading-spinner"><Loader /></div>}
                     <img
                         src={imageSrc}
-                        className={`lazy ${imageLoaded ? "" : "hidden"}`}
+                        className={`lazy ${imageLoaded ? "" : "hidden"} height="154.375rem"
+                        width="154.375rem"`}
                         alt=""
                         width="100px"
-                        style={{ width : "100px" , height : "100px" , borderRadius : "50%" }}
+                        // style={{ width : "100px" , height : "100px" }}
                         onLoad={() => setImageLoaded(true)}
                         onError={() => setImageLoaded(false)}
                     />
@@ -46,7 +47,7 @@ const ProfileCard = (props) => {
             </div>
         </div>
         <h1>@{props.merchantName}</h1>
-        <p className="author_number">Ox465d53...9df5 <a href="#0"><i className="bi bi-clipboard"></i></a></p>
+        {/* <p className="author_number">Ox465d53...9df5 <a href="#0"><i className="bi bi-clipboard"></i></a></p> */}
         <h2 className="content-h2">
             <span className="badge d-block">
             {props.walletMoney}
@@ -61,12 +62,12 @@ const ProfileCard = (props) => {
         </p>--> */}
         <hr/>
         
-        <ul>
-            <li>Redeemed <span className="badge bg-success">{props.redeemed}</span></li>
+        {/* <ul> */}
+            {/* <li>Redeemed <span className="badge bg-success">{props.redeemed}</span></li> */}
             {/* <li>Pending Orders <span className="badge bg-warning">56</span></li> */}
-            </ul>
+            {/* </ul> */}
         
-        <small>Member since {formatDate(props.memberSince)}</small>
+        {/* <small>Member since {formatDate(props.memberSince)}</small> */}
         {/* <!--  <div className="follow_buttons">
             <ul>
                 <li><a href="#0"><i className="bi bi-instagram"></i></a></li>

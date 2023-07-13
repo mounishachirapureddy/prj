@@ -7,7 +7,7 @@ import RedeemSnaps from "./RedeemSnaps";
 
 const ToggleSide = (props) => {
 
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('merchant-token');
 
     const [merchantVisibility, setMerchantVisibility] = useState(true)
     const [transactionVisibility, setTransactionVisibility] = useState(false)
@@ -195,9 +195,10 @@ const ToggleSide = (props) => {
             {/* should have default another loader */}
             {loading ? <div className="justify-content-center mx-auto m-5 p-5"><div class="loader mx-auto m-5 p-5"></div></div>: <div className="card-body">
                 {merchantVisibility && <div id="merchandise">
-                    {/* <div className="text-center">
-                        <button className="btn_1 medium pulse_bt my-3" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Merchandise</button>
-                    </div> */}
+                    <div className="text-center my-3">
+                        {/* <button className="btn_1 medium pulse_bt mb-3" data-bs-toggle="modal" data-bs-target="#product-upload">Add Merchandise</button> */}
+                        <a href="/merchant-product-upload" className="btn_1"><i className="bi bi-cart-check-fill"></i> Add New Product</a>
+                    </div>
                     {products && products.length > 0 ? (
                         <div className="row my-2">
                             {products.map((currentItems) => (

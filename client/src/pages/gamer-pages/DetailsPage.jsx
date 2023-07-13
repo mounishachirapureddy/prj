@@ -1,7 +1,7 @@
 import React, { useCallback, useState,useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import Navbar from "../../components/gamer-components/Navbar";
-import Footer from "../../components/gamer-components/Footer";
+import Footer from "../../components/general-components/Footer";
 import { gamerProfile } from "../../redux/actions/gamerAction";
 import { useDispatch, useSelector } from "react-redux";
 import useFetch from "../../hooks/useFetch-gamer";

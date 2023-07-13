@@ -12,11 +12,6 @@ const Header = () => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageSrc, setImageSrc] = useState("");
   const [isOpen, setIsOpen] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
-
-  const handleToggle = () => {
-    setDarkMode(!darkMode);
-  };
 
   useEffect(() => {
     setImageSrc(
@@ -59,7 +54,7 @@ const Header = () => {
           <ul className="top_menu drop_user">
             <li>
               <span className="color_mode_bt">
-                <input id="theme_toggle" type="checkbox" name="theme_toggle" onChange={handleToggle}/>
+                <input id="theme_toggle" type="checkbox" name="theme_toggle"/>
                 <label htmlFor="theme_toggle"></label>
               </span>
             </li>
@@ -94,7 +89,7 @@ const Header = () => {
                     />
                   </figure>
                   <div className="balance">
-                    <h6 className="mb-0">Balance</h6>
+                    <h6 className="mb-0">{merchant.companyName}</h6>
                     <span>{merchant.walletMoney} snapps</span>
                   </div>
                 </Link>
@@ -110,13 +105,13 @@ const Header = () => {
                         height="138"
                       />
                     </figure>
-                    <h4>@{merchant.firstName + merchant.lastName}</h4>
-                    <p className="author_number">
+                    <h4>@{merchant.companyName}</h4>
+                    {/* <p className="author_number">
                       Ox465d53...9df5{" "}
                       <a href="#0">
                         <i className="bi bi-clipboard"></i>
                       </a>
-                    </p>
+                    </p> */}
                     <div className="balance">
                       <h4>Balance</h4>
                       <span>{merchant.walletMoney} snapps</span>

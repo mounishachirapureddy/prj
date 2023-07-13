@@ -18,19 +18,19 @@ const EditProfile = () => {
         setImageSrc(
           profile.image
             ? `${process.env.REACT_APP_MERCHANT_MODULE_URL}/api/profile/img/${profile.image}`
-            : "assets/img/avatar-user.jpg"
+            : "assets/img/avatar-gamer.jpg"
         );
       }, [profile.image]);
 
     const initialFormData = {
-        firstName : profile.firstName,
-        lastName : profile.lastName,
-        dob : new Date(profile.dob).toISOString().substr(0, 10),
+        // firstName : profile.firstName,
+        // lastName : profile.lastName,
+        // dob : new Date(profile.dob).toISOString().substr(0, 10),
         companyName: profile.companyName,
         email: profile.email,
         phoneNumber: profile.phoneNumber,
-        gender: profile.gender,
-        role: profile.role,
+        // gender: profile.gender,
+        // role: profile.role,
         address: profile.address,
         image:profile.image
     };
@@ -64,14 +64,16 @@ const EditProfile = () => {
 
     const handleUpdate = async (e) =>{
         e.preventDefault();
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem('merchant-token');
         const formDataToSend = new FormData();
-
+        console.log(formData.address)
         formDataToSend.append("companyName", formData.companyName);
         formDataToSend.append("email", formData.email);
         formDataToSend.append("phoneNumber", formData.phoneNumber);
         formDataToSend.append("address", formData.address);
+
         if(typeof(formData.image) !== 'string') formDataToSend.append("image", formData.image , formData.image.name);
+        console.log(formDataToSend.email)
         const config = { url: `/profile/update`, method: "put", data: formDataToSend, headers: { Authorization: token }, params: { id: profile._id ,prevImgId: profile.image} };
         await fetchData(config).then((data) => {
             dispatch(merchantProfile(data.user))
@@ -93,7 +95,7 @@ const EditProfile = () => {
                     {/* <!-- Profile picture image--> */}
                     {!imageLoaded && <div className="loading-spinner"></div>}
                     <img 
-                        className={`img-account rounded-circle mb-4 ${imageLoaded ? "" : "hidden"}`}
+                        className={`img-account py-3 rounded mb-4 ${imageLoaded ? "" : "hidden"}`}
                         src={imageSrc}
                         alt=""
                         height="154.375rem"
@@ -126,7 +128,7 @@ const EditProfile = () => {
                 </div>
                 <div className="form-group">
                     <label htmlFor="address">Address</label>
-                    <input id="address" className="form-control" name="address" value={formData.address} onChange={handleChange}/>
+                    <input type="text" id="address" className="form-control" name="address" value={formData.address} onChange={handleChange}/>
                 </div>
                 <center><button type="button" className="content-h2 text-white btn_1" onClick={handleUpdate}>Save Changes</button></center>
             </div>

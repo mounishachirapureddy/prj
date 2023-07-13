@@ -49,7 +49,7 @@ function ProductCard(props) {
                     <figure> {!imageLoaded && <div> <Loader /> </div>}
                     <img
                         src={imageSrc}
-                        data-src="img/items/item-4.jpg"
+                        // data-src="img/items/item-4.jpg"
                         className={`lazy ${imageLoaded ? "" : "hidden"}`}
                         alt=""
                         width="533px" 
@@ -57,11 +57,11 @@ function ProductCard(props) {
                         onLoad={() => setImageLoaded(true)}
                         onError={() => setImageLoaded(false)}
                         />	                                
-                        <a href="detail-page.html" class="strip_info">
+                        <div class="strip_info">
                             <div class="item_title">
                                 {/* custom */}
                             </div>
-	                    </a>
+	                    </div>
 	                 </figure>
                     <div className="card-body py-2">
                         <h5 className="card-title pt-4">{props.title}</h5>
@@ -71,9 +71,9 @@ function ProductCard(props) {
                         <p className="card-text">Category : {(props.category).map((category,index)=>` ${category} `)}</p>
                         <p className="card-text">In stock : {props.count}</p>
                         <p className="card-text">Price : {props.price}</p>
-                        <div className="d-flex justify-content-around">
-                        <button className="btn btn-primary btn-sm mx-1 w-25" data-bs-toggle="modal" data-bs-target="#editPro" onClick={handleUpdate} ><i className="fa-solid fa-pen-to-square"></i></button>
-                        <button className="btn btn-danger btn-sm mx-1 w-25" onClick={props.onDeleteMerchandise}><i className="fa-solid fa-trash-can"></i></button>
+                        <div className="d-flex justify-content-around m-2">
+                            <button className="btn btn-primary btn-sm mx-1 w-25" data-bs-toggle="modal" data-bs-target="#editPro" onClick={handleUpdate} ><i className="fa-solid fa-pen-to-square"></i></button>
+                            <button className="btn btn-danger btn-sm mx-1 w-25" onClick={props.onDeleteMerchandise}><i className="fa-solid fa-trash-can"></i></button>
                         </div>
                     </div>
                 </div>

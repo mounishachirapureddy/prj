@@ -28,10 +28,13 @@ import GamerMyprofile from './pages/gamer-pages/myProfile';
 import ProductDetail from "./pages/general-pages/ProductDetail";
 import MerchandiseUpload from "./components/merchant-components/MerchandiseUpload";
 
+import GameLogin from "./game/gamer-login-page";
+import Game from "./game/game-page";
+
 function App() {
   const merchantState = useSelector((state) => state.merchantReducer);
   const isVerify = localStorage.getItem("verify");
-
+  console.log(localStorage.getItem("merchant-token"))
   const gamerState = useSelector((state) => state.gamerReducer);
   console.log(gamerState,merchantState)
   return (
@@ -105,6 +108,9 @@ function App() {
         <Route path="/details-page" element={<GamerDetailsPage />} />
         <Route path="/profile" element={<GamerProfile />} />
         <Route path="/myprofile" element={<GamerMyprofile />} />
+
+        <Route path="/game-login" element={<GameLogin />}/>
+        <Route path="/game" element={<Game />}/>
       </Routes>
     </div>
   );

@@ -208,7 +208,7 @@ const Settings = () => {
   return (
     <>
       {/* <FullpageLoader /> */}
-      <Header name={vendor_name} />
+      <Header name={vendor_name} snappcoins={vendor_snappcoins}/>
 
       <main>
         <Hero />

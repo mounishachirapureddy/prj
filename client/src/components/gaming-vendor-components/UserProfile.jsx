@@ -41,7 +41,7 @@ const UserProfile = (props) => {
             <i className="bi bi-check" />
             <figure>
               <img
-                src="assets/img/avatar1.jpg"
+                src="assets/img/NNG_Cube.gif"
                 alt=""
                 className="lazy"
                 width={100}
@@ -53,8 +53,7 @@ const UserProfile = (props) => {
         <h1 id="vendor_name">
           {props.name} <br />
           <br />
-          <h6>Snappcoins in Wallet</h6>
-          <span className="btn_1">
+          <span className="bg-violet" style={{ padding: "10px 15px", fontSize: "17px", borderRadius: "2px" }}>
             {props.snappcoins}
             <> snapps</>
           </span>
