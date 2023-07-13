@@ -26,6 +26,10 @@ const transHistorySchema = new Schema({
      type:String,
      require:true
 
+   },
+   snaps:{
+    type:Number,
+    default:0
    }
     
 },{

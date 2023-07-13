@@ -17,7 +17,8 @@ export default function Home() {
   const [merchant, setMerchant] = useState([]);
   const [snaphistory, setSnaphistory] = useState([]);
   const [transactions, setTransactions] = useState([]);
-  const [pendingOrders,setPendingOrders]=useState(0)
+  const [pendingOrders,setPendingOrders]=useState(0);
+  const [Redeemed,setRedeemed]=useState(0);
 
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
@@ -45,7 +46,7 @@ export default function Home() {
   useEffect(() => {
     if (!token) {
       // Redirect to login page if token is null
-      navigate('/gamer-login', { state: { message: "You are not logged in." } })
+      navigate('/', { state: { message: "You are not logged in." } })
 
     } else {
       fetchUser();
@@ -247,7 +248,8 @@ export default function Home() {
         const response = await fetchTransactions();
         if (response) {
           setTransactions(response.transactions);
-          setPendingOrders(response.pendingOrders)
+          setPendingOrders(response.pendingOrders);
+          setRedeemed(response.redeemed);
         }
       } catch (error) {
         console.log(error);
@@ -371,6 +373,7 @@ export default function Home() {
                 walletMoney={user.walletMoney}
                 memberSince={user.joiningTime}
                 pending={pendingOrders}
+                redeemed={Redeemed}
               />
             )}
           </div>

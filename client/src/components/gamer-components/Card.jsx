@@ -63,7 +63,7 @@ const Card = (props) => {
 
       <ul>
         <li>
-          Redeemed <span className="badge bg-success">0</span>
+          Redeemed <span className="badge bg-success">{props.redeemed} snaps</span>
         </li>
         <li>
           Pending Orders <span className="badge bg-warning">{props.pending}</span>
