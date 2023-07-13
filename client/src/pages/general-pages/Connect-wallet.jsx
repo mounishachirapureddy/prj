@@ -2,6 +2,7 @@ import React from "react";
 
 import Header from "../../components/general-components/Header";
 import Footer from "../../components/general-components/Footer";
+import {Fade} from "react-awesome-reveal"
 
 const Connect = () => {
   return (
@@ -9,6 +10,7 @@ const Connect = () => {
       <Header />
 
       <main>
+        <Fade>
         <div
           className="hero_single inner_pages"
           style={{ backgroundImage: `url('assets/img/hero_general.jpg')` }}
@@ -35,6 +37,7 @@ const Connect = () => {
         <div className="container margin_90_60">
           <div className="row justify-content-center">
             <div className="col-lg-4">
+              <Fade direction="up">
               <a href="#0" className="box_general wallet_connect">
                 <div className="ribbon_top">
                   <span className="top_selling">Popular</span>
@@ -53,8 +56,10 @@ const Connect = () => {
                   owned and operated by Head Digital Works Private Limited.
                 </p>
               </a>
+              </Fade>
             </div>
             <div className="col-lg-4">
+              <Fade direction="up">
               <a href="#0" className="box_general wallet_connect">
                 <figure>
                   <img
@@ -71,8 +76,10 @@ const Connect = () => {
                   compare, beat and surpass other ...
                 </p>
               </a>
+              </Fade>
             </div>
             <div className="col-lg-4">
+              <Fade direction="up">
               <a href="#0" className="box_general wallet_connect">
                 <figure>
                   <img
@@ -89,9 +96,11 @@ const Connect = () => {
                   many other exciting features!
                 </p>
               </a>
+              </Fade>
             </div>
           </div>
         </div>
+        </Fade>
       </main>
 
       <Footer />

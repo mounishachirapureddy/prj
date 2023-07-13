@@ -17,6 +17,7 @@ const ToggleSide = (props) => {
     const [total_count, setCount] = useState(0)
     const [total_transaction_count, setTransactionCount] = useState(0)
     const [currentPage, setCurrentPage] = useState(1);
+    const [transactionCurrentPage, setTransactionCurrentPage] = useState(1);
     const itemsPerPage = 3; // change the value here sasi
     const [transactions, setTransactions] = useState([]);
     const [transactionId, setTransactionId] = useState('');
@@ -47,7 +48,7 @@ const ToggleSide = (props) => {
             url: '/transactions/transactiondetails',
             method: 'get',
             headers: { Authorization: token },
-            params: { id: props.userId, pagenum: currentPage, size: itemsPerPage },
+            params: { id: props.userId, pagenum: transactionCurrentPage, size: itemsPerPage },
         };
 
         fetchData(transactionConfig, { showSuccessToast: false })
@@ -59,7 +60,7 @@ const ToggleSide = (props) => {
             console.log(err);
         });
 
-    },[fetchData, props.userId, currentPage,token])
+    },[fetchData, props.userId, transactionCurrentPage,token])
 
     useEffect(() => {
         fetchMerchandises();
@@ -80,7 +81,7 @@ const ToggleSide = (props) => {
         setTransactionVisibility(true)
         setMerchantVisibility(false)
         setSnapVisibility(false)
-        setCurrentPage(1)
+        setTransactionCurrentPage(1)
     }
 
     const handleRedeemToggle = (e) => {
@@ -157,20 +158,18 @@ const ToggleSide = (props) => {
         }
         else if (temppage === "&gt;&gt;") {
             setCurrentPage(pages[pages.length - 3])
-            setCurrentPage(transaction_pages[transaction_pages.length - 3])
         }
         else {
             setCurrentPage(temppage)
         }
         setProducts([])
-        setTransactions([])
     }
     
     const handleTransactionClick = (e) => {
         e.preventDefault();
         var temppage = e.target.innerHTML
         if (temppage === "&lt;") {
-            setCurrentPage((prev) => {
+            setTransactionCurrentPage((prev) => {
                 if (prev > 1) {
                     return prev - 1
                 }
@@ -178,10 +177,10 @@ const ToggleSide = (props) => {
             })
         }
         else if (temppage === "&lt;&lt;") {
-            setCurrentPage(1)
+            setTransactionCurrentPage(1)
         }
         else if (temppage === "&gt;") {
-            setCurrentPage((prev) => {
+            setTransactionCurrentPage((prev) => {
                 if (prev < pagelength) {
                     return prev + 1
                 }
@@ -190,10 +189,10 @@ const ToggleSide = (props) => {
         }
         else if (temppage === "&gt;&gt;") {
             // setCurrentPage(pages[pages.length - 3])
-            setCurrentPage(transaction_pages[transaction_pages.length - 3])
+            setTransactionCurrentPage(transaction_pages[transaction_pages.length - 3])
         }
         else {
-            setCurrentPage(temppage)
+            setTransactionCurrentPage(temppage)
         }
         // setProducts([])
         setTransactions([])
@@ -209,7 +208,7 @@ const ToggleSide = (props) => {
             url: '/transactions/transactiondetails',
             method: 'get',
             headers: { Authorization: token },
-            params: { id: props.userId,tid:transactionId , pagenum: currentPage, size: itemsPerPage },
+            params: { id: props.userId,tid:transactionId , pagenum: transactionCurrentPage, size: itemsPerPage },
         };
 
        fetchData(transactionConfig, { showSuccessToast: false })
@@ -323,7 +322,7 @@ const ToggleSide = (props) => {
                             <form action="">
                                 <div className="pagination_fg mb-4">
                                     {transaction_pages.map((i) => {
-                                        return <PageComp key={i} pagenum={i} handleClick={handleTransactionClick} isActive={currentPage === i ? true : false} />
+                                        return <PageComp key={i} pagenum={i} handleClick={handleTransactionClick} isActive={transactionCurrentPage === i ? true : false} />
                                     })}
                                 </div>
                             </form>
