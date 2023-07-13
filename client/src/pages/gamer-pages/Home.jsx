@@ -179,17 +179,18 @@ export default function Home() {
       url: `http://localhost:3004/api/snapps/snappscollected?uid=${userId}`,
       method: "get",
       headers: { Authorization: token },
+      params: { pagenum: currentPage2, size: itemsPerPage2 },
     };
   
     return fetchData(config, { showSuccessToast: false })
       .then((data) => {
-        //setTotalHistory(data.total_counts);
+        setTotalHistory(data.total_counts);
         return data;
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [fetchData, token, user]);
+  }, [fetchData, token, user,currentPage2, itemsPerPage2]);
   
 
   useEffect(() => {
@@ -207,7 +208,7 @@ export default function Home() {
     fetchTransDatas();
   }, [fetchhistory]);
 
- {/*  const pagelength2 = Math.ceil(totalHistory / itemsPerPage2);
+  const pagelength2 = Math.ceil(totalHistory / itemsPerPage2);
   console.log("TH: ", totalHistory);
   console.log("PL2: ", pagelength2);
   const start2 = 1;
@@ -247,7 +248,9 @@ export default function Home() {
     } else {
       setCurrentPage2(parseInt(temppage));
     }
-  };*/}
+  };
+
+  //snapps redeemed 
 
   const [currentPage1, setCurrentPage1] = useState(1);
   const [totaltransactions, setTotaltransactions] = useState();
@@ -577,7 +580,18 @@ export default function Home() {
                         </div>
 
                         <div className="text-center">
-                          
+                        <div className="pagination_fg mb-4">
+                        {pages2.map((i) => {
+                          return (
+                            <PageComp
+                              key={i}
+                              pagenum={i}
+                              handleClick={handleClick2}
+                              isActive={currentPage === i ? true : false}
+                            />
+                          );
+                        })}
+                      </div>
                         </div>
                       </aside>
                     </div>
