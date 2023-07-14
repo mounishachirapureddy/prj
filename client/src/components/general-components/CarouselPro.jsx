@@ -35,11 +35,14 @@ import ImgLoader from "./ImgLoader"; const CarouselPro = (props) => {
     return (<div id="carouselControl" className={props.index == 0 ? "carousel-item active" : "carousel-item"}>
         <div className="d-flex justify-content-center">
             <div className="strip col-sm-3 col-lg-3 col-xl-3 col-md-3">
+                {props.datatopass.featured && <div className="ribbon mt-2 me-2">
+                    <span>Featured</span>
+                </div>}
                 <figure >
                     {!imageLoaded && <div > <Loader /> </div>} <SnappnowLink imageLoaded={imageLoaded} url="/detail-page" datatopass={props.datatopass} />
                     <img src={imageSrc} data-src="img/items/item-12.jpg" className={`lazy ${imageLoaded ? "" : "visually-hidden"}`} alt="" width="533" height="400" onLoad={() => setImageLoaded(true)}
                         onError={() => setImageLoaded(false)} />
-                    <Link  className="strip_info" >
+                    <Link className="strip_info" >
                         <div className="item_title">
                             <span className="badge bg-voilet">{props.price} snapps</span>
                         </div>

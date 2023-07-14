@@ -17,6 +17,7 @@ const ProductDetail = (props) => {
     const [ClickedSnappNow, setClicked] = useState(false);
     console.log("hitted")
     useEffect(() => {
+        window.scrollTo(0, 0)
         const fetch = async () => {
             try {
                 const response = await axios.get(`http://127.0.0.1:3002/api/getprofile${state.datatopass.userid}`)
@@ -52,8 +53,18 @@ const ProductDetail = (props) => {
                             <div className="col-xl-8 col-lg-7 margin_detail">
 
                                 <div className="box_general">
+
                                     {!imageLoaded && <div className="d-flex justify-content-center align-items-center m-5 p-5"><Loader /></div>}
-                                    <img src={imageSrc} width={"100%"} alt="" className={`img-fluid ${imageLoaded ? `` : `visually-hidden`}`} onLoad={() => setImageLoaded(true)} onError={() => setImageLoaded(false)} />
+
+                                    <figure className="strip">
+                                        {state.datatopass.featured && <div className="ribbon mt-5 me-5" style={{
+                                            transform: "scale(1.5)"
+                                        }}>
+                                            <span>Featured</span>
+                                        </div>}
+                                        <img src={imageSrc} width={"100%"} alt="" className={`img-fluid ${imageLoaded ? `` : `visually-hidden`}`} onLoad={() => setImageLoaded(true)} onError={() => setImageLoaded(false)} />
+
+                                    </figure>
                                     <div className="main_info_wrapper">
                                         <div className="main_info">
                                             <div className="clearfix mb-3">
@@ -76,6 +87,7 @@ const ProductDetail = (props) => {
                                                     <i className="bi bi-stack me-1"></i> 123<a className="wish_bt"></a>
                                                 </div>
                                             </div>
+
                                             <h1 className="mb-md-2">{state.datatopass.title}</h1>
                                             <p>{state.datatopass.description}</p>
                                         </div>
@@ -113,6 +125,7 @@ const ProductDetail = (props) => {
                             </div>
 
                             <div className="col-xl-4 col-lg-5" id="sidebar_fixed">
+
                                 <br /><br /><br />
                                 <div className="container justify-content-center align-items-center">
                                     <div className="box_bid">

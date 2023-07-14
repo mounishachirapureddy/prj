@@ -41,6 +41,9 @@ function Product(props) {
         <div className="col-xl-4 col-lg-4 col-md-4 col-sm-6">
             <Fade>
             <div className="strip">
+            {props.datatopass.featured && <div className="ribbon mt-2 me-2">
+                        <span>Featured</span>
+                    </div>}
                 <figure >
                     {!imageLoaded && <div > <Loader /> </div>}<SnappnowLink imageLoaded={imageLoaded} url="\detail-page" datatopass={props.datatopass} />
                     <img src={imageSrc} data-src="img/items/item-12.jpg" className={`lazy ${imageLoaded ? "" : "visually-hidden"}`} alt="" width="533" height="400" onLoad={() => setImageLoaded(true)}

@@ -151,10 +151,11 @@ const Catalog = (props) => {
             <Filter>
               {Category.map((g) => {
                 return (
+                  <Fade>
                   <li>
                     <label className="container_check">
+                      
                       {g}
-                      {/* <small>100</small> */}
                       <input
                         type="checkbox"
                         value={g}
@@ -175,10 +176,11 @@ const Catalog = (props) => {
                       <span className="checkmark"></span>
                     </label>
                   </li>
+                  </Fade>
                 );
               })}
               {
-                <div>
+                <Fade>
                   <div className="range_input">
                     Price range from {l_price} to <span>{h_price}</span> snapps
                   </div>
@@ -188,7 +190,7 @@ const Catalog = (props) => {
                       type="range"
                       min={l_price}
                       max={h_price}
-                      step="1"
+                      step="50"
                       value={UptoSnapp == 0 ? h_price : UptoSnapp}
                       onChange={(e) => {
                         e.target.value == 0
@@ -201,7 +203,7 @@ const Catalog = (props) => {
                       {UptoSnapp == 0 ? h_price : UptoSnapp}
                     </div>
                   </div>
-                </div>
+                </Fade>
               }
             </Filter>
             <div className="col-lg-9">
