@@ -135,7 +135,6 @@ const Login = () => {
                   <h2>Please fill the form below</h2>
                   <p>
                     Interested in partnering with us? <br />
-                    Drop us a line and we will be happy to connect. Promise!
                   </p>
                 </div>
                 <div id="message-register" />

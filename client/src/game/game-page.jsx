@@ -128,8 +128,8 @@ const Game = () => {
           announcer.innerText = "Tie";
           addBtn.style.display = "";
           gameMessage.textContent =
-            "Yay! You won 50 Snappcoins. Add them to your wallet now!";
-          tokensToAllocate = 50;
+            "Yay! You won 5000 Snappcoins. Add them to your wallet now!";
+          tokensToAllocate = 5000;
       }
 
       if (addBtn.style.display === "") {
