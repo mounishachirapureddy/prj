@@ -113,13 +113,13 @@ export default function Recommended(props) {
                   marginTop: "-20px",
                   marginBottom: "1rem",
                 }}
-                value={`${props.price}`}
+                value={`${props.price}`} disabled
               />
               <ul style={{ listStyle: "none", color: "black" }}>
                 <li>
                   Your balance{" "}
                   <span style={{ marginLeft: "14rem" }}>
-                    {user && user.walletMoney} Snapps
+                    {user && user.walletMoney} 
                   </span>
                 </li>
                 <li>
@@ -183,7 +183,7 @@ export default function Recommended(props) {
           onLoad={() => setImageLoaded(true)}
           onError={() => setImageLoaded(false)}
         />
-        <a href="detail-page.html" className="strip_info">
+        <a href="" className="strip_info">
           <div className="item_title">
             <span className="badge"  style={{"background-color": "#FF1493"}}>{props.price} Snapps</span>
           </div>
