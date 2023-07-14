@@ -5,16 +5,21 @@ function MyItems(props) {
 
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageSrc, setImageSrc] = useState("");
-
+  console.log("props",props.game)
   useEffect(() => {
     // Assuming you receive the image URL from props
     setImageSrc(
       props.img
-        ? `${process.env.REACT_APP_GAMER_MODULE_URL}/api/merchant/img/${props.img}`
-        : `assets/img/tic-tac-toe.jpeg`
+      ? `${process.env.REACT_APP_GAMER_MODULE_URL}/api/merchant/img/${props.img}`
+      : (props.game === "Tic-Tac-Toe"
+          ? "assets/img/tic-tac-toe.jpeg"
+          : (props.game === "junglee-rummy"
+              ? "assets/img/avatar1.jpg"
+              : props.game === "callbreak"? "assets/img/avatar2.jpg":"")
+      )
     );
     setImageLoaded(false);
-  }, [props.img]);
+  }, [props.img,props.name]);
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);

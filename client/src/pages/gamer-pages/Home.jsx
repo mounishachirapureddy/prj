@@ -359,6 +359,7 @@ export default function Home() {
           setTransactions(transactionData.transactions);
           setTotaltransactions(transactionData.total_counts);
         }
+        console.log(transactionData)
       })
       .catch((err) => {
         console.log(err);
@@ -539,8 +540,7 @@ export default function Home() {
                                       <MyItems money = {transaction.moneyWon}  
                                                game = {transaction.name}  
                                                tId = {transaction.tid}   
-                                               tdate = {transaction.date} 
-                                                                            
+                                               tdate = {transaction.date}               
                                       />
                                     </div>
                                   );
