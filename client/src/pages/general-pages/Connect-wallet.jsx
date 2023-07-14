@@ -8,7 +8,6 @@ const Connect = () => {
   return (
     <>
       <Header />
-
       <main>
         <Fade>
         <div

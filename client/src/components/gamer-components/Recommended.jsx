@@ -113,13 +113,13 @@ export default function Recommended(props) {
                   marginTop: "-20px",
                   marginBottom: "1rem",
                 }}
-                value={`${props.price}`}
+                value={`${props.price}`} disabled
               />
               <ul style={{ listStyle: "none", color: "black" }}>
                 <li>
                   Your balance{" "}
                   <span style={{ marginLeft: "14rem" }}>
-                    {user && user.walletMoney} Snapps
+                    {user && user.walletMoney} 
                   </span>
                 </li>
                 <li>
