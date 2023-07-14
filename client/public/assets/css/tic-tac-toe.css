@@ -9,7 +9,6 @@
   color: white;
   font-size: 25px;
   text-align: center;
-  margin-top: 1em;
   margin-bottom: 1em;
 }
 
@@ -23,6 +22,7 @@
   grid-template-columns: 33% 33% 33%;
   grid-template-rows: 33% 33% 33%;
   max-width: 300px;
+  margin-bottom: 1rem;
 }
 
 .tile {
@@ -66,10 +66,37 @@
   background-color: #498afb;
 }
 
+#game-coins-message {
+  margin-top: 1rem;
+  font-size: medium;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
 #reset,
 #add-to-wallet {
-  width: 15%;
+  width: 30%;
   background-color: #ff0071;
-  margin: 0% 2%;
-  margin-top: 4%;
+  margin-bottom: 3rem;
+}
+
+.rules-container {
+  background-color: transparent;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.1);
+  color: white;
+  font-size: 15px;
+  text-align: left;
+}
+
+.prize-info {
+  margin-top: 20px;
+  font-size: medium;
+  color: #ffffff;
+}
+
+.prize-info strong {
+  color: #ff0071;
 }

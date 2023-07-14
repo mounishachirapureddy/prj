@@ -241,7 +241,7 @@ const ToggleSide = (props) => {
             {/* should have default another loader */}
             {loading ? <div className="justify-content-center mx-auto m-5 p-5"><div class="loader mx-auto m-5 p-5"></div></div>: <div className="card-body">
                 {merchantVisibility && <div id="merchandise">
-                    <div className="text-center my-3">
+                    <div className="text-center my-4">
                         {/* <button className="btn_1 medium pulse_bt mb-3" data-bs-toggle="modal" data-bs-target="#product-upload">Add Merchandise</button> */}
                         <a href="/merchant-product-upload" className="btn_1"><i className="bi bi-cart-check-fill"></i> Add New Product</a>
                     </div>
