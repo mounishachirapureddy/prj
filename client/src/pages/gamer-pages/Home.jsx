@@ -20,6 +20,7 @@ export default function Home() {
   const [merchant, setMerchant] = useState([]);
   const [snaphistory, setSnaphistory] = useState([]);
   const [transactions, setTransactions] = useState([]);
+  const [hist,setHist]=useState([]);
   const [pendingOrders,setPendingOrders]=useState(0);
   const [Redeemed,setRedeemed]=useState(0);
 
@@ -172,6 +173,7 @@ export default function Home() {
       try {
         const response = await fetchhistory();
         if (response) {
+
           setSnaphistory(response.games);
         }
       } catch (error) {
@@ -525,7 +527,7 @@ export default function Home() {
                           </div>
                         </div>
                         <div class="widget">
-                            {transactions.length > 0 ? (
+                            {snaphistory.length > 0 ? (
                               <div className="row history_list">
                                 {snaphistory.map((transaction, index) => {
                                   
