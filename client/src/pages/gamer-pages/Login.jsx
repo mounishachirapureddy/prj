@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import useFetch from "../../hooks/useFetch-gamer";
+import { Fade } from "react-awesome-reveal"
 
 const Login = () => {
   const navigate = useNavigate();
@@ -39,6 +40,7 @@ const Login = () => {
 
   return (
     <>
+    <Fade>
       <div id="login_bg" className="bg-login">
         <div id="login">
           <aside>
@@ -116,10 +118,13 @@ const Login = () => {
                 </strong>
               </div>
             </form>
-            <div className="copy">© 2023 Snappcoins</div>
+            <div class="copy">
+              © 2023 <a href="/">Snappcoins</a>
+            </div>
           </aside>
         </div>
       </div>
+      </Fade>
     </>
   );
 };

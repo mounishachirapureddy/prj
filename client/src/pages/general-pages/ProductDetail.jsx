@@ -4,7 +4,7 @@ import axios from "axios";
 import Loader from "../../components/general-components/Loader";
 import Header from "../../components/general-components/Header";
 import Footer from "../../components/general-components/Footer";
-// import Loader from "../../components/general-components/Loader";
+import { Fade } from "react-awesome-reveal"
 
 const ProductDetail = (props) => {
     const [imageLoaded, setImageLoaded] = useState(false);
@@ -81,34 +81,34 @@ const ProductDetail = (props) => {
                             </div>
 
 
-                            <div className="tabs_detail">
-                                <ul className="nav nav-tabs" role="tablist">
-                                    <li className="nav-item">
-                                        <a id="tab-C" href="#pane-C" className="nav-link active" data-bs-toggle="tab" role="tab">Additional Info</a>
-                                    </li>
-                                </ul>
-                                <div className="tab-content" role="tablist">
-                                    <div id="pane-A" className="card tab-pane fade show active" role="tabpanel" aria-labelledby="tab-A">
-                                        <div id="collapse-A" className="collapse" role="tabpanel" aria-labelledby="heading-A">
-                                            <div className="pt-4">
-                                                <div className="row">
-                                                    <div className="col-lg-6">
-                                                        {/* <ul className="bullets text-white">
+                                <div className="tabs_detail">
+                                    <ul className="nav nav-tabs" role="tablist">
+                                        <li className="nav-item">
+                                            <a id="tab-C" href="#pane-C" className="nav-link active" data-bs-toggle="tab" role="tab">Additional Info</a>
+                                        </li>
+                                    </ul>
+                                    <div className="tab-content" role="tablist">
+                                        <div id="pane-A" className="card tab-pane fade show active" role="tabpanel" aria-labelledby="tab-A">
+                                            <div id="collapse-A" className="collapse" role="tabpanel" aria-labelledby="heading-A">
+                                                <div className="pt-4">
+                                                    <div className="row">
+                                                        <div className="col-lg-6">
+                                                            {/* <ul className="bullets text-white">
                                                             <li>Size <span>3000x2000px</span></li>
                                                             <li>Format <span>Tiff, Jpeg, Gif, Pdf</span></li>
                                                             <li>Token ID <span>002334</span></li>
 
                                                         </ul> */}
-                                                        <p className="text-white">Not available</p>
+                                                            <p className="text-white">Not available</p>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
 
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
                         <div className="col-xl-4 col-lg-5" id="sidebar_fixed">
                             <br /><br /><br />
@@ -116,7 +116,7 @@ const ProductDetail = (props) => {
                                 <div className="box_bid">
                                     <h2>Product Name</h2>
                                     <a className="close_panel_mobile"><i className="icon_close"></i></a>
-                                    <div className="item_meta"> <h3>Redeem With <strong>{state.datatopass.price}  snapps</strong></h3>
+                                    <div className="item_meta"> <h3>Redeem With <strong>{state.datatopass.price}  Snapps</strong></h3>
                                     </div>
                                     <hr /> <a className="btn_1 full-width mb-2 modal_popup" onClick={() => setClicked(true)}>Snapp Now!</a>
                                 </div>
@@ -146,13 +146,13 @@ const ProductDetail = (props) => {
                             </div>
                             <ul>
                                 <li>
-                                    Product Cost <span>{state.datatopass.price} snapps</span>
+                                    Product Cost <span>{state.datatopass.price} Snapps</span>
                                 </li>
                                 <li>
-                                    Service fee 1.5%<span>{state.datatopass.price * (1.5 / 100) } snapps</span>
+                                    Service fee 1.5%<span>{state.datatopass.price * (1.5 / 100) } Snapps</span>
                                 </li>
                                 <li>
-                                    You will pay<span>{ Math.round(state.datatopass.price * ( 1 + (1.5 / 100)) *  10**3) / 10**3}  snapps</span>
+                                    You will pay<span>{ Math.round(state.datatopass.price * ( 1 + (1.5 / 100)) *  10**3) / 10**3}  Snapps</span>
                                 </li>
 
                             </ul>
@@ -164,11 +164,9 @@ const ProductDetail = (props) => {
                     <button title="Click to Dismiss" type="button" onClick={() => setClicked(false)} class="mfp-close"></button></div></div></div></div>
             </div>
 
-            <Footer />
-        </div>
-    )
+      <Footer />
+    </div>
+  );
+};
 
-}
-
-
-export default ProductDetail
+export default ProductDetail;

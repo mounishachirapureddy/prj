@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import FilterCheck from "./FilterCheck";
-
+import { Fade } from "react-awesome-reveal"
+ 
 
 function Filter({ children }) {
     const [ClickedCat, setClickedCat] = useState(false)

@@ -15,7 +15,9 @@ const ToggleSide = (props) => {
 
     const [products, setProducts] = useState([]);
     const [total_count, setCount] = useState(0)
+    const [total_transaction_count, setTransactionCount] = useState(0)
     const [currentPage, setCurrentPage] = useState(1);
+    const [transactionCurrentPage, setTransactionCurrentPage] = useState(1);
     const itemsPerPage = 3; // change the value here sasi
     const [transactions, setTransactions] = useState([]);
     const [transactionId, setTransactionId] = useState('');
@@ -46,18 +48,19 @@ const ToggleSide = (props) => {
             url: '/transactions/transactiondetails',
             method: 'get',
             headers: { Authorization: token },
-            params: { id: props.userId, pagenum: currentPage, size: itemsPerPage },
+            params: { id: props.userId, pagenum: transactionCurrentPage, size: itemsPerPage },
         };
 
         fetchData(transactionConfig, { showSuccessToast: false })
         .then((transactionData) => {
             setTransactions(transactionData.transactions);
+            setTransactionCount(transactionData.count)
         })
         .catch((err) => {
             console.log(err);
         });
 
-    },[fetchData, props.userId, currentPage,token])
+    },[fetchData, props.userId, transactionCurrentPage,token])
 
     useEffect(() => {
         fetchMerchandises();
@@ -78,7 +81,7 @@ const ToggleSide = (props) => {
         setTransactionVisibility(true)
         setMerchantVisibility(false)
         setSnapVisibility(false)
-        setCurrentPage(1)
+        setTransactionCurrentPage(1)
     }
 
     const handleRedeemToggle = (e) => {
@@ -114,14 +117,21 @@ const ToggleSide = (props) => {
 
     //pagination logic
     const pagelength = Math.ceil(total_count / itemsPerPage)
+    const transactionPageLength = Math.ceil(total_transaction_count / itemsPerPage)
     const start = 1;
     const end = pagelength;
+    const transactionsend = transactionPageLength
     const pages = ["<<", "<"]; // represents  the starting page
+    const transaction_pages = ["<<", "<"];
 
     console.log("total count : ", total_count)
 
     for (var i = start; i <= end; i++) {
         pages.push(i);
+    }
+
+    for (var j = start; j <= transactionsend; j++) {
+        transaction_pages.push(j);
     }
 
     const handleClick = (e) => {
@@ -154,22 +164,58 @@ const ToggleSide = (props) => {
         }
         setProducts([])
     }
+    
+    const handleTransactionClick = (e) => {
+        e.preventDefault();
+        var temppage = e.target.innerHTML
+        if (temppage === "&lt;") {
+            setTransactionCurrentPage((prev) => {
+                if (prev > 1) {
+                    return prev - 1
+                }
+                return prev
+            })
+        }
+        else if (temppage === "&lt;&lt;") {
+            setTransactionCurrentPage(1)
+        }
+        else if (temppage === "&gt;") {
+            setTransactionCurrentPage((prev) => {
+                if (prev < pagelength) {
+                    return prev + 1
+                }
+                return prev
+            })
+        }
+        else if (temppage === "&gt;&gt;") {
+            // setCurrentPage(pages[pages.length - 3])
+            setTransactionCurrentPage(transaction_pages[transaction_pages.length - 3])
+        }
+        else {
+            setTransactionCurrentPage(temppage)
+        }
+        // setProducts([])
+        setTransactions([])
+    }
     pages.push(">") // represents the ending page
     pages.push(">>")
+
+    transaction_pages.push(">") // represents the ending page
+    transaction_pages.push(">>")
 
     const handleSearch= () =>{
         const transactionConfig = {
             url: '/transactions/transactiondetails',
             method: 'get',
             headers: { Authorization: token },
-            params: { id: props.userId,tid:transactionId , pagenum: currentPage, size: itemsPerPage },
+            params: { id: props.userId,tid:transactionId , pagenum: transactionCurrentPage, size: itemsPerPage },
         };
 
        fetchData(transactionConfig, { showSuccessToast: false })
         .then((transactionData) => {
             setTransactions(transactionData.transactions);
             console.log(transactionData.count)
-            setCount(transactionData.count);
+            setTransactionCount(transactionData.count);
         })
         .catch((err) => {
             console.log(err);
@@ -275,8 +321,8 @@ const ToggleSide = (props) => {
                         )}
                             <form action="">
                                 <div className="pagination_fg mb-4">
-                                    {pages.map((i) => {
-                                        return <PageComp key={i} pagenum={i} handleClick={handleClick} isActive={currentPage === i ? true : false} />
+                                    {transaction_pages.map((i) => {
+                                        return <PageComp key={i} pagenum={i} handleClick={handleTransactionClick} isActive={transactionCurrentPage === i ? true : false} />
                                     })}
                                 </div>
                             </form>

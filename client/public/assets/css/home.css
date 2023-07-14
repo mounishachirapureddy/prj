@@ -366,12 +366,11 @@
 /* Banner */
 .banner {
   
-  height: 320px;
+  height: 200px;
   border-radius: var(--border-radius-medium);
   overflow: hidden;
   position: relative;
   color: #fff;
-  
 }
 @media (max-width: 767px) {
   .banner {

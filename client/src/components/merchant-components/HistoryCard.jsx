@@ -10,7 +10,7 @@ function HistoryCard(props) {
         setImageSrc(
           props.image
             ? `${process.env.REACT_APP_MERCHANT_MODULE_URL}/api/merchandise/img/${props.image}`
-            : "default-prod.png"
+            : "assets/img/default-prod.png"
         );
       }, [props.image]);
 
@@ -42,7 +42,7 @@ function HistoryCard(props) {
                     <span className="badge bg-success text-light mx-1">Credit</span>
                 </>:
                 <>   
-                    <h3 className="my-2"><Link to="#">Redeemed {props.snaps} snapps</Link></h3>
+                    <h3 className="my-2"><Link to="#">Redeemed {props.snaps} Snapps</Link></h3>
                     <span className="badge bg-danger text-light mx-1">Debit</span>
                 </>}
                 {props.status === "success" && <span className="badge bg-success text-light mx-1">Success</span>}

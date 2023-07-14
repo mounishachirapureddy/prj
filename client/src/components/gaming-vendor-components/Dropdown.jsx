@@ -53,7 +53,7 @@ const Dropdown = (props) => {
         </figure>
         <div className="balance">
           <h6 className="mb-0">{props.name}</h6>
-          <span>{props.snappcoins} snapps</span>
+          <span>{props.snappcoins} Snapps</span>
         </div>
       </a>
       <div

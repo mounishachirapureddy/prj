@@ -46,7 +46,7 @@ const UserProfile = (props) => {
           <br />
           <span className="bg-violet" style={{ padding: "10px 15px", fontSize: "17px", borderRadius: "2px" }}>
             {props.snappcoins}
-            <> snapps</>
+            <> Snapps</>
           </span>
         </h1>
         <ul>

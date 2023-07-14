@@ -173,7 +173,7 @@ export default function DetailsPage() {
                   <div className="item_meta">
                     <h3>
                       Redeem With
-                      <br /> <strong>{displayData?.price} snapps</strong>
+                      <br /> <strong>{displayData?.price} Snapps</strong>
                     </h3>
                     <p className="countdown_in">
                       Ends in

@@ -3,6 +3,7 @@ import React from "react";
 import Header from "../../components/general-components/Header.jsx";
 import Footer from "../../components/general-components/Footer.jsx";
 import LoginForm from "../../components/gaming-vendor-components/LoginForm.jsx";
+import { Fade } from "react-awesome-reveal"
 
 const Login = () => {
   return (
@@ -16,6 +17,7 @@ const Login = () => {
       <Header />
 
       <main>
+        <Fade>
         <div
           className="hero_single inner_pages"
           style={{ backgroundImage: `url('assets/img/hero_general.jpg')` }}
@@ -85,7 +87,7 @@ const Login = () => {
                     className="img-fluid"
                   />
                 </figure>
-                <h3>Manage snapps</h3>
+                <h3>Manage Snapps</h3>
                 <p className="lead">
                   Multiple Games? No problem. Allocate Snapps to your game
                   portfolio.
@@ -150,7 +152,9 @@ const Login = () => {
             </div>
           </div>
         </div>
+        </Fade>
       </main>
+      
       <Footer />
     </>
   );

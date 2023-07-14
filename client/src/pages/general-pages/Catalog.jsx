@@ -10,6 +10,7 @@ import FilterUp from "../../components/general-components/FilterUp";
 import Loader from "../../components/general-components/Loader";
 import Modal from "../../components/general-components/Modal";
 import Footer from "../../components/general-components/Footer";
+import { Slide, Fade } from "react-awesome-reveal"
 
 const Catalog = (props) => {
   const { state } = useLocation();
@@ -113,6 +114,7 @@ const Catalog = (props) => {
       <br />
       <br />
       <br />
+      <Fade >
       <main>
         <FilterUp>
           <div className="search_bar_list">
@@ -178,7 +180,7 @@ const Catalog = (props) => {
               {
                 <div>
                   <div className="range_input">
-                    Price range from {l_price} to <span>{h_price}</span> snapps
+                    Price range from {l_price} to <span>{h_price}</span> Snapps
                   </div>
 
                   <div className="mb-4 d-flex justify-content-center">
@@ -250,6 +252,7 @@ const Catalog = (props) => {
           </div>
         </div>
       </main>
+      </Fade>
 
       <Footer />
 

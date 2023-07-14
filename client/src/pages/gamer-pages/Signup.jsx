@@ -126,7 +126,7 @@ const Signup = () => {
               </div>
             </form>
             <div class="copy">
-              © 2023 <a href="index.html">Snappcoins</a>
+              © 2023 <a href="/">Snappcoins</a>
             </div>
           </aside>
         </div>

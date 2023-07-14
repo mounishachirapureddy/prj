@@ -373,7 +373,10 @@ const Dashboard = () => {
                               </div>
                             </div>
                           </div>
-                          <div className="widget transaction-container" style={{ height: '33rem', overflowY: 'scroll' }}>
+                          <div
+                            className="widget transaction-container"
+                            style={{ height: "33rem", overflowY: "scroll" }}
+                          >
                             <TransactionHistory searchKeyword={keyword} />
                           </div>
                         </aside>
@@ -418,7 +421,7 @@ const Dashboard = () => {
                       <ul className="list-group">
                         <li
                           className="list-group-item d-flex align-items-center"
-                          style={{ backgroundColor: "transparent" }}
+                          style={{ backgroundColor: "transparent", color: "white" }}
                         >
                           <img
                             src="assets/img/tic-tac-toe.jpeg"
@@ -427,26 +430,25 @@ const Dashboard = () => {
                             style={{ height: "100px", width: "100px" }}
                           />
                           <div className="text-start col-6 w-75">
-                            <h6 className="my-1">
-                              <Link to="#" title="">
-                                Game Name: Tic-Tac-Toe
-                              </Link>
+                            <h7 className="my-1">
+                              Game:{" "}
+                              <Link to="#">{"Tic-Tac-Toe"}</Link>
                               <br />
-                            </h6>
-                            <h6 className="my-1">
-                              <Link to="#" title="">
-                                Game id # G-GV001-03
-                              </Link>
+                            </h7>
+                            <h7 className="my-1">
+                              Game Id:{" "}
+                              <Link to="#">{"#G-GV001-003"}</Link>
                               <br />
-                            </h6>
-                            <h6 className="my-1">
-                              <Link to="#">Date of registration: 09.05.23</Link>
-                            </h6>
+                            </h7>
+                            <h7 className="my-1">
+                              Registration Date:{" "}
+                              <Link to="#">{"09.05.23"}</Link>
+                            </h7>
                           </div>
                         </li>
                         <li
                           className="list-group-item d-flex align-items-center"
-                          style={{ backgroundColor: "transparent" }}
+                          style={{ backgroundColor: "transparent", color: "white" }}
                         >
                           <img
                             src="assets/img/avatar2.jpg"
@@ -454,26 +456,25 @@ const Dashboard = () => {
                             className="me-3"
                           />
                           <div className="text-start col-6 w-75">
-                            <h6 className="my-1">
-                              <Link to="#" title="">
-                                Game Name: Callbreak
-                              </Link>
+                          <h7 className="my-1">
+                              Game:{" "}
+                              <Link to="#">{"Callbreak"}</Link>
                               <br />
-                            </h6>
-                            <h6 className="my-1">
-                              <Link to="#" title="">
-                                Game id # G-GV001-02
-                              </Link>
+                            </h7>
+                            <h7 className="my-1">
+                              Game Id:{" "}
+                              <Link to="#">{"#G-GV001-002"}</Link>
                               <br />
-                            </h6>
-                            <h6 className="my-1">
-                              <Link to="#">Date of registration: 16.03.23</Link>
-                            </h6>
+                            </h7>
+                            <h7 className="my-1">
+                              Registration Date:{" "}
+                              <Link to="#">{"16.03.23"}</Link>
+                            </h7>
                           </div>
                         </li>
                         <li
                           className="list-group-item d-flex align-items-center"
-                          style={{ backgroundColor: "transparent" }}
+                          style={{ backgroundColor: "transparent", color: "white" }}
                         >
                           <img
                             src="assets/img/avatar3.jpg"
@@ -481,21 +482,20 @@ const Dashboard = () => {
                             className="me-3"
                           />
                           <div className="text-start col-6 w-75">
-                            <h6 className="my-1">
-                              <Link to="#" title="">
-                                Game Name: Ludo King
-                              </Link>
+                          <h7 className="my-1">
+                              Game:{" "}
+                              <Link to="#">{"Ludo King"}</Link>
                               <br />
-                            </h6>
-                            <h6 className="my-1">
-                              <Link to="#" title="">
-                                Game id # G-GV001-01
-                              </Link>
+                            </h7>
+                            <h7 className="my-1">
+                              Game Id:{" "}
+                              <Link to="#">{"#G-GV001-001"}</Link>
                               <br />
-                            </h6>
-                            <h6 className="my-1">
-                              <Link to="#">Date of registration: 21.09.22</Link>
-                            </h6>
+                            </h7>
+                            <h7 className="my-1">
+                              Registration Date:{" "}
+                              <Link to="#">{"21.09.22"}</Link>
+                            </h7>
                           </div>
                         </li>
                       </ul>

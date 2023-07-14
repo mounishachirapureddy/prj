@@ -14,10 +14,10 @@ const Modal = (props) => {
 
                 <ul>
                     <li>
-                        Your balance <span>8.498  snapps</span>
+                        Your balance <span>8.498  Snapps</span>
                     </li>
                     <li>
-                        Service fee 1.5%<span>0.125  snapps</span>
+                        Service fee 1.5%<span>0.125  Snapps</span>
                     </li>
 
                 </ul>

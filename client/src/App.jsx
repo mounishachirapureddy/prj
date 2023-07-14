@@ -34,7 +34,6 @@ import Game from "./game/game-page";
 function App() {
   const merchantState = useSelector((state) => state.merchantReducer);
   const isVerify = localStorage.getItem("verify");
-  console.log(localStorage.getItem("merchant-token"))
   const gamerState = useSelector((state) => state.gamerReducer);
   
   return (

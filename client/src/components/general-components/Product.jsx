@@ -4,6 +4,7 @@ import Loader from "./Loader";
 import axios from "axios"
 import ImgLoader from "./ImgLoader";
 import SnappnowLink from "./SnappnowLink";
+import { Fade } from "react-awesome-reveal";
 
 function Product(props) {
     const [imageLoaded, setImageLoaded] = useState(false);
@@ -38,6 +39,7 @@ function Product(props) {
 
     return (
         <div className="col-xl-4 col-lg-4 col-md-4 col-sm-6">
+            <Fade>
             <div className="strip">
                 <figure >
                     {!imageLoaded && <div > <Loader /> </div>}<SnappnowLink imageLoaded={imageLoaded} url="\detail-page" datatopass={props.datatopass} />
@@ -45,7 +47,7 @@ function Product(props) {
                         onError={() => setImageLoaded(false)} />
                     <Link  className="strip_info">
                         <div className="item_title">
-                            <span className="badge bg-violet">{props.price} snapps</span>
+                            <span className="badge bg-violet">{props.price} Snapps</span>
                         </div>
                     </Link>
                 </figure >
@@ -74,6 +76,7 @@ function Product(props) {
                     <li className="text-uppercase link">{props.brand}</li>
                 </ul>
             </div>
+            </Fade>
         </div>
     )
 }

@@ -106,7 +106,7 @@ export default function Recommended(props) {
               <input
                 type="text"
                 className="form-control"
-                placeholder="3.5 snapps"
+                placeholder="3.5 Snapps"
                 style={{
                   width: "100%",
                   color: "black",
@@ -119,12 +119,12 @@ export default function Recommended(props) {
                 <li>
                   Your balance{" "}
                   <span style={{ marginLeft: "14rem" }}>
-                    {user && user.walletMoney} snapps
+                    {user && user.walletMoney} Snapps
                   </span>
                 </li>
                 <li>
                   Service fee 1.5%
-                  <span style={{ marginLeft: "13rem" }}>0.125 snapps</span>
+                  <span style={{ marginLeft: "13rem" }}>0.125 Snapps</span>
                 </li>
               </ul>
             </div>
@@ -185,7 +185,7 @@ export default function Recommended(props) {
         />
         <a href="detail-page.html" className="strip_info">
           <div className="item_title">
-            <span className="badge"  style={{"background-color": "#FF1493"}}>{props.price} snapps</span>
+            <span className="badge"  style={{"background-color": "#FF1493"}}>{props.price} Snapps</span>
           </div>
         </a>
       </figure>
