@@ -6,8 +6,6 @@ import Footer from "../components/general-components/Footer";
 import { gamerProfile } from "../redux/actions/gamerAction";
 import useFetch from "../hooks/useFetch-gamer";
 import Header from "./game-header";
-import Card from "./gamer-card";
-import GameCard from "./game-card";
 
 const Game = () => {
   const [gamer_name, setGamerName] = useState("");
@@ -128,7 +126,7 @@ const Game = () => {
           tokensToAllocate = 10000;
           break;
         case TIE:
-          announcer.innerHTML = "Tie";
+          announcer.innerText = "Tie";
           addBtn.style.display = "";
           gameMessage.innerHTML =
             "Yay! You won 5000 Snappcoins<br>Add them to your wallet now!";
@@ -282,7 +280,7 @@ const Game = () => {
 
   return (
     <>
-      <Header gamer_name={gamer_name} gamer_coins={gamer_coins} />
+      <Header gamer_name={gamer_name} gamer_coins={gamer_coins}/>
       <main>
         <div
           className="hero_single inner_pages author_page jarallax"
@@ -309,66 +307,43 @@ const Game = () => {
           <div className="wave hero"></div>
         </div>
 
-        <div className="container" style={{ marginTop: "10rem" }}>
-          <div className="row">
-            <div className="col-3" style={{ margin: "0" }}>
-              <div className="container">
-                <Card
-                  gamerName={gamer_name}
-                  id={gamer_id}
-                  walletMoney={gamer_coins}
-                />
-              </div>
-            </div>
-            <div className="col-5">
-              <div className="main_profile" style={{ background: "none", padding: "0" }}>
-                <section className="display">
-                  Player <span className="display-player playerX">X</span>'s
-                  turn
-                </section>
-                <section className="tile-container">
-                  <div className="tile" />
-                  <div className="tile" />
-                  <div className="tile" />
-                  <div className="tile" />
-                  <div className="tile" />
-                  <div className="tile" />
-                  <div className="tile" />
-                  <div className="tile" />
-                  <div className="tile" />
-                </section>
-                <section className="display announcer hide"></section>
-                <div>
-                  <label
-                    className="display"
-                    id="game-coins-message"
-                    style={{
-                      position: "absolute",
-                      left: "50%",
-                      transform: "translate(-50%, -50%)",
-                    }}
-                  />
-                  <div id="error-message" className="error-message"></div>
-                  <div id="toast" className="center">
-                    <div className="checkicon">
-                      <i className="fas fa-check-square"></i>
-                    </div>
-                  </div>
-                  <section className="controls">
-                    <button id="reset">Reset</button>
-                    <button id="add-to-wallet" style={{ display: "none" }}>
-                      Add to Wallet
-                    </button>
-                  </section>
-                </div>
-              </div>
-            </div>
-            <div className="col-4">
-              <div className="container">
-                <GameCard />
-              </div>
+        <section className="display">
+          Player <span className="display-player playerX">X</span>'s turn
+        </section>
+        <section className="tile-container">
+          <div className="tile" />
+          <div className="tile" />
+          <div className="tile" />
+          <div className="tile" />
+          <div className="tile" />
+          <div className="tile" />
+          <div className="tile" />
+          <div className="tile" />
+          <div className="tile" />
+        </section>
+        <section className="display announcer hide"></section>
+        <div>
+          <label
+            className="display"
+            id="game-coins-message"
+            style={{
+              position: "absolute",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+            }}
+          />
+          <div id="error-message" className="error-message"></div>
+          <div id="toast" className="center">
+            <div className="checkicon">
+              <i className="fas fa-check-square"></i>
             </div>
           </div>
+          <section className="controls">
+            <button id="reset">Reset</button>
+            <button id="add-to-wallet" style={{ display: "none" }}>
+              Add to Wallet
+            </button>
+          </section>
         </div>
       </main>
       <Footer />

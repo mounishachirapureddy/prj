@@ -7,12 +7,10 @@ import Header from "../../components/general-components/Header";
 import Footer from "../../components/general-components/Footer";
 import NewItem from "../../components/general-components/NewItem";
 import Loader from "../../components/general-components/Loader";
-import ImgLoader from "../../components/general-components/ImgLoader";
-import FullpageLoader from "../../components/general-components/FullpageLoader";
 import CarouselPro from "../../components/general-components/CarouselPro";
-import FeaturedPro from "../../components/general-components/FeaturedPro";
-import { Slide, Fade } from "react-awesome-reveal";
+import { Fade } from "react-awesome-reveal";
 import "animate.css";
+
 const Home = () => {
   useEffect(() => {
     jarallax(document.querySelectorAll(".jarallax"));

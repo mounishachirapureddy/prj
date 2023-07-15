@@ -60,7 +60,7 @@ const Game = () => {
             <div className="container">
               <div className="row justify-content-center text-center">
                 <div className="col-lg-7">
-                  <h1>The Tic-Tac-Toe Game</h1>
+                  <h1>X &nbsp;&nbsp; The Tic-Tac-Toe Game &nbsp;&nbsp; O</h1>
                 </div>
               </div>
             </div>
@@ -68,9 +68,18 @@ const Game = () => {
           <div className="wave hero"></div>
         </div>
 
-        <div className="bg_gray" id="submit">
-          <div className="container margin_120_90">
+        <div className="" id="submit">
+          <div className="container" style={{ marginTop: "5em" }}>
             <div className="row justify-content-center">
+            <div className="main_title center">
+                  <span>
+                    <em />
+                  </span>
+                  <h2>Ultimate Tic-Tac-Toe</h2>
+                  <p>
+                  Unleash Your Tactical Brilliance in Tic Tac Toe! <br />
+                  </p>
+                </div>
               <div className="col-lg-5">
                 <div style={{ justifyContent: "center" }}>
                   <form id="register-2" onSubmit={handleSubmit}>

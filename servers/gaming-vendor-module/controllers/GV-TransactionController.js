@@ -129,13 +129,13 @@ async function handleWebhook(req, res) {
   const vendor_id = paymentIntent.metadata.vendor_id;
 
   switch (event.type) {
-    case "payment_intent.canceled":
-      await updateTransactionStatus(transaction_id, "cancelled");
-      break;
+    // case "payment_intent.canceled":
+    //   await updateTransactionStatus(transaction_id, "cancelled");
+    //   break;
 
-    case "payment_intent.payment_failed":
-      await updateTransactionStatus(transaction_id, "failed");
-      break;
+    // case "payment_intent.payment_failed":
+    //   await updateTransactionStatus(transaction_id, "failed");
+    //   break;
 
     case "payment_intent.succeeded":
       await performTransaction(

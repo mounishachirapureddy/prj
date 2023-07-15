@@ -6,8 +6,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 export default function Recommended(props) {
-
-  console.log("propsRR ",props)
+  console.log("propsRR ", props);
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageSrc, setImageSrc] = useState("");
   const [modal, setModal] = useState(false);
@@ -18,7 +17,7 @@ export default function Recommended(props) {
   const token = localStorage.getItem("token");
   const [fetchData, { loading }] = useFetch();
 
-  const [ProfPicLoaded, setProfPicLoaded] = useState(false)
+  const [ProfPicLoaded, setProfPicLoaded] = useState(false);
   const [ProfilePic, setProfilePic] = useState("");
 
   useEffect(() => {
@@ -26,20 +25,21 @@ export default function Recommended(props) {
 
     const fetch = async () => {
       try {
-          const response = await axios.get(`http://127.0.0.1:3002/api/getprofile${props.userid}`)
-          const imgsrc = response.data.user.image
-          console.log(imgsrc)
-          setProfilePic(
-              (imgsrc)
-                  ? `http://127.0.0.1:3002/api/img${imgsrc}`
-                  : "assets/img/items/default-prof.png"
-          );
+        const response = await axios.get(
+          `http://127.0.0.1:3002/api/getprofile${props.userid}`
+        );
+        const imgsrc = response.data.user.image;
+        console.log(imgsrc);
+        setProfilePic(
+          imgsrc
+            ? `http://127.0.0.1:3002/api/img${imgsrc}`
+            : "assets/img/items/default-prof.png"
+        );
+      } catch (err) {
+        console.log(err);
       }
-      catch (err) {
-          console.log(err);
-      }
-  }
-  fetch();
+    };
+    fetch();
 
     setImageSrc(
       props.img
@@ -47,7 +47,7 @@ export default function Recommended(props) {
         : "assets/img/default-prod.png"
     );
     setImageLoaded(false);
-  }, [props.img,props.profpic, ProfilePic]);
+  }, [props.img, props.profpic, ProfilePic]);
 
   const toggleModal = () => {
     setModal((prevState) => !prevState);
@@ -56,7 +56,7 @@ export default function Recommended(props) {
 
   const displayData = {
     title: props.title,
-    pid:props.pid,
+    pid: props.pid,
     desc: props.desc,
     brand: props.brand,
     price: props.price,
@@ -185,34 +185,39 @@ export default function Recommended(props) {
         />
         <a href="" className="strip_info">
           <div className="item_title">
-            <span className="badge"  style={{"background-color": "#FF1493"}}>{props.price} Snapps</span>
+            <span className="badge" style={{ "background-color": "#FF1493" }}>
+              {props.price} Snapps
+            </span>
           </div>
         </a>
       </figure>
       <ul>
-          <li>
-            <div className="author_thumb verified" style={{ display: "flex", alignItems: "center" }}>
-              
-              <figure>
-                <img
-                  src={ProfilePic}
-                  data-src="img/avatar2.jpg"
-                  alt=""
-                  className={`lazy ${ProfPicLoaded ? "" : "visually-hidden"}`}
-                  style={{ width: "25px", height: "25px", borderRadius: "5px"}}
-                  onLoad={() => setProfPicLoaded(true)}
-                  onError={() => setProfPicLoaded(false)}
-                /><i className="bi bi-check"></i>
-              </figure>
-              <h6 style={{ marginLeft: "10px" }}>{props.title}</h6>
-            </div>
-          </li>
+        <li>
+          <div
+            className="author_thumb verified"
+            style={{ display: "flex", alignItems: "center" }}
+          >
+            <figure>
+              <img
+                src={ProfilePic}
+                data-src="img/avatar2.jpg"
+                alt=""
+                className={`lazy ${ProfPicLoaded ? "" : "visually-hidden"}`}
+                style={{ width: "25px", height: "25px", borderRadius: "5px" }}
+                onLoad={() => setProfPicLoaded(true)}
+                onError={() => setProfPicLoaded(false)}
+              />
+              <i className="bi bi-check"></i>
+            </figure>
+            <h6>{props.title}</h6>
+          </div>
+        </li>
 
-      <li>
+        <li>
           <a href="#0" className="wish_bt">
             <i className="bi bi-heart-fill"></i>
-          </a>{" "}
-          50
+            <div style={{ color: "white" }}>50</div>
+          </a>
         </li>
       </ul>
     </div>

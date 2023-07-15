@@ -118,188 +118,212 @@ export default function Home() {
                 View All <i className="bi bi-arrow-right" />
               </a>
             </div>
-            <div className="row author_list">
-              <div className="col-lg-4 col-md-6">
-                <a href="" className="author">
-                  <strong>1</strong>
-                  <div className="author_thumb veryfied">
-                    <i className="bi bi-check" />
-                    <figure>
-                      <img
-                        src="assets/img/avatar1.jpg"
-                        alt=""
-                        className="lazy"
-                        width={100}
-                        height={100}
-                      />
-                    </figure>
+            <Fade>
+                <div className="row author_list">
+                  <div className="col-lg-4 col-md-6">
+                    <Fade direction="up">
+                      <a className="author">
+                        <strong>1</strong>
+                        <div className="author_thumb veryfied ms-5">
+                          <i className="bi bi-check"></i>
+                          <figure>
+                            <img
+                              src="assets/img/avatar1.jpg"
+                              alt=""
+                              className="lazy"
+                              width="100"
+                              height="100"
+                            />
+                          </figure>
+                        </div>
+                        <div>
+                          <h6>Junglee Rummy</h6>
+                        </div>
+                      </a>
+                    </Fade>
                   </div>
-                  <div>
-                    <h6>Junglee Rummy</h6>
+
+                  <div className="col-lg-4 col-md-6">
+                    <Fade direction="up">
+                      <a className="author">
+                        <strong>2</strong>
+
+                        <div className="author_thumb veryfied ms-5">
+                          <i className="bi bi-check"></i>
+                          <figure>
+                            <img
+                              src="assets/img/avatar2.jpg"
+                              alt=""
+                              className="lazy"
+                              width="100"
+                              height="100"
+                            />
+                          </figure>
+                        </div>
+                        <div>
+                          <h6>Callbreak</h6>
+                        </div>
+                      </a>
+                    </Fade>
                   </div>
-                </a>
-              </div>
-              <div className="col-lg-4 col-md-6">
-                <a href="" className="author">
-                  <strong>2</strong>
-                  <div className="author_thumb veryfied">
-                    <i className="bi bi-check" />
-                    <figure>
-                      <img
-                        src="assets/img/avatar2.jpg"
-                        alt=""
-                        className="lazy"
-                        width={100}
-                        height={100}
-                      />
-                    </figure>
+                  <div className="col-lg-4 col-md-6">
+                    <Fade direction="up">
+                      <a className="author">
+                        <strong>3</strong>
+
+                        <div className="author_thumb veryfied ms-5">
+                          <i className="bi bi-check"></i>
+                          <figure>
+                            <img
+                              src="assets/img/avatar3.jpg"
+                              alt=""
+                              className="lazy"
+                              width="100"
+                              height="100"
+                            />
+                          </figure>
+                        </div>
+                        <div>
+                          <h6>Ludo King</h6>
+                        </div>
+                      </a>
+                    </Fade>
                   </div>
-                  <div>
-                    <h6>Callbreak</h6>
+                  <div className="col-lg-4 col-md-6">
+                    <Fade direction="up">
+                      <a className="author">
+                        <strong>4</strong>
+                        <div className="author_thumb veryfied ms-5">
+                          <i className="bi bi-check"></i>
+                          <figure>
+                            <img
+                              src="assets/img/avatar4.jpg"
+                              alt=""
+                              className="lazy"
+                              width="100"
+                              height="100"
+                            />
+                          </figure>
+                        </div>
+                        <div>
+                          <h6>Cricket League</h6>
+                        </div>
+                      </a>
+                    </Fade>
                   </div>
-                </a>
-              </div>
-              <div className="col-lg-4 col-md-6">
-                <a href="" className="author">
-                  <strong>3</strong>
-                  <div className="author_thumb veryfied">
-                    <i className="bi bi-check" />
-                    <figure>
-                      <img
-                        src="assets/img/avatar3.jpg"
-                        alt=""
-                        className="lazy"
-                        width={100}
-                        height={100}
-                      />
-                    </figure>
+                  <div className="col-lg-4 col-md-6">
+                    <Fade direction="up">
+                      <a className="author">
+                        <strong>5</strong>
+                        <div className="author_thumb veryfied ms-5">
+                          <i className="bi bi-check"></i>
+                          <figure>
+                            <img
+                              src="assets/img/avatar5.jpg"
+                              alt=""
+                              className="lazy"
+                              width="100"
+                              height="100"
+                            />
+                          </figure>
+                        </div>
+                        <div>
+                          <h6>Evony</h6>
+                        </div>
+                      </a>
+                    </Fade>
                   </div>
-                  <div>
-                    <h6>Ludo King</h6>
+                  <div className="col-lg-4 col-md-6">
+                    <Fade direction="up">
+                      <a className="author">
+                        <strong>6</strong>
+                        <div className="author_thumb veryfied ms-5">
+                          <i className="bi bi-check"></i>
+                          <figure>
+                            <img
+                              src="assets/img/avatar6.jpg"
+                              alt=""
+                              className="lazy"
+                              width="100"
+                              height="100"
+                            />
+                          </figure>
+                        </div>
+                        <div>
+                          <h6>Coin Master</h6>
+                        </div>
+                      </a>
+                    </Fade>
                   </div>
-                </a>
-              </div>
-              <div className="col-lg-4 col-md-6">
-                <a href="" className="author">
-                  <strong>4</strong>
-                  <div className="author_thumb veryfied">
-                    <i className="bi bi-check" />
-                    <figure>
-                      <img
-                        src="assets/img/avatar4.jpg"
-                        alt=""
-                        className="lazy"
-                        width={100}
-                        height={100}
-                      />
-                    </figure>
+                  <div className="col-lg-4 col-md-6">
+                    <Fade direction="up">
+                      <a className="author">
+                        <strong>7</strong>
+                        <div className="author_thumb veryfied ms-5">
+                          <i className="bi bi-check"></i>
+                          <figure>
+                            <img
+                              src="assets/img/avatar7.jpg"
+                              alt=""
+                              className="lazy"
+                              width="100"
+                              height="100"
+                            />
+                          </figure>
+                        </div>
+                        <div>
+                          <h6>Free Fire Max</h6>
+                        </div>
+                      </a>
+                    </Fade>
                   </div>
-                  <div>
-                    <h6>Cricket League</h6>
+                  <div className="col-lg-4 col-md-6">
+                    <Fade direction="up">
+                      <a className="author">
+                        <strong>8</strong>
+                        <div className="author_thumb veryfied ms-5">
+                          <i className="bi bi-check"></i>
+                          <figure>
+                            <img
+                              src="assets/img/avatar8.jpg"
+                              alt=""
+                              className="lazy"
+                              width="100"
+                              height="100"
+                            />
+                          </figure>
+                        </div>
+                        <div>
+                          <h6>Klondike Adventures</h6>
+                        </div>
+                      </a>
+                    </Fade>
                   </div>
-                </a>
-              </div>
-              <div className="col-lg-4 col-md-6">
-                <a href="" className="author">
-                  <strong>5</strong>
-                  <div className="author_thumb veryfied">
-                    <i className="bi bi-check" />
-                    <figure>
-                      <img
-                        src="assets/img/avatar5.jpg"
-                        alt=""
-                        className="lazy"
-                        width={100}
-                        height={100}
-                      />
-                    </figure>
+                  <div className="col-lg-4 col-md-6">
+                    <Fade direction="up">
+                      <a className="author">
+                        <strong>9</strong>
+                        <div className="author_thumb veryfied ms-5">
+                          <i className="bi bi-check"></i>
+                          <figure>
+                            <img
+                              src="assets/img/avatar9.jpg"
+                              alt=""
+                              className="lazy"
+                              width="100"
+                              height="100"
+                            />
+                          </figure>
+                        </div>
+                        <div>
+                          <h6>Airforce Royale</h6>
+                        </div>
+                      </a>
+                    </Fade>
                   </div>
-                  <div>
-                    <h6>Evony</h6>
-                  </div>
-                </a>
-              </div>
-              <div className="col-lg-4 col-md-6">
-                <a href="" className="author">
-                  <strong>6</strong>
-                  <div className="author_thumb veryfied">
-                    <i className="bi bi-check" />
-                    <figure>
-                      <img
-                        src="assets/img/avatar6.jpg"
-                        alt=""
-                        className="lazy"
-                        width={100}
-                        height={100}
-                      />
-                    </figure>
-                  </div>
-                  <div>
-                    <h6>Coin Master</h6>
-                  </div>
-                </a>
-              </div>
-              <div className="col-lg-4 col-md-6">
-                <a href="" className="author">
-                  <strong>7</strong>
-                  <div className="author_thumb veryfied">
-                    <i className="bi bi-check" />
-                    <figure>
-                      <img
-                        src="assets/img/avatar7.jpg"
-                        alt=""
-                        className="lazy"
-                        width={100}
-                        height={100}
-                      />
-                    </figure>
-                  </div>
-                  <div>
-                    <h6>Free Fire Max</h6>
-                  </div>
-                </a>
-              </div>
-              <div className="col-lg-4 col-md-6">
-                <a href="" className="author">
-                  <strong>8</strong>
-                  <div className="author_thumb veryfied">
-                    <i className="bi bi-check" />
-                    <figure>
-                      <img
-                        src="assets/img/avatar8.jpg"
-                        alt=""
-                        className="lazy"
-                        width={100}
-                        height={100}
-                      />
-                    </figure>
-                  </div>
-                  <div>
-                    <h6>Klondike Adventures</h6>
-                  </div>
-                </a>
-              </div>
-              <div className="col-lg-4 col-md-6">
-                <a href="" className="author">
-                  <strong>9</strong>
-                  <div className="author_thumb veryfied">
-                    <i className="bi bi-check" />
-                    <figure>
-                      <img
-                        src="assets/img/avatar9.jpg"
-                        alt=""
-                        className="lazy"
-                        width={100}
-                        height={100}
-                      />
-                    </figure>
-                  </div>
-                  <div>
-                    <h6>Airforce Royale</h6>
-                  </div>
-                </a>
-              </div>
-            </div>
+                </div>
+              </Fade>
+
           </div>
         </div>
         </Fade>
