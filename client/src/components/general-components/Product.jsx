@@ -41,6 +41,9 @@ function Product(props) {
         <div className="col-xl-4 col-lg-4 col-md-4 col-sm-6">
             <Fade>
             <div className="strip">
+            {props.datatopass.featured && <div className="ribbon mt-2 me-2">
+                        <span>Featured</span>
+                    </div>}
                 <figure >
                     {!imageLoaded && <div > <Loader /> </div>}<SnappnowLink imageLoaded={imageLoaded} url="\detail-page" datatopass={props.datatopass} />
                     <img src={imageSrc} data-src="img/items/item-12.jpg" className={`lazy ${imageLoaded ? "" : "visually-hidden"}`} alt="" width="533" height="400" onLoad={() => setImageLoaded(true)}
@@ -58,7 +61,9 @@ function Product(props) {
                                 <figure>{!ProfPicLoaded && <div > <ImgLoader /> </div>}
                                     <img src={ProfilePic} data-src="img/avatar2.jpg" alt="" className={`lazy ${ProfPicLoaded ? "" : "visually-hidden"}`} width="100px" onLoad={() => setProfPicLoaded(true)} onError={() => setProfPicLoaded(false)} /></figure>
                             </div>
-                            <h6 className="">{props.title}</h6>
+                            <h6 className="text-wrap" style={{
+                                
+                            }} title={props.title} >{props.title.slice(0,25) + `${props.title.length > 25 ? "..." : ""}`  }</h6>
                         </Link>
                     </li>
                     <li></li>
@@ -72,7 +77,7 @@ function Product(props) {
                     }) : <span className="badge bg-danger me-1" >No Category</span>}</li>
                 </ul>
                 <ul>
-                    <li className="">{props.desc.slice(0, 20) + "..."}</li>
+                    <li className="" title={props.desc} >{props.desc.slice(0, 20) + "..."}</li>
                     <li className="text-uppercase link">{props.brand}</li>
                 </ul>
             </div>
