@@ -16,6 +16,7 @@ const ProductDetail = (props) => {
     const [ ClickedSnappNow , setClicked ] = useState(false);
     console.log("hitted")
     useEffect(() => {
+        window.scrollTo(0, 0)
         const fetch = async () => {
             try {
                 const response = await axios.get(`http://127.0.0.1:3002/api/getprofile${state.datatopass.userid}`)
@@ -49,36 +50,36 @@ const ProductDetail = (props) => {
                     <div className="row">
                         <div className="col-xl-8 col-lg-7 margin_detail">
 
-                            <div className="box_general">
-                                {!imageLoaded && <div className="d-flex justify-content-center align-items-center m-5 p-5"><Loader /></div>}
-                                <img src={imageSrc} width={"100%"} alt="" className={`img-fluid ${imageLoaded ? `` : `visually-hidden`}`} onLoad={() => setImageLoaded(true)} onError={() => setImageLoaded(false)} />
-                                <div className="main_info_wrapper">
-                                    <div className="main_info">
-                                        <div className="clearfix mb-3">
-                                            <div className="item_desc">
-                                                <div className="mb-3">
-                                                    <a className="author">
-                                                        <div className="author_thumb veryfied"><i className="bi bi-check"></i>
-                                                            <figure>
-                                                                {!ProfPicLoaded && <div style={{
-                                                                    transform: "scale(0.4)"
-                                                                }}>
-                                                                    <Loader /></div>}
-                                                                <img src={ProfilePic} data-src="img/avatar1.jpg" alt="" className={`lazy${ProfPicLoaded ? `` : `visually-hidden`}`} width="100" height="100" data-was-processed="true" onLoad={() => setProfPicLoaded(true)} /></figure>
-                                                        </div>
-                                                        <h6 className="ms-1">{state.datatopass.brand}</h6>
-                                                    </a>
+                                <div className="box_general">
+                                    {!imageLoaded && <div className="d-flex justify-content-center align-items-center m-5 p-5"><Loader /></div>}
+                                    <img src={imageSrc} width={"100%"} alt="" className={`img-fluid ${imageLoaded ? `` : `visually-hidden`}`} onLoad={() => setImageLoaded(true)} onError={() => setImageLoaded(false)} />
+                                    <div className="main_info_wrapper">
+                                        <div className="main_info">
+                                            <div className="clearfix mb-3">
+                                                <div className="item_desc">
+                                                    <div className="mb-3">
+                                                        <a className="author">
+                                                            <div className="author_thumb veryfied"><i className="bi bi-check"></i>
+                                                                <figure>
+                                                                    {!ProfPicLoaded && <div style={{
+                                                                        transform: "scale(0.4)"
+                                                                    }}>
+                                                                        <Loader /></div>}
+                                                                    <img src={ProfilePic} data-src="img/avatar1.jpg" alt="" className={`lazy${ProfPicLoaded ? `` : `visually-hidden`}`} width="100" height="100" data-was-processed="true" onLoad={() => setProfPicLoaded(true)} /></figure>
+                                                            </div>
+                                                            <h6 className="ms-1">{state.datatopass.brand}</h6>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div className="score_in">
+                                                    <i className="bi bi-stack me-1"></i> 123<a className="wish_bt"></a>
                                                 </div>
                                             </div>
-                                            <div className="score_in">
-                                                <i className="bi bi-stack me-1"></i> 123<a className="wish_bt"></a>
-                                            </div>
+                                            <h1 className="mb-md-2">{state.datatopass.title}</h1>
+                                            <p>{state.datatopass.description}</p>
                                         </div>
-                                        <h1 className="mb-md-2">{state.datatopass.title}</h1>
-                                        <p>{state.datatopass.description}</p>
                                     </div>
                                 </div>
-                            </div>
 
 
                                 <div className="tabs_detail">
@@ -110,24 +111,24 @@ const ProductDetail = (props) => {
                                 </div>
                             </div>
 
-                        <div className="col-xl-4 col-lg-5" id="sidebar_fixed">
-                            <br /><br /><br />
-                            <div className="container justify-content-center align-items-center">
-                                <div className="box_bid">
-                                    <h2>Product Name</h2>
-                                    <a className="close_panel_mobile"><i className="icon_close"></i></a>
-                                    <div className="item_meta"> <h3>Redeem With <strong>{state.datatopass.price}  Snapps</strong></h3>
+                            <div className="col-xl-4 col-lg-5" id="sidebar_fixed">
+                                <br /><br /><br />
+                                <div className="container justify-content-center align-items-center">
+                                    <div className="box_bid">
+                                        <h2>Product Name</h2>
+                                        <a className="close_panel_mobile"><i className="icon_close"></i></a>
+                                        <div className="item_meta"> <h3>Redeem With <strong>{state.datatopass.price}  snapps</strong></h3>
+                                        </div>
+                                        <hr /> <a className="btn_1 full-width mb-2 modal_popup" onClick={() => setClicked(true)}>Snapp Now!</a>
                                     </div>
-                                    <hr /> <a className="btn_1 full-width mb-2 modal_popup" onClick={() => setClicked(true)}>Snapp Now!</a>
+                                    <ul className="share-buttons">
+                                        <li><a><i className="bi bi-instagram"></i></a></li>
+                                        <li><a><i className="bi bi-facebook"></i></a></li>
+                                        <li><a><i className="bi bi-twitter"></i></a></li>
+                                        <li><a><i className="bi bi-youtube"></i></a></li>
+                                    </ul>
                                 </div>
-                                <ul className="share-buttons">
-                                    <li><a><i className="bi bi-instagram"></i></a></li>
-                                    <li><a><i className="bi bi-facebook"></i></a></li>
-                                    <li><a><i className="bi bi-twitter"></i></a></li>
-                                    <li><a><i className="bi bi-youtube"></i></a></li>
-                                </ul>
                             </div>
-                        </div>
 
                     </div>
                 </div>
