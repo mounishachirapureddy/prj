@@ -195,7 +195,7 @@ const Dashboard = () => {
       <title>Snappcoins - Ready , Steady, Snapp!</title>
 
       {/* <FullpageLoader /> */}
-      <Header name={vendor_name} snappcoins={vendor_snappcoins} />
+      <Header name={vendor_name} id={vendorId} snappcoins={vendor_snappcoins} />
 
       <main>
         <Hero />
@@ -205,6 +205,7 @@ const Dashboard = () => {
             <UserProfile
               page={"dashboard"}
               name={"@" + vendor_name}
+              id={vendorId}
               snappcoins={vendor_snappcoins}
             />
             <div className="col-lg-9 ps-lg-5">
@@ -430,20 +431,20 @@ const Dashboard = () => {
                             style={{ height: "100px", width: "100px" }}
                           />
                           <div className="text-start col-6 w-75">
-                            <h7 className="my-1">
+                            <div className="my-1">
                               Game:{" "}
                               <Link to="#">{"Tic-Tac-Toe"}</Link>
                               <br />
-                            </h7>
-                            <h7 className="my-1">
+                            </div>
+                            <div className="my-1">
                               Game Id:{" "}
                               <Link to="#">{"#G-GV001-003"}</Link>
                               <br />
-                            </h7>
-                            <h7 className="my-1">
+                            </div>
+                            <div className="my-1">
                               Registration Date:{" "}
                               <Link to="#">{"09.05.23"}</Link>
-                            </h7>
+                            </div>
                           </div>
                         </li>
                         <li
@@ -456,20 +457,20 @@ const Dashboard = () => {
                             className="me-3"
                           />
                           <div className="text-start col-6 w-75">
-                          <h7 className="my-1">
+                          <div className="my-1">
                               Game:{" "}
                               <Link to="#">{"Callbreak"}</Link>
                               <br />
-                            </h7>
-                            <h7 className="my-1">
+                            </div>
+                            <div className="my-1">
                               Game Id:{" "}
                               <Link to="#">{"#G-GV001-002"}</Link>
                               <br />
-                            </h7>
-                            <h7 className="my-1">
+                            </div>
+                            <div className="my-1">
                               Registration Date:{" "}
                               <Link to="#">{"16.03.23"}</Link>
-                            </h7>
+                            </div>
                           </div>
                         </li>
                         <li
@@ -482,20 +483,20 @@ const Dashboard = () => {
                             className="me-3"
                           />
                           <div className="text-start col-6 w-75">
-                          <h7 className="my-1">
+                          <div className="my-1">
                               Game:{" "}
                               <Link to="#">{"Ludo King"}</Link>
                               <br />
-                            </h7>
-                            <h7 className="my-1">
+                            </div>
+                            <div className="my-1">
                               Game Id:{" "}
                               <Link to="#">{"#G-GV001-001"}</Link>
                               <br />
-                            </h7>
-                            <h7 className="my-1">
+                            </div>
+                            <div className="my-1">
                               Registration Date:{" "}
                               <Link to="#">{"21.09.22"}</Link>
-                            </h7>
+                            </div>
                           </div>
                         </li>
                       </ul>

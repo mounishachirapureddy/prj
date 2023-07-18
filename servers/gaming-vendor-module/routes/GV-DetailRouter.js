@@ -1,8 +1,12 @@
 import express from "express";
 import { check, body } from "express-validator";
+import multer from "multer";
+
 import {
   getAccountSettings,
   setAccountSettings,
+  getProfilePicture,
+  changeProfilePicture,
   changePassword,
 } from "../controllers/GV-DetailController.js";
 
@@ -13,6 +17,19 @@ router.get("/get-account-settings/:vendor_id", getAccountSettings);
 
 // Set account settings for a vendor
 router.post("/set-account-settings", setAccountSettings);
+
+router.get('/get-profile-picture', getProfilePicture);
+
+// Get the profile picture URL for the current vendor
+const upload = multer({
+  dest: 'uploads/',
+  limits: {
+    fileSize: 20 * 1024 * 1024, // 20MB
+  },
+});
+
+// Change a vendor's profile picture
+router.post("/change-profile-picture", upload.single('profilePicture'), changeProfilePicture);
 
 // Change password for a vendor
 router.post(
