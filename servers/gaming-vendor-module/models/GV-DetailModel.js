@@ -32,15 +32,9 @@ const GamingVendorDetailsSchema = new Schema(
     vendor_description: {
       type: String,
     },
-    vendor_profile_image: {
-      data: {
-        type: Buffer,
-        default: "../img/default_profile_pic.jpg", 
-      },
-      contentType: {
-        type: String,
-        default: "image/jpeg", 
-      },
+    vendor_profile_image_url: {
+      type: String,
+      default: "../img/default_profile_pic.jpg",
     },
     vendor_registration_status: {
       type: Boolean,

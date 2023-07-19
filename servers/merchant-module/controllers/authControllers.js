@@ -20,7 +20,7 @@ exports.sendVerificationEmail = async (req, res) => {
       upperCaseAlphabets: false,
       specialChars: false,
     });
-    console.log(otp);
+    console.log("Merchant OTP: " + otp);
     const { email } = await User.findById(req.query.uid);
     const mailOptions = {
       from: process.env.AUTH_EMAIL,
