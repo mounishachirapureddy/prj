@@ -56,7 +56,7 @@ export default function Home() {
     } else {
       fetchUser();
     }
-    fetchUser();
+    
   }, [fetchUser]);
 
   //RECOMMENDATION SECTION
@@ -144,6 +144,10 @@ export default function Home() {
  
   //console.log("user id: ",user?._id);
 
+  //----------------------------------------------------------------------------------------------------------------------------//
+
+  //snapps Redeemed
+
   const fetchhistory = useCallback(() => {
     const userId = user?._id;
     if (!userId) {
@@ -226,7 +230,47 @@ export default function Home() {
     }
   };
 
-  //snapps redeemed 
+
+  const [searchsnapKeyword,setsnapSearchKeyword]=useState("");
+  
+  console.log(searchsnapKeyword)
+
+  const handlesnapSearch = () => {
+
+    const userId = user?._id; 
+
+    const snapConfig = {
+      url: `http://localhost:3004/api/snapps/snappscollected?uid=${userId}`,
+      method: "get",
+      headers: { Authorization: token },
+      params: {
+
+        tID: searchsnapKeyword,
+      },
+    };
+
+    fetchData(snapConfig, { showSuccessToast: false })
+      .then((transactionData) => {
+        if (transactionData.games.length === 0) {
+          // No transactions found for the searched keyword
+          setSnaphistory([]);
+          setTotalHistory(0);
+        } else {
+          setSnaphistory(transactionData.games);
+          setTotalHistory(transactionData.total_counts);
+        }
+        console.log(transactionData)
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+
+
+  //----------------------------------------------------------------------------------------------------------------------//
+
+  //snapps collected
 
   const [currentPage1, setCurrentPage1] = useState(1);
   const [totaltransactions, setTotaltransactions] = useState();
@@ -472,6 +516,7 @@ export default function Home() {
                               price={product.price}
                               userid={product.userid}
                               index={index}
+                              featured={product.featured}
                             />
                           </div>
                         </div>
@@ -516,12 +561,12 @@ export default function Home() {
                               type="search"
                               placeholder="Search here..."
                               aria-label="Search"
-                              value={searchKeyword}
-                              onChange={(e) => setSearchKeyword(e.target.value)}
+                              value={searchsnapKeyword}
+                              onChange={(e) => setsnapSearchKeyword(e.target.value)}
                             />
                             <button
                               class="btn text-white bg-danger inside"
-                              onClick={handleSearch}
+                              onClick={handlesnapSearch}
                             >
                               Search
                             </button>

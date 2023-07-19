@@ -3,9 +3,12 @@ const User = require("../models/gamerModel");
 
 exports.snappsCollected = async (req, res) => {
   try {
-    const { uid } = req.query;
+    const uid = req.query.uid;
     const pagenum = req.query.pagenum;
     const size = req.query.size;
+    const tID = req.query.tID;
+
+    //console.log("tID from frontend: ", tID);
 
     const user = await User.findById(uid);
 
@@ -16,16 +19,33 @@ exports.snappsCollected = async (req, res) => {
       return res.status(404).json({ error: "User not found" });
     }
 
-    let gameslist = user.games.slice().reverse(); // Create a copy of the games array and reverse it
+    let totalLength, gamesplayed;
 
-    const totalLength = gameslist.length; // Get the total length of the games array
+    if (tID) {
+      // Search transactions based on tID
+      const transactions = user.games.filter((game) => game.tid.trim().toLowerCase() === tID.trim().toLowerCase());
 
-    const gamesplayed = gameslist.slice(skip, skip + limit); // Get the subset of elements based on skip and limit
+      console.log("transactions: ", transactions);
+
+      if (transactions.length === 0) {
+        return res.status(404).json({ error: "Transactions not found" });
+      }
+
+      gamesplayed = transactions;
+      totalLength = transactions.length;
+
+    } else {
+      const gameslist = user.games.slice().reverse();
+      totalLength = gameslist.length;
+      gamesplayed = gameslist.slice(skip, skip + limit);
+    }
 
     res.status(200).json({ games: gamesplayed, total_counts: totalLength });
   } catch (error) {
-    // Handle other errors that may occur during the execution
     console.error(error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
+
+

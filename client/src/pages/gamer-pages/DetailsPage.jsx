@@ -1,26 +1,31 @@
 import React, { useCallback, useState } from "react";
 import { useLocation } from "react-router-dom";
-
+import { Modal, ModalBody, ModalHeader } from "reactstrap";
+import { Link } from "react-router-dom";
 import Navbar from "../../components/gamer-components/Navbar";
 import Footer from "../../components/general-components/Footer";
 import { useDispatch, useSelector } from "react-redux";
 import useFetch from "../../hooks/useFetch-gamer";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function DetailsPage() {
   const location = useLocation();
-  const { displayData, imageSrc } = location.state;
-
+  const { displayData, imageSrc, profilePic  } = location.state;
+  const [modal, setModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const token = localStorage.getItem("token");
   const [fetchData, { loading }] = useFetch();
+ 
 
   const dispatch = useDispatch();
   const gaming = useSelector((state) => state.gamerReducer);
   const profile = gaming.gamer;
 
-  console.log("proff ", profile?._id, profile?.userName);
+  //console.log("proff ", profile?._id, profile?.userName);
 
-  console.log("pd: ", displayData);
-  console.log("i:", imageSrc);
+  //console.log("pd: ", displayData);
+  //console.log("i:", imageSrc);
 
   const [isExtended, setIsExtended] = useState(false);
 
@@ -33,6 +38,8 @@ export default function DetailsPage() {
     e.preventDefault();
     setIsExtended(false);
   };
+
+  //should be called in Add to Cart page
 
   const handlSnappNow = useCallback(() => {
     const config = {
@@ -54,9 +61,108 @@ export default function DetailsPage() {
       });
   }, [fetchData, token, dispatch, displayData, profile]);
 
+  const handleCart = useCallback(() => {
+    const config = {
+      url: `http://localhost:3004/api/cart/addItem?uid=${profile?._id}`,
+      method: "post",
+      headers: { Authorization: token},   
+    };
+
+    fetchData(config, { showSuccessToast: false })
+      .then((data) => {
+        toast.success("Item Added To Cart Sucessfully");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [fetchData, token, dispatch, profile]);
+
+  const toggleModal = () => {
+    setModal((prevState) => !prevState);
+    setShowModal((prevState) => !prevState);
+  };
+
   return (
     <div>
+
       <Navbar />
+
+      <Modal size="small" isOpen={modal} toggle={toggleModal} style={{marginTop:"10rem"}}>
+        <ModalHeader toggle={toggleModal}>
+          <b style={{ color: "black" }}>Snap Now!</b>
+        </ModalHeader>
+        <ModalBody>
+          <form method="POST">
+            <div className="modal-body">
+              <p style={{ color: "black" }}>
+                You are about to purchase <b>{displayData?.title}</b><b>#304</b> from{" "}
+                <b>{displayData?.brand}</b>
+              </p>
+              <p>
+                <b
+                  style={{ margin: "0px", color: "black", paddingLeft: "16px" }}
+                >
+                  Redeem with
+                </b>
+              </p>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="3.5 Snapps"
+                style={{
+                  width: "100%",
+                  color: "black",
+                  marginTop: "-20px",
+                  marginBottom: "1rem",
+                }}
+                value={`${displayData?.price}`} disabled
+              />
+              <ul style={{ listStyle: "none", color: "black" }}>
+                <li>
+                  Your balance
+                  <span style={{ marginLeft: "14rem" }}>
+                     {profile.walletMoney}
+                  </span>
+                </li>
+                <li>
+                  Service fee 1.5%
+                  <span style={{ marginLeft: "13rem" }}>0.125 Snapps</span>
+                </li>
+              </ul>
+            </div>
+            <div className="modal-footer justify-content-center">
+              <Link
+                to="/details-page"
+                state={{ displayData, imageSrc }}
+                style={{ width: "100%" }}
+              >
+                <button
+                  type="button"
+                  className="btn"
+                  style={{
+                    width: "100%",
+                    background: "#ff0071",
+                    color: "white",
+                  }}
+                  onClick={handleCart}
+                >
+                   Add To Cart <i class="bi bi-cart"></i>
+                </button>
+              </Link>
+              <button
+                type="button"
+                className="btn"
+                data-bs-dismiss="modal"
+                style={{ width: "100%", background: "black", color: "white" }}
+                onClick={toggleModal}
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </ModalBody>
+      </Modal>
+
       <main style={{ transform: "none" }}>
         <div className="container" style={{ transform: "none" }}>
           <div className="row" style={{ transform: "none" }}>
@@ -78,6 +184,7 @@ export default function DetailsPage() {
                     marginLeft: "6rem",
                     marginRight: "2rem",
                     marginTop: "2rem",
+                    width:"650px"
                   }} // Set the width of the image to 100%
                 />
                 <div className="main_info_wrapper">
@@ -85,12 +192,12 @@ export default function DetailsPage() {
                     <div className="clearfix mb-3">
                       <div className="item_desc">
                         <div className="mb-3">
-                          <a href="author.html" className="author">
+                          <a href="" className="author">
                             <div className="author_thumb veryfied">
                               <i className="bi bi-check"></i>
                               <figure>
                                 <img
-                                  src="assets/img/avatar1.jpg"
+                                  src={profilePic}
                                   data-src="img/avatar1.jpg"
                                   alt=""
                                   className="lazy loaded"
@@ -184,7 +291,7 @@ export default function DetailsPage() {
                   <hr />{" "}
                   <button
                     className="btn_1 full-width mb-2 modal_popup"
-                    onClick={handlSnappNow}
+                    onClick={toggleModal}
                   >
                     Snapp Now!
                   </button>

@@ -12,6 +12,7 @@ const merchantDisplatRoutes = require('./routes/merchandiseDisplay.route');
 const transaction = require('./routes/transHistory.route');
 //const snapcoinbank = require('./routes/snapcoin.route');
 const snappscollected =  require('./routes/snappscollected.route')
+const cartCollected = require('./routes/cartController.route');
 const port = process.env.PORT || 5001
 
 app.use(express.json());
@@ -29,6 +30,7 @@ app.use('/api/merchant',merchantDisplatRoutes);
 app.use('/api/transaction',transaction);
 //app.use('/api/snappcoin',snapcoinbank);
 app.use('/api/snapps',snappscollected);
+app.use('/api/cart',cartCollected);
 connectDB() //DB connection
 
 app.listen(port,()=>{

@@ -19,6 +19,18 @@ const gameSchema = new Schema({
   },
 });
 
+const cartSchema = new Schema({
+  name:{
+    type:String,
+  },
+  cost:{
+    type:Number,
+  },
+  img:{
+    type:String,
+  }
+})
+
 const gamerSchema = new Schema({
    userName:{
       type: String,
@@ -52,14 +64,21 @@ const gamerSchema = new Schema({
       type:String,
       
     }
-    ,
-    
+    ,  
     redeemed: {
       type: Number,
       default: 0
     },
 
+    cart: {
+      
+      type:Number,
+      default:0
+    },
+
     games : [gameSchema] ,
+
+    cartItems : [cartSchema] ,
 
    },
    {timestamp:true}
