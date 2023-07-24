@@ -61,9 +61,9 @@ export default function DetailsPage() {
       });
   }, [fetchData, token, dispatch, displayData, profile]);
 
-  const handleCart = useCallback(() => {
+  const handleCart = useCallback((imageSrc) => {
     const config = {
-      url: `http://localhost:3004/api/cart/addItem?uid=${profile?._id}`,
+      url: `http://localhost:3004/api/cart/addItem?uid=${profile?._id}&name=${displayData?.title}&price=${displayData?.price}&imageSrc=${imageSrc}`,
       method: "post",
       headers: { Authorization: token},   
     };
@@ -144,7 +144,7 @@ export default function DetailsPage() {
                     background: "#ff0071",
                     color: "white",
                   }}
-                  onClick={handleCart}
+                  onClick={() => handleCart(imageSrc)}
                 >
                    Add To Cart <i class="bi bi-cart"></i>
                 </button>

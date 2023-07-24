@@ -23,12 +23,17 @@ const cartSchema = new Schema({
   name:{
     type:String,
   },
-  cost:{
+  price:{
     type:Number,
+    default:0,
   },
   img:{
     type:String,
-  }
+  },
+  quantity:{
+    type:Number,
+    default:1
+  },
 })
 
 const gamerSchema = new Schema({
@@ -78,7 +83,7 @@ const gamerSchema = new Schema({
 
     games : [gameSchema] ,
 
-    cartItems : [cartSchema] ,
+    cartitems : [cartSchema] ,
 
    },
    {timestamp:true}

@@ -6,5 +6,5 @@ const { validationMiddleware } = require("../middleware/validator.js")
 
 router.post("/creation",wallet);
 router.get("/coins",getCoins);
-router.post("/addMoney",addMoney);
+router.post("/addMoney",addMoney)
 module.exports = router;

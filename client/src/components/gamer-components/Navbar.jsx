@@ -24,11 +24,11 @@ const Header = () => {
 
   useEffect(() => {
     setImageSrc(
-      gamer.image
+      gamer?.image
         ? `${process.env.REACT_APP_GAMER_MODULE_URL}/api/profile/img/${gamer.image}`
         : "assets/img/avatar-gamer.jpg"
     );
-  }, [gamer.image]);
+  }, [gamer?.image]);
 
   const handleLogoutClick = () => {
     dispatch(logout());
@@ -134,8 +134,13 @@ const Header = () => {
                         </a>
                       </li>
                       <li>
-                        <Link href="/gamer-dashboard">
+                        <Link to="/gamer-dashboard">
                           <i className="bi bi-image"></i>Dashboard
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to="/gamer-mycart">
+                          <i className="bi bi-cart"></i>My Cart
                         </Link>
                       </li>
                       <li onClick={handleLogoutClick}>

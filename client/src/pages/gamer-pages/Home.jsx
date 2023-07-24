@@ -10,6 +10,7 @@ import TransactionHistory from "../../components/gamer-components/TransactionHis
 import Recommended from "../../components/gamer-components/Recommended";
 import PageComp from "../../components/gamer-components/PageComp";
 import MyItems from "../../components/gamer-components/myItems";
+import CartItems from "../../components/gamer-components/CartItems";
 import Hero from "../../components/gaming-vendor-components/Hero"
 
 import useFetch from "../../hooks/useFetch-gamer";
@@ -20,11 +21,12 @@ export default function Home() {
   const [merchant, setMerchant] = useState([]);
   const [snaphistory, setSnaphistory] = useState([]);
   const [transactions, setTransactions] = useState([]);
-  const [hist,setHist]=useState([]);
+  const [cartItems, setCartItems] = useState([]);
   const [pendingOrders,setPendingOrders]=useState(0);
   const [Redeemed,setRedeemed]=useState(0);
 
-  console.log("SH: ",snaphistory)
+  console.log("CI: ",cartItems);
+  //console.log("SH: ",snaphistory)
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
   const [fetchData, { loading }] = useFetch();
@@ -410,6 +412,96 @@ export default function Home() {
       });
   };
 
+  //-----------------------------------------------------------------------------------------------//
+
+  const [currentPage3, setCurrentPage3] = useState(1);
+  const [totalitems, setTotalitems] = useState();
+  const itemsPerPage3 = 3; // change the value here sasi
+
+  const fetchCart= useCallback(() => {
+
+    const userId = user?._id;
+    if (!userId) {
+      return; // Return early if user ID is not available
+    }
+    
+    const config = {
+      url: `http://localhost:3004/api/cart/showItems?uid=${userId}`,
+      method: "get",
+      headers: { Authorization: token },    
+      params: { pagenum: currentPage3, size: itemsPerPage3 }, 
+    };
+
+    return fetchData(config, { showSuccessToast: false })
+      .then((data) => {
+        setCartItems(data.items) ; 
+        setTotalitems(data.length); 
+        return data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [fetchData, token, user,currentPage3,itemsPerPage3]);
+
+  useEffect(() => {
+    const fetchCartData = async () => {
+      try {
+        const response = await fetchCart();
+        if (response) {         
+          setCartItems(response.items) ; 
+          setTotalitems(response.length);       
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchCartData();
+  }, [fetchCart]);
+
+
+  const pagelength3 = Math.ceil(totalitems/ itemsPerPage3);
+  console.log("TI: ", totalitems);
+  console.log("PL3: ", pagelength3);
+  const start3 = 1;
+  const end3 = pagelength3;
+  const pages3 = ["<<", "<"]; // represents  the starting page
+
+  for (let i = start3; i <= end3; i++) {
+    pages3.push(i);
+  }
+
+  pages3.push(">"); // represents the ending page
+  pages3.push(">>");
+
+  console.log(pages3);
+
+  const handleClick3 = (e) => {
+    e.preventDefault();
+    const temppage = e.target.innerHTML;
+  
+    if (temppage === "&lt;" || temppage === "<") {
+      setCurrentPage3((prev) => {
+        if (prev > 1) {
+          return prev - 1;
+        }
+        return prev;
+      });
+    } else if (temppage === "&lt;&lt;" || temppage === "<<") {
+      setCurrentPage3(1);
+    } else if (temppage === "&gt;" || temppage === ">") {
+      setCurrentPage3((prev) => {
+        if (prev < end3) { 
+          return prev + 1;
+        }
+        return prev;
+      });
+    } else if (temppage === "&gt;&gt;" || temppage === ">>") {
+      setCurrentPage3(end3);
+    } 
+  };
+  
+
   return (
     <>
       
@@ -458,7 +550,8 @@ export default function Home() {
                   >
                     Recommended
                   </a>
-                </li>
+                </li>      
+
                 <li class="nav-item">
                   <a
                     id="tab-B"
@@ -470,6 +563,19 @@ export default function Home() {
                     Snapps Collected
                   </a>
                 </li>
+               
+                <li class="nav-item">
+                  <a
+                    id="tab-D"
+                    href="#pane-D"
+                    class="nav-link"
+                    data-bs-toggle="tab"
+                    role="tab"
+                  >
+                    My Cart
+                  </a>
+                </li>
+
                 <li class="nav-item">
                   <a
                     id="tab-C"
@@ -481,6 +587,8 @@ export default function Home() {
                     Snapps Redeemed
                   </a>
                 </li>
+
+                
               </ul>
               <div class="tab-content" role="tablist">
                 <div
@@ -607,7 +715,7 @@ export default function Home() {
                               key={i}
                               pagenum={i}
                               handleClick={handleClick2}
-                              isActive={currentPage === i ? true : false}
+                              isActive={currentPage2 === i ? true : false}
                             />
                           );
                         })}
@@ -677,7 +785,78 @@ export default function Home() {
                                   key={i}
                                   pagenum={i}
                                   handleClick={handleClick1}
-                                  isActive={currentPage === i ? true : false}
+                                  isActive={currentPage1 === i ? true : false}
+                                />
+                              );
+                            })}
+                          </div>
+                        </div>
+                      </aside>
+                    </div>
+                  </div>
+                  
+                </div>
+
+                <div id="pane-D" class="card tab-pane fade" role="tabpanel">
+                  <div class="card-header" role="tab" id="heading-D">
+                    <h5>
+                      <a class="collapsed" data-bs-toggle="collapse" href="#collapse-D">
+                        My Cart
+                      </a>
+                    </h5>
+                  </div>
+                  <div id="collapse-D" class="collapse" role="tabpanel">
+                    <div class="row mt-lg-5 mt-3">
+                      <aside class="col-lg-12">
+                      <div class="widget search_blog">
+                          <div class="form-group d-flex">
+                            <input
+                              class="form-control me-2 w-100 bg-white text-dark"
+                              type="search"
+                              placeholder="Search here..."
+                              aria-label="Search"
+                              value={searchKeyword}
+                              onChange={(e) => setSearchKeyword(e.target.value)}
+                            />
+                            <button
+                              class="btn text-white bg-danger inside"
+                              onClick={handleSearch}
+                            >
+                              Search
+                            </button>
+                          </div>
+                        </div>
+                        <div class="widget">
+                          {cartItems.length > 0 ? (
+                            <div>
+                              
+                            {cartItems.map((item, index) => (
+                              <CartItems
+                              
+                                key={index}
+                                itemName={item.name}
+                                itemPrice={item.price}
+                                itemImg = {item.img}
+                                itemId={item._id}
+                                itemquantity={item.quantity}
+                              />
+                            ))}
+                          </div>
+                          ) : (
+                            <center>
+                              <h3>No Items Found</h3>
+                            </center>
+                          )}
+                        </div>
+                        <div class="text-center">
+                          <div class="pagination_fg mb-4">
+                            {pages3.map((i) => {
+                              return (
+                                <PageComp
+                                  key={i}
+                                  pagenum={i}
+                                  handleClick={handleClick3}
+                                  isActive={currentPage3 === i ? true : false}
                                 />
                               );
                             })}
