@@ -60,39 +60,36 @@ exports.itemsDisplay = async (req, res) => {
 
 
 
-exports.itemsDelete = async(req,res)=>{
-  try{
-
-    uid = req.query.uid;
-    console.log(uid);
-    productid = req.query.itemId;
-    console.log(productid);
+exports.itemsDelete = async (req, res) => {
+  try {
+    const uid = req.query.uid;
+    const productid = req.query.itemId;
 
     const user = await User.findById(uid);
 
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
-   
+
     const itemIndex = user.cartitems.findIndex((item) => item._id.toString() === productid);
 
     if (itemIndex === -1) {
       return res.status(404).json({ error: 'Item not found in cart' });
     }
 
-    
     user.cartitems.splice(itemIndex, 1);
-    user.cartitems.quantity=0;
+    user.cart = user.cartitems.length; 
 
-   
     await user.save();
 
-    res.status(200).json({msg:"Item Deleted Sucessfully"})
+    res.status(200).json({ msg: "Item Deleted Successfully" });
+  } catch (error) {
+    console.error(error); 
+    res.status(500).json({ error: "Internal Server Error" });
   }
-  catch{
-    res.status(400).json({error:"Inetrnal Server Error"})
-  }
-}
+};
+
+
 
 exports.itemQuantity = async (req, res) => {
   try {

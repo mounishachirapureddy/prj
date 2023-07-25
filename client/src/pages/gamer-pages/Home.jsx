@@ -459,6 +459,14 @@ export default function Home() {
     fetchCartData();
   }, [fetchCart]);
 
+  const handleItemDeleted = (itemId) => {
+    // Remove the deleted item from the cartItems state
+    setCartItems((prevCartItems) =>
+      prevCartItems.filter((item) => item._id !== itemId)
+    );
+  };
+
+
 
   const pagelength3 = Math.ceil(totalitems/ itemsPerPage3);
   console.log("TI: ", totalitems);
@@ -839,6 +847,7 @@ export default function Home() {
                                 itemImg = {item.img}
                                 itemId={item._id}
                                 itemquantity={item.quantity}
+                                handleItemDeleted={handleItemDeleted} 
                               />
                             ))}
                           </div>

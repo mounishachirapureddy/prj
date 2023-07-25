@@ -51,12 +51,15 @@ export default function CartItems(props) {
     fetchData(config, { showSuccessToast: false })
       .then((data) => {
         //console.log("deleted");
+        
         toast.success("Item Deleted Successfully");
+        props.handleItemDeleted(props.itemId); 
       })
       .catch((err) => {
         console.log(err);
+        
       });
-  }, [fetchData, token]);
+  }, [fetchData, token,profile._id,props.itemId]);
 
   const handlQuantity = useCallback((num) => {
     const userid = profile._id;
