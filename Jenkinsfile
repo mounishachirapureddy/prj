@@ -15,8 +15,8 @@ pipeline {
 
         stage('Build and Test') {
             steps {
-                sh 'npm install'
-                sh 'npm test'
+                bat 'npm install'
+                bat 'npm test'
             }
         }
     }
