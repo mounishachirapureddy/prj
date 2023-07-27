@@ -60,6 +60,7 @@ export default function Recommended(props) {
     desc: props.desc,
     brand: props.brand,
     price: props.price,
+    profilePic: ProfilePic,
   };
 
   const fetchUser = useCallback(() => {
@@ -85,7 +86,7 @@ export default function Recommended(props) {
 
   return (
     <div className="strip" style={{ padding: "0px", margin: "0px" }}>
-      <Modal size="small" isOpen={modal} toggle={toggleModal}>
+      <Modal size="small" isOpen={modal} toggle={toggleModal} style={{marginTop:"10rem"}}>
         <ModalHeader toggle={toggleModal}>
           <b style={{ color: "black" }}>Snap Now!</b>
         </ModalHeader>
@@ -94,7 +95,7 @@ export default function Recommended(props) {
             <div className="modal-body">
               <p style={{ color: "black" }}>
                 You are about to purchase <b>{props.title}</b> <b>#304</b> from{" "}
-                <b>George Lucas</b>
+                <b>{props.brand}</b>
               </p>
               <p>
                 <b
@@ -131,7 +132,7 @@ export default function Recommended(props) {
             <div className="modal-footer justify-content-center">
               <Link
                 to="/details-page"
-                state={{ displayData, imageSrc }}
+                state={{ displayData, imageSrc,profilePic: ProfilePic, }}
                 style={{ width: "100%" }}
               >
                 <button
@@ -159,7 +160,12 @@ export default function Recommended(props) {
           </form>
         </ModalBody>
       </Modal>
+      
       <figure>
+        
+      {props.featured && <div className="ribbon">
+                        <span>Featured</span>
+                    </div>}
         <a
           href="#modal-dialog"
           className="btn_1 modal_popup"
@@ -197,19 +203,33 @@ export default function Recommended(props) {
             className="author_thumb verified"
             style={{ display: "flex", alignItems: "center" }}
           >
-            <figure>
-              <img
-                src={ProfilePic}
-                data-src="img/avatar2.jpg"
-                alt=""
-                className={`lazy ${ProfPicLoaded ? "" : "visually-hidden"}`}
-                style={{ width: "25px", height: "25px", borderRadius: "5px" }}
-                onLoad={() => setProfPicLoaded(true)}
-                onError={() => setProfPicLoaded(false)}
-              />
-              <i className="bi bi-check"></i>
-            </figure>
-            <h6>{props.title}</h6>
+          <figure style={{ position: "relative" }}>
+                <img
+                  src={ProfilePic}
+                  data-src="img/avatar2.jpg"
+                  alt=""
+                  className={`lazy ${ProfPicLoaded ? "" : "visually-hidden"}`}
+                  style={{ width: "25px", height: "25px", borderRadius: "5px" }}
+                  onLoad={() => setProfPicLoaded(true)}
+                  onError={() => setProfPicLoaded(false)}
+                />
+                <i
+                  className="bi bi-check"
+                  style={{
+                    backgroundColor: "green",
+                    color: "white",
+                    position: "absolute",
+                    bottom: "-7px",
+                    right: "-5px",
+                    borderRadius: "80%",
+                    zIndex: "2",
+                    fontSize: "12px", // Adjust the font size as desired
+                  }}
+                ></i>
+          </figure>
+
+
+            <h6>&nbsp;&nbsp;{props.title}</h6>
           </div>
         </li>
 

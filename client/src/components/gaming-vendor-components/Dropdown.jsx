@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import ProfilePicture from "./ProfilePicture";
 
 const Dropdown = (props) => {
   const navigate = useNavigate();
@@ -49,7 +50,7 @@ const Dropdown = (props) => {
         onClick={toggleDropdown}
       >
         <figure>
-          <img src="assets/img/NNG_Cube.gif" alt="" />
+          <ProfilePicture vendorId={props.id} />
         </figure>
         <div className="balance">
           <h6 className="mb-0">{props.name}</h6>

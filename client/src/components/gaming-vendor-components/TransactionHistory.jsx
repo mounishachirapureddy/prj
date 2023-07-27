@@ -1,83 +1,83 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 function TransactionHistory(props) {
   const [vendorId, setVendorId] = useState("");
   const [transactions, setTransactions] = useState([]);
 
-  const getVendorId = async () => {
-    try {
-      const response = await fetch(
-        "http://localhost:3001/gaming-vendor-auth/verify-user",
-        {
-          credentials: "include",
-        }
-      );
-      const data = await response.json();
-      if (response.ok && data.success) {
-        setVendorId(data.vendor_id);
-      } else {
-        window.location.href = "/gaming-vendor-login";
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   useEffect(() => {
-    getVendorId();
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:3001/gaming-vendor-auth/verify-user",
+          {
+            credentials: "include",
+          }
+        );
+        const data = await response.json();
+        if (response.ok && data.success) {
+          setVendorId(data.vendor_id);
+        } else {
+          window.location.href = "/gaming-vendor-login";
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
   }, []);
 
-  const getTransactionHistory = async () => {
-    try {
-      const response = await fetch(
-        `http://localhost:3001/gaming-vendor-transactions/history/${vendorId}`
-      );
-      const data = await response.json();
-      if (response.ok) {
-        const sortedTransactions = data.transactions.sort((a, b) => {
-          const dateA = new Date(a.transaction_date);
-          const dateB = new Date(b.transaction_date);
-          return dateB - dateA;
-        });
-        setTransactions(sortedTransactions);
-      } else {
-        console.log("Failed to retrieve transaction history");
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   useEffect(() => {
-    getTransactionHistory();
-  }, [vendorId]);
-
-  const searchTransactions = async (vendorId, keyword) => {
-    try {
-      const response = await fetch(
-        `http://localhost:3001/gaming-vendor-transactions/search-transactions/${vendorId}/${keyword}`
-      );
-      if (response.ok) {
+    const fetchTransactionHistory = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:3001/gaming-vendor-transactions/history/${vendorId}`
+        );
         const data = await response.json();
-        const sortedTransactions = data.searchResults.sort((a, b) => {
-          const dateA = new Date(a.transaction_date);
-          const dateB = new Date(b.transaction_date);
-          return dateB - dateA;
-        });
-        setTransactions(sortedTransactions);
-      } else {
-        console.log("Failed to search transactions");
+        if (response.ok) {
+          const sortedTransactions = data.transactions.sort((a, b) => {
+            const dateA = new Date(a.transaction_date);
+            const dateB = new Date(b.transaction_date);
+            return dateB - dateA;
+          });
+          setTransactions(sortedTransactions);
+        } else {
+          console.log("Failed to retrieve transaction history");
+        }
+      } catch (error) {
+        console.log(error);
       }
-    } catch (error) {
-      console.log(error);
+    };
+
+    if (vendorId && props.searchKeyword === "") {
+      fetchTransactionHistory();
     }
-  };
+  }, [vendorId, props.searchKeyword]);
 
   useEffect(() => {
-    if (props.searchKeyword === "") {
-      getTransactionHistory();
-    } else {
+    const searchTransactions = async (vendorId, keyword) => {
+      try {
+        const response = await fetch(
+          `http://localhost:3001/gaming-vendor-transactions/search-transactions/${vendorId}/${keyword}`
+        );
+        if (response.ok) {
+          const data = await response.json();
+          const sortedTransactions = data.searchResults.sort((a, b) => {
+            const dateA = new Date(a.transaction_date);
+            const dateB = new Date(b.transaction_date);
+            return dateB - dateA;
+          });
+          setTransactions(sortedTransactions);
+        } else {
+          console.log("Failed to search transactions");
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    if (vendorId && props.searchKeyword !== "") {
       searchTransactions(vendorId, props.searchKeyword);
     }
   }, [vendorId, props.searchKeyword]);
@@ -94,7 +94,7 @@ function TransactionHistory(props) {
           .replace(/\//g, ".");
 
         return (
-          <div className="row py-3 px-3 mx-2 rounded form-group border">
+          <div key={transaction.transaction_id} className="row py-3 px-3 mx-2 rounded form-group border">
             <div className="alignleft mt-4 my-3 mx-1 d-flex justify-content-center col-1">
               <Link to="#0">
                 <figure>
@@ -107,26 +107,23 @@ function TransactionHistory(props) {
                 </figure>
               </Link>
             </div>
-            <div
-              className="text-start col-6 w-75"
-              style={{ marginTop: "20px", color: "white" }}
-            >
-              <h7 className="my-1">
-                Transaction id: {" "}
+            <div className="text-start col-6 w-75" style={{ marginTop: "20px", color: "white" }}>
+              <div className="my-1">
+                Transaction id:{" "}
                 <Link to="#" title="">
                   {"#" + transaction.transaction_id}
                 </Link>
                 <br />
-              </h7>
-              <h7 className="my-1">
+              </div>
+              <div className="my-1">
                 Date of transaction: <Link to="#"> {transactionDate}</Link>
                 <br />
-              </h7>
-              <h7 className="my-1">
+              </div>
+              <div className="my-1">
                 Amount: <Link to="#"> {transaction.snappcoin_count} Snapps</Link>
                 <br />
-              </h7>
-              <h7 className="my-1">
+              </div>
+              <div className="my-1">
                 Status:{" "}
                 <span
                   className={`badge ${
@@ -139,7 +136,7 @@ function TransactionHistory(props) {
                 >
                   {transaction.transaction_status}
                 </span>
-              </h7>
+              </div>
             </div>
           </div>
         );

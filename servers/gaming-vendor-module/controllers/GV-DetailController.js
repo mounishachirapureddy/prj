@@ -1,6 +1,7 @@
-import { GamingVendorDetailsModel } from "../models/GV-DetailModel.js";
 import { validationResult } from "express-validator";
 import bcrypt from "bcrypt";
+
+import { GamingVendorDetailsModel } from "../models/GV-DetailModel.js";
 
 // Get account settings for a vendor
 async function getAccountSettings(req, res, next) {
@@ -69,6 +70,41 @@ async function setAccountSettings(req, res, next) {
   }
 }
 
+// Get the profile picture URL for the current vendor
+async function getProfilePicture (req, res) {
+  try {
+    const { vendor_id } = req.query;
+    const vendor = await GamingVendorDetailsModel.findOne({ vendor_id });
+
+    if (vendor) {
+      res.status(200).json({ profilePictureUrl: vendor.vendor_profile_image_url });
+    } else {
+      res.status(404).json({ message: 'Vendor not found.' });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Failed to fetch profile picture URL.' });
+  }
+};
+
+async function changeProfilePicture(req, res) {
+  try {
+    const { vendor_id } = req.body;
+    const profilePicture = req.file;
+
+    // Update the vendor's profile image URL in the database
+    await GamingVendorDetailsModel.findOneAndUpdate(
+      { vendor_id },
+      { vendor_profile_image_url: profilePicture.path }
+    );
+
+    res.status(200).json({ message: 'Profile picture uploaded successfully.' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Failed to upload profile picture.' });
+  }
+}
+
 // Change password for a vendor
 async function changePassword(req, res, next) {
   try {
@@ -106,4 +142,4 @@ async function changePassword(req, res, next) {
   }
 }
 
-export { getAccountSettings, setAccountSettings, changePassword };
+export { getAccountSettings, setAccountSettings, getProfilePicture, changeProfilePicture, changePassword };

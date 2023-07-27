@@ -1,5 +1,5 @@
 import React from "react";
-import Dropdown from "./Dropdown"; 
+import Dropdown from "./Dropdown";
 
 const Header = (props) => {
   return (
@@ -32,7 +32,11 @@ const Header = (props) => {
             </span>
           </li>
           <li>
-            <Dropdown name={props.name} snappcoins={props.snappcoins}/>
+            <Dropdown
+              name={props.name}
+              id={props.id}
+              snappcoins={props.snappcoins}
+            />
           </li>
         </ul>
         <a href="#0" className="open_close">

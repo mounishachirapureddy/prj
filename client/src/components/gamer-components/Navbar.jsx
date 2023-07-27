@@ -10,6 +10,9 @@ const Header = () => {
   const gamer = gamerState.gamer;
   const dispatch = useDispatch();
 
+  //console.log("GG: ",gamer)
+  //console.log("cart: ",gamer.cart);
+  
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageSrc, setImageSrc] = useState("");
   const [isOpen, setIsOpen] = useState(false);
@@ -21,11 +24,11 @@ const Header = () => {
 
   useEffect(() => {
     setImageSrc(
-      gamer.image
+      gamer?.image
         ? `${process.env.REACT_APP_GAMER_MODULE_URL}/api/profile/img/${gamer.image}`
         : "assets/img/avatar-gamer.jpg"
     );
-  }, [gamer.image]);
+  }, [gamer?.image]);
 
   const handleLogoutClick = () => {
     dispatch(logout());
@@ -131,8 +134,13 @@ const Header = () => {
                         </a>
                       </li>
                       <li>
-                        <Link href="/gamer-dashboard">
+                        <Link to="/gamer-dashboard">
                           <i className="bi bi-image"></i>Dashboard
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to="/gamer-mycart">
+                          <i className="bi bi-cart"></i>My Cart
                         </Link>
                       </li>
                       <li onClick={handleLogoutClick}>
@@ -182,6 +190,29 @@ const Header = () => {
               <li className="submenu">
                 <a href="" className="show-submenu">
                   Explore
+                </a>
+              </li>
+              <li className="submenu">
+                <a href="" className="show-submenu" style={{ position: "relative" }}>
+                  <i className="bi bi-cart" style={{ position: "relative" }}>
+                    <p
+                      style={{
+                        position: "absolute",
+                        top: "-14px",
+                        left: "5px",
+                        zIndex: "1",
+                        backgroundColor: "white",
+                        color: "green",
+                        borderRadius: "50%",
+                        paddingLeft: "0px",
+                        fontSize: "12px",
+                        minWidth: "20px",
+                        textAlign: "center",
+                      }}
+                    >
+                      <b>{gamer.cart}</b>
+                    </p>
+                  </i>
                 </a>
               </li>
             </ul>
