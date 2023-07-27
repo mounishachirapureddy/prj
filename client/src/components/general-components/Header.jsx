@@ -50,7 +50,7 @@ function Header() {
                   <a href="/gaming-vendor-login">Gaming Vendor</a>
                 </li>
                 <li className="option">
-                  <a href="/merchant-dashboard">Merchant</a>
+                  <a href="/merchant-login">Merchant</a>
                 </li>
                 <li className="option">
                   <a href="/gamer-login">Gamer</a>

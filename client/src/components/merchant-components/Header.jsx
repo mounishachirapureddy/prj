@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, redirect } from "react-router-dom";
 import { logout } from "../../redux/actions/merchantAction";
 import Loader from "./utils/Loader";
 
@@ -127,8 +127,8 @@ const Header = () => {
                           <i className="bi bi-image"></i>Dashboard
                         </a>
                       </li>
-                      <li>
-                        <a href="/" onClick={handleLogoutClick}>
+                      <li onClick={handleLogoutClick}>
+                        <a href="/">
                           <i className="bi bi-box-arrow-right"></i>Log out
                         </a>
                       </li>

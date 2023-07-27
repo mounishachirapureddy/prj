@@ -27,5 +27,5 @@ export const merchantProfile = (merchant) => async(dispatch) =>{
 export const logout = () => (dispatch) => {
     localStorage.removeItem('merchant-token');
     dispatch({ type: LOGOUT });
-    // document.location.href = '/';
+    document.location.href = '/';
   }
