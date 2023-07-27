@@ -50,6 +50,17 @@ function App() {
         <Route path="/gaming-vendor-settings" element={<Settings />} />
         <Route path="/gaming-vendor-register" element={<Register />} />
 
+        {/*
+        <Route
+          path="/merchant-dashboard"
+          element={
+            merchantState.isLoggedIn ? (
+              <MerchantHome />
+            ) : (
+              <Navigate to="/merchant-login" />
+            )
+          }
+        /> */}
         <Route
           path="/merchant-profile"
           element={
@@ -73,11 +84,7 @@ function App() {
         <Route
           path="/merchant-dashboard"
           element={
-            merchantState.isLoggedIn ? (
               <MerchantHome />
-            ) : (
-              <Navigate to="/merchant-login" />
-            )
           }
         />
         <Route path="/merchant-signup" element={<MerchantSignup />} />
