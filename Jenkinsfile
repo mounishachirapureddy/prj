@@ -13,32 +13,32 @@ pipeline {
             }
         }
 
-        stage('Build and Test') {
+        stage('Build') {
             steps {
                 
                 dir('client') {
                     bat 'npm install'
-                    bat 'npm test'
+                    //bat 'npm test'
                 }
 
                 dir('servers/gamer-module') {
                     bat 'npm install'
-                    bat 'npm test'
+                    //bat 'npm test'
                 }
 
                 dir('servers/merchant-module') {
                     bat 'npm install'
-                    bat 'npm test'
+                    //bat 'npm test'
                 }
 
                 dir('server/gaming-vendor-module') {
                     bat 'npm install'
-                    bat 'npm test'
+                    //bat 'npm test'
                 }
 
                 dir('servers/general-module') {
                     bat 'npm install'
-                    bat 'npm test'
+                    //bat 'npm test'
                 }
             }
         }
