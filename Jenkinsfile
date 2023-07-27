@@ -31,7 +31,7 @@ pipeline {
                     //bat 'npm test'
                 }
 
-                dir('server/gaming-vendor-module') {
+                dir('servers/gaming-vendor-module') {
                     bat 'npm install'
                     //bat 'npm test'
                 }
