@@ -16,27 +16,27 @@ pipeline {
         stage('Build and Test') {
             steps {
                 
-                dir('SNAPCOINS/client') {
+                dir('client') {
                     bat 'npm install'
                     bat 'npm test'
                 }
 
-                dir('SNAPCOINS/servers/gamer-module') {
+                dir('servers/gamer-module') {
                     bat 'npm install'
                     bat 'npm test'
                 }
 
-                dir('SNAPCOINS/servers/merchant-module') {
+                dir('servers/merchant-module') {
                     bat 'npm install'
                     bat 'npm test'
                 }
 
-                dir('SNAPCOINS/server/gaming-vendor-module') {
+                dir('server/gaming-vendor-module') {
                     bat 'npm install'
                     bat 'npm test'
                 }
 
-                dir('SNAPCOINS/servers/general-module') {
+                dir('servers/general-module') {
                     bat 'npm install'
                     bat 'npm test'
                 }
