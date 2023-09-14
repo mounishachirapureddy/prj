@@ -7,10 +7,9 @@ pipeline {
 
     stages {
 
-        stage('Checkout') {
+         stage('Checkout') {
             steps {
-                 git url: 'https://git-codecommit.ap-south-1.amazonaws.com/v1/repos/Snapcoins'
-                    credentialsID: 'JS-HTTPS'
+                git branch: 'main', url: 'https://git-codecommit.ap-south-1.amazonaws.com/v1/repos/Snapcoins'
             }
         }
 
