@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', credentialsId: 'AnuragKache-at-083118395813fozzoJZ7Oo8GIMysg0TYmZX2Bs3uS09ARoYmd93+TGY=', url: 'https://git-codecommit.ap-south-1.amazonaws.com/v1/repos/Snapcoins'
+                git branch: 'main', credentialsId: 'AWS', url: 'https://git-codecommit.ap-south-1.amazonaws.com/v1/repos/Snapcoins'
             }
         }
         stage('Build') {
