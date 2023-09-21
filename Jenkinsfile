@@ -7,7 +7,7 @@ pipeline {
         IMAGE_TAG = "latest"
         REPOSITORY_URI = "083118395813.dkr.ecr.ap-south-1.amazonaws.com/jenkins-build-pipeline"
     }
-    /* Commented out all other sections
+  
     tools {
         git 'Default'
     }
@@ -20,6 +20,7 @@ pipeline {
                 }
             }
         }
+        /* Commented out all other sections
         stage('Checkout') {
             steps {
                 git branch: 'main', credentialsId: 'Test', url: 'https://git-codecommit.ap-south-1.amazonaws.com/v1/repos/Snapcoins'
