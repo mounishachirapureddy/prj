@@ -56,7 +56,7 @@ pipeline {
                 }
 
                 dir('servers/merchant-module') {
-                    bat 'docker build -t merchat-module .'
+                    bat 'docker build -t merchant-module .'
                 }
                 
                 dir('servers/gaming-vendor-module') {
