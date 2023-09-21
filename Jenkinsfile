@@ -7,8 +7,7 @@ pipeline {
         IMAGE_TAG = "latest"
         REPOSITORY_URI = "083118395813.dkr.ecr.ap-south-1.amazonaws.com/jenkins-build-pipeline"
     }
-    // Commented out all other sections
-    /*
+    /* Commented out all other sections
     tools {
         git 'Default'
     }
