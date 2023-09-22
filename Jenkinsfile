@@ -7,7 +7,7 @@ pipeline {
 
     stages {
     
-        stage('Checkout') {
+        stage('Checkout1') {
         // Checkout code from the 'main' branch
             steps{
                 checkout([
