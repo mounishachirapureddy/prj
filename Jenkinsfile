@@ -6,13 +6,21 @@ pipeline {
     }
 
     stages {
-
+    
+        checkout([
+            $class: 'GitSCM', 
+            branches: [[name: 'main']], 
+            doGenerateSubmoduleConfigurations: false, 
+            extensions: [], 
+            userRemoteConfigs: [[url: 'https://git-codecommit.ap-south-1.amazonaws.com/v1/repos/Snapcoins']]
+        ])
+        /*
         stage('Checkout') {
             steps {
                 git branch: 'main', credentialsId: 'Test', url: 'https://git-codecommit.ap-south-1.amazonaws.com/v1/repos/Snapcoins'
             }
         }
-
+        
         stage('Build') {
             steps {
                 
@@ -70,7 +78,7 @@ pipeline {
             }
 
         }
-        
+        */
     }
 }
 
