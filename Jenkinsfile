@@ -28,7 +28,7 @@ pipeline {
         /*
         stage('Checkout') {
             steps {
-                git clone: credentialsId: 'AWS', 'https://git-codecommit.ap-south-1.amazonaws.com/v1/repos/Snapcoins' 
+                git clone: credentialsId: 'Test', 'https://git-codecommit.ap-south-1.amazonaws.com/v1/repos/Snapcoins' 
                 git switch main
             }
         }
