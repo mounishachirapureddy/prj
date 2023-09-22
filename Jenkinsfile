@@ -15,6 +15,7 @@ pipeline {
                     branches: [[name: 'main']], 
                     doGenerateSubmoduleConfigurations: false, 
                     extensions: [], 
+                    credentialsId: 'AWS',
                     userRemoteConfigs: [[url: 'https://git-codecommit.ap-south-1.amazonaws.com/v1/repos/Snapcoins']]
                     
             ])
