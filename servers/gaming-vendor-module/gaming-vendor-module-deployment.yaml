@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels: 
+    app: gaming-vendor-module
+  name: gaming-vendor-module-deployment
+spec:
+  replicas: 3  
+  selector:
+    matchLabels:
+      app: gaming-vendor-module
+  template:
+    metadata:
+      labels:
+        app: gaming-vendor-module
+    spec:
+      containers:
+        - name: gaming-vendor-module-container
+          image: 083118395813.dkr.ecr.ap-south-1.amazonaws.com/gaming-vendor-module:latest
+          ports:
+            - containerPort: 3000  
