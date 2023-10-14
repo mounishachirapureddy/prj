@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: gaming-vendor-module-ingress
+spec:
+  rules:
+    - host: abc.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: gaming-vendor-module-service
+                port:
+                  number: 80
