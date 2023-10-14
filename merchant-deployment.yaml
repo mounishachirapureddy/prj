@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels: 
+    app: merchant-module
+  name: merchant-module-deployment
+spec:
+  replicas: 3 
+  selector:
+    matchLabels:
+      app: merchant-module
+  template:
+    metadata:
+      labels:
+        app: merchant-module
+    spec:
+      containers:
+        - name: merchant-module-container
+          image: 083118395813.dkr.ecr.ap-south-1.amazonaws.com/merchant-module:latest
+          ports:
+            - containerPort: 3003  
+          env:
+            - name: MONGO_URI
+              value: "mongodb+srv://Incrivelsoft:Incrivelsoft%40sh@smarthealth.nwut0dh.mongodb.net/test?retryWrites=true&w=majority"
+            - name: ACCESS_TOKEN_SECRET
+              value: "$2b$10$ihwmWDEir5KPienVM1Zoh.cECTKt.lm4eXRdeIBBL4/HPspblQhSW"
+            - name: AUTH_EMAIL
+              value: "Info@incrivelsoft.com"
+            - name: AUTH_PASS
+              value: "Incrivelsoft@emails"
