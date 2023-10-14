@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels: 
+    app: gamer-module
+  name: gamer-module-deployment
+spec:
+  replicas: 3  
+  selector:
+    matchLabels:
+      app: gamer-module
+  template:
+    metadata:
+      labels:
+        app: gamer-module
+    spec:
+      containers:
+        - name: gamer-module-container
+          image: 083118395813.dkr.ecr.ap-south-1.amazonaws.com/gamer-module:latest 
+          ports:
+            - containerPort: 3000  
