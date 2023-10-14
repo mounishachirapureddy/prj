@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels: 
+    app: general-module
+  name: general-module-deployment
+spec:
+  replicas: 3  
+  selector:
+    matchLabels:
+      app: general-module
+  template:
+    metadata:
+      labels:
+        app: general-module
+    spec:
+      containers:
+        - name: general-module-container
+          image: 083118395813.dkr.ecr.ap-south-1.amazonaws.com/general-module:latest
+          ports:
+            - containerPort: 3000  
