@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: general-module-ingress
+spec:
+  rules:
+    - host: general-module.example.com  # Replace with your desired domain
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: general-module-service
+                port:
+                  number: 80
