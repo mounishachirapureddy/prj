@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
         - name: frontend-container
-          image: 083118395813.dkr.ecr.ap-south-1.amazonaws.com/client-image:latest
+          image: mounisha1126/client:latest 
           ports:
             - containerPort: 3000
