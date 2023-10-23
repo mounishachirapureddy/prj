@@ -1,0 +1,43 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: merchant-module-destinationrule
+spec:
+  host: merchant-module-service
+  subsets:
+    - name: version-1
+      labels:
+        version: v1
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: gaming-vendor-module-destinationrule
+spec:
+  host: gaming-vendor-module-service
+  subsets:
+    - name: version-1
+      labels:
+        version: v1
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: gamer-module-destinationrule
+spec:
+  host: gamer-module-service
+  subsets:
+    - name: version-1
+      labels:
+        version: v1
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: general-module-destinationrule
+spec:
+  host: general-module-service
+  subsets:
+    - name: version-1
+      labels:
+        version: v1
