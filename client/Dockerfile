@@ -17,5 +17,5 @@ COPY --from=development /Snappcoins/client/node_modules ./node_modules
 COPY . .
 RUN npm run build
 
-# EXPOSE 3000
+EXPOSE 3000
 CMD ["npm", "start"]
