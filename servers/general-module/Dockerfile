@@ -10,4 +10,6 @@ RUN npm install --production
 
 COPY . .
 
-CMD ["node", "app.js"]
+EXPOSE 3004
+
+CMD ["sh", "-c", "node app.js && npm start"]
