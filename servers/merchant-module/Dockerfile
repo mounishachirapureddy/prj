@@ -7,7 +7,7 @@ ENV MONGO_URI=mongodb+srv://Incrivelsoft:Incrivelsoft%40sh@smarthealth.nwut0dh.m
 ENV ACCESS_TOKEN_SECRET=$2b$10$ihwmWDEir5KPienVM1Zoh.cECTKt.lm4eXRdeIBBL4/HPspblQhSW
 ENV AUTH_EMAIL=Info@incrivelsoft.com
 ENV AUTH_PASS=Incrivelsoft@emails
-# ENV PORT=3003
+ENV PORT=3003
 
 WORKDIR /Snappcoins/servers/merchant-module
 
@@ -17,6 +17,8 @@ RUN npm install --production
 
 COPY . .
 
-# EXPOSE 3003
+EXPOSE 3003
 
-CMD ["node", "index.js"]
+CMD ["sh", "-c", "node index.js && npm start"]
+
+
