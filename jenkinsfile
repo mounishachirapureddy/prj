@@ -1,0 +1,177 @@
+
+pipeline {
+    agent any
+    
+   
+    stages {
+        stage('Checkout') {
+            steps {
+                git 'https://github.com/mounishachirapureddy/prj.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                
+                dir('client') {
+                    sh 'npm install'
+                    //bat 'npm test'
+                }
+                dir('servers/gamer-module') {
+                    sh 'npm install'
+                    //bat 'npm test'
+                }
+
+                dir('servers/merchant-module') {
+                    sh 'npm install'
+                    //bat 'npm test'
+                }
+
+                dir('servers/gaming-vendor-module') {
+                    sh 'npm install'
+                    //bat 'npm test'
+                }
+
+                dir('servers/general-module') {
+                    sh 'npm install'
+                    //bat 'npm test'
+                }
+            }
+        }
+
+        stage('Create Docker Images') {
+            steps {
+                dir('client'){
+                    sh 'docker build -t client-image .'
+                }
+                dir('servers/gamer-module') {
+                    sh 'docker build -t gamer-module .'
+                }
+
+                dir('servers/merchant-module') {
+                    sh 'docker build -t merchant-module .'
+                }
+                
+                dir('servers/gaming-vendor-module') {
+                    sh 'docker build -t gaming-vendor-module .'
+                    sh 'docker run -itd gaming-vendor-module'
+                }
+
+                dir('servers/general-module') {
+                    sh 'docker build -t general-module .'
+                }
+            }
+        }
+         stage('Configure AWS') {
+            steps {
+                script {
+                    // Configure AWS credentials
+                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: '03071f19-3951-4f10-9eeb-7d89cb66b86c']]) {
+                        // Update AWS CLI configuration (optional)
+                        sh 'aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID'
+                        sh 'aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY'
+                        sh 'aws configure set region ap-south-1'
+                        
+                        // Update Kubernetes configuration (kubeconfig)
+                        
+                    }
+                }
+            }
+        }
+
+
+       
+        stage('Authenticate with ECR') {
+            steps {
+                script {
+                    def ecrRegion = 'ap-south-1'  // Your ECR region
+                    def ecrRegistry = '083118395813.dkr.ecr.ap-south-1.amazonaws.com'  // Your ECR registry URL
+
+                    def ecrLogin = "aws ecr get-login-password --region ${ecrRegion}"
+                    def ecrLoginCommand = "${ecrLogin} | docker login --username AWS --password-stdin ${ecrRegistry}"
+
+                    sh ecrLoginCommand
+                }
+            }
+        }
+
+        stage('Pushing Image to ECR-client') {
+            steps{
+              script {
+                withDockerRegistry( url: 'https://083118395813.dkr.ecr.ap-south-1.amazonaws.com/client-image:latest') {
+                sh'docker tag client-image:latest 083118395813.dkr.ecr.ap-south-1.amazonaws.com/client-image:latest'
+                sh 'docker push 083118395813.dkr.ecr.ap-south-1.amazonaws.com/client-image:latest'
+                }
+              }
+            }
+          }
+          stage('Pushing Image to ECR-gamer-module') {
+            steps{
+              script {
+                withDockerRegistry( url: 'https://083118395813.dkr.ecr.ap-south-1.amazonaws.com/gamer-module:latest') {
+                sh'docker tag gamer-module:latest 083118395813.dkr.ecr.ap-south-1.amazonaws.com/gamer-module:latest'
+                sh 'docker push 083118395813.dkr.ecr.ap-south-1.amazonaws.com/gamer-module:latest'
+                }
+              }
+            }
+          }
+           stage('Pushing Image to ECR-merchant-module') {
+            steps{
+              script {
+                withDockerRegistry( url: 'https://083118395813.dkr.ecr.ap-south-1.amazonaws.com/merchant-module:latest') {
+                sh'docker tag merchant-module:latest 083118395813.dkr.ecr.ap-south-1.amazonaws.com/merchant-module:latest'
+                sh 'docker push 083118395813.dkr.ecr.ap-south-1.amazonaws.com/merchant-module:latest'
+                }
+              }
+            }
+          }
+          stage('Pushing Image to ECR-gaming-vendor') {
+            steps{
+              script {
+                withDockerRegistry( url: 'https://083118395813.dkr.ecr.ap-south-1.amazonaws.com/gaming-vendor-module:latest') {
+                sh'docker tag gaming-vendor-module:latest 083118395813.dkr.ecr.ap-south-1.amazonaws.com/gaming-vendor-module:latest'
+                sh 'docker push 083118395813.dkr.ecr.ap-south-1.amazonaws.com/gaming-vendor-module:latest'
+                }
+              }
+            }
+          }
+          stage('Pushing Image to ECR-general-module1') {
+            steps{
+              script {
+                withDockerRegistry( url: 'https://083118395813.dkr.ecr.ap-south-1.amazonaws.com/general-module:latest') {
+                sh'docker tag general-module:latest 083118395813.dkr.ecr.ap-south-1.amazonaws.com/general-module:latest'
+                sh 'docker push 083118395813.dkr.ecr.ap-south-1.amazonaws.com/general-module:latest'
+                }
+              }
+            }
+          }
+         
+        stage('Deploy snappcoins services') {
+            steps {
+                dir('client'){
+                        sh 'export KUBECONFIG=/new/directory/path/config && /usr/local/bin/kubectl apply -f /var/lib/jenkins/workspace/file1/prj/client/client-deployment.yaml'
+                        sh 'export KUBECONFIG=/new/directory/path/config && /usr/local/bin/kubectl apply -f /var/lib/jenkins/workspace/file1/prj/client/client-service.yaml'
+                        }
+                dir('servers/gaming-vendor-module'){
+                        sh 'export KUBECONFIG=/new/directory/path/config && /usr/local/bin/kubectl apply -f /var/lib/jenkins/workspace/file1/prj/servers/gaming-vendor-module/gaming-vendor-module-deployment.yaml'
+                        sh 'export KUBECONFIG=/new/directory/path/config && /usr/local/bin/kubectl apply -f /var/lib/jenkins/workspace/file1/prj/servers/gaming-vendor-module/gaming-vendor-module-service.yaml'
+                        }
+                dir('servers/gamer-module'){
+                       sh 'export KUBECONFIG=/new/directory/path/config && /usr/local/bin/kubectl apply -f /var/lib/jenkins/workspace/file1/prj/servers/gamer-module/gamer-module-deployment.yaml'
+                        sh 'export KUBECONFIG=/new/directory/path/config && /usr/local/bin/kubectl apply -f /var/lib/jenkins/workspace/file1/prj/servers/gamer-module/gamer-module-service.yaml'
+                        }
+                dir('servers/general-module'){
+                        sh 'export KUBECONFIG=/new/directory/path/config && /usr/local/bin/kubectl apply -f /var/lib/jenkins/workspace/file1/prj/servers/general-module/general-module-deployment.yaml'
+                        sh 'export KUBECONFIG=/new/directory/path/config && /usr/local/bin/kubectl apply -f /var/lib/jenkins/workspace/file1/prj/servers/general-module/general-module-service.yaml'
+                        }
+                dir('servers/merchant-module'){
+                        sh 'export KUBECONFIG=/new/directory/path/config && /usr/local/bin/kubectl apply -f /var/lib/jenkins/workspace/file1/prj/servers/merchant-module/merchant-module-deployment.yaml'
+                        sh 'export KUBECONFIG=/new/directory/path/config && /usr/local/bin/kubectl apply -f /var/lib/jenkins/workspace/file1/prj/servers/merchant-module/merchant-module-service.yaml'
+                        }
+               
+            }
+        }
+
+        }
+    }
+
