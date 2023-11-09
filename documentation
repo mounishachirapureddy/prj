@@ -1,0 +1,26 @@
+1. Docker Build and ECR Push:
+   - Docker images for each component of the application from Dockerfile were built.
+   - Pushed these Docker images to Amazon ECR to store them securely.
+
+2. VPC Setup:
+   - Created a custom Virtual Private Cloud (VPC) on AWS.
+   - Defined subnets, route tables, and security groups within the VPC.
+
+3.  Amazon EKS Cluster Creation:
+   -  Amazon EKS cluster using the AWS Management Console was set up.
+   - Provisioned the required resources: control plane, worker nodes, etc.
+
+4. Deploy the Application on Amazon EKS:
+   - Written Kubernetes manifests (YAML files) for Deployments, Services, etc., defining the desired state of  application.
+   - Applied these manifests to the EKS cluster using kubectl or deployment automation tools.
+   - Monitored the deployment to ensure the pods are up and running as expected.
+
+5. Istio Service Mesh Integration:
+   - Installation:  Istio service mesh within your Amazon EKS cluster to enable features like traffic management, security, and observability was set up.
+   - Sidecar Injection: Applied Istio's sidecar injection to the relevant namespaces or pods that require Istio features.
+
+6. Jenkins Automation:
+   - Pipeline Creation: Defined a Jenkins pipeline using a Jenkinsfile that automates the deployment process.
+   - Integration with AWS: Used Jenkins integration with AWS CLI or AWS SDK to execute commands for ECR image push and EKS deployment.
+   - Deployment Automation: Integrated deployment commands, such as building Docker images, pushing to ECR, applying Kubernetes manifests to EKS, and Istio configurations, within the Jenkins pipeline.
+
