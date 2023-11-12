@@ -1,0 +1,24 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: my-virtualservice
+spec:
+  hosts:
+    - "ac9b5976d7f5d421f91d9264d09af07e-1881816493.ap-south-1.elb.amazonaws.com"
+    - "aa91a147063b34d648394e55849fce80-1093830293.ap-south-1.elb.amazonaws.com"
+  gateways:
+    - my-gateway
+  http:
+    - route:
+      - destination:
+          host: client-service.default.svc.cluster.local
+          port:
+            number: 80
+    - match:
+      - uri:
+          prefix: "/gaming-vendor-login"
+      route:
+      - destination:
+          host: gaming-vendor-module-service.default.svc.cluster.local
+          port:
+            number: 3001
