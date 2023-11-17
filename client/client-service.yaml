@@ -2,11 +2,12 @@ apiVersion: v1
 kind: Service
 metadata:
   name: client-service
+  labels:
+    app: client-service
+    service: client-service
 spec:
   selector:
-    app: client
+    app: client-service
   ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 3000
-  type: LoadBalancer
+    - port: 3000
+      name: http
