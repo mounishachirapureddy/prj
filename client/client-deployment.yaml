@@ -1,21 +1,29 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  labels: 
-    app: client
   name: client-deployment
+  labels:
+    app: client
+    version: v1
 spec:
   replicas: 1  # Number of desired replicas
   selector:
     matchLabels:
-      app: client
+      app: client-service
+      version: v1
   template:
     metadata:
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9080"
+        prometheus.io/path: "/metrics"
       labels:
-        app: client
+        app: client-service
+        version: v1
     spec:
+      serviceAccountName: client-serviceaccount
       containers:
-        - name: frontend-container
-          image: 083118395813.dkr.ecr.ap-south-1.amazonaws.com/client-image:latest
+        - name: client-service
+          image: 083118395813.dkr.ecr.ap-south-1.amazonaws.com/client-service:latest
           ports:
             - containerPort: 3000
