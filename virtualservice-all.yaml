@@ -1,0 +1,64 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: client-service
+spec:
+  hosts:
+  - client-service
+  http:
+  - route:
+    - destination:
+        host: client-service
+        subset: v1
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: gaming-vendor-module-service 
+spec:
+  hosts:
+  - gaming-vendor-module-service 
+  http:
+  - route:
+    - destination:
+        host: gaming-vendor-module-service 
+        subset: v1
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: gamer-module-service
+spec:
+  hosts:
+  - gamer-module-service
+  http:
+  - route:
+    - destination:
+        host: gamer-module-service
+        subset: v1
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: general-module-service
+spec:
+  hosts:
+  - general-module-service
+  http:
+  - route:
+    - destination:
+        host: general-module-service
+        subset: v1
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: merchant-module-service
+spec:
+  hosts:
+  - merchant-module-service
+  http:
+  - route:
+    - destination:
+        host: merchant-module-service
+        subset: v1
