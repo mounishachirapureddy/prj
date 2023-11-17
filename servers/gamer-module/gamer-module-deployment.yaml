@@ -1,21 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  labels: 
-    app: gamer-module
   name: gamer-module-deployment
+  labels:
+    app: gamer-module-service
+    version: v1
 spec:
-  replicas: 1  
+  replicas: 1
   selector:
     matchLabels:
-      app: gamer-module
+      app: gamer-module-service
+      version: v1
   template:
     metadata:
       labels:
-        app: gamer-module
+        app: gamer-module-service
+        version: v1
     spec:
+      serviceAccountName: gamer-serviceaccount
       containers:
-        - name: gamer-module-container
-          image: 083118395813.dkr.ecr.ap-south-1.amazonaws.com/gamer-module:latest 
+        - name: gamer-module-service
+          image: 083118395813.dkr.ecr.ap-south-1.amazonaws.com/gamer-module:latest
           ports:
-            - containerPort: 3004  
+            - containerPort: 3004
