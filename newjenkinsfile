@@ -228,4 +228,46 @@ pipeline {
 
         }
     }
+-----------
+pipeline {
+    agent any
+
+    stages {
+        stage('Deploy Pod') {
+            steps {
+                script {
+                    // Your deployment steps go here
+                    // For example, use kubectl to deploy your pod
+                    sh 'kubectl apply -f your-deployment.yaml'
+                }
+            }
+        }
+
+        stage('Check Health') {
+            steps {
+                script {
+                    // Replace 'your-pod-label' and 'your-container-name' with your actual pod label and container name
+                    def podStatus = sh(script: 'kubectl get pods -l your-pod-label -o jsonpath="{.items[0].status.containerStatuses[?(@.name == \'your-container-name\')].ready}"', returnStatus: true).trim()
+
+                    if (podStatus == 'true') {
+                        echo 'Pod is healthy'
+                    } else {
+                        echo 'Pod is not healthy. Replacing with a new pod.'
+                        
+                        // Scale down the current deployment to 0 replicas
+                        sh 'kubectl scale deployment your-deployment-name --replicas=0'
+                        
+                        // Scale up the deployment to the desired number of replicas
+                        sh 'kubectl scale deployment your-deployment-name --replicas=desired-replica-count'
+                        
+                        // You may need additional steps depending on your specific deployment strategy
+                        // For example, wait for the new pods to become ready
+                    }
+                }
+            }
+        }
+
+        // Add more stages as needed for additional steps in your pipeline
+    }
+}
 
