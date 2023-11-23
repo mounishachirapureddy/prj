@@ -221,33 +221,16 @@ pipeline {
                        echo "Failed deploying to merchant-module-deployment and merchant-module-service"
                        }
                     }
-                 }
-               
-            }
-        }
-
-        }
-    }
------------
-pipeline {
-    agent any
-
-    stages {
-        stage('Deploy Pod') {
-            steps {
-                script {
-                    // Your deployment steps go here
-                    // For example, use kubectl to deploy your pod
-                    sh 'kubectl apply -f your-deployment.yaml'
-                }
-            }
-        }
-
-        stage('Check Health') {
+ stage('Check Health') {
             steps {
                 script {
                     // Replace 'your-pod-label' and 'your-container-name' with your actual pod label and container name
-                    def podList = sh(script: 'kubectl get pods -l your-pod-label -o jsonpath="{.items[*].metadata.name}"', returnStdout: true).trim().split('\n')
+                    def podLabels = ['client-service', 'gaming-vendor-module-service', 'gamer-module-service', 'general-module-service', 'merchant-module-service']
+                    
+            for (def podLabel in podLabels) {
+                def podList = sh(script: "kubectl get pods -l ${podLabel} -o jsonpath='{.items[*].metadata.name}'", returnStdout: true).trim().split('\n')
+
+
 
                     for (def podName in podList) {
                         def podStatus = sh(script: "kubectl get pods $podName -o jsonpath='{.status.containerStatuses[?(@.name == \"your-container-name\")].ready}'", returnStatus: true).trim()
@@ -270,7 +253,10 @@ pipeline {
                 }
             }
         }
+                 }
+               
+            }
+        }
 
-        // Add more stages as needed for additional steps in your pipeline
+        }
     }
-}
