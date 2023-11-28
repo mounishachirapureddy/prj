@@ -4,8 +4,8 @@ provider "aws" {
 
 # Create VPC
 resource "aws_vpc" "my_vpc" {
-  cidr_block = "10.0.0.0/16"
-  enable_dns_support = true
+  cidr_block           = "10.0.0.0/16"
+  enable_dns_support   = true
   enable_dns_hostnames = true
   tags = {
     Name = "my-vpc"
@@ -60,6 +60,17 @@ resource "aws_subnet" "private_subnet_b" {
   }
 }
 
+# Create Elastic IP Addresses for NAT Gateways
+resource "aws_instance" "nat_allocation_a" {
+  ami           = "ami-0c55b159cbfafe1f0"
+  instance_type = "t2.micro"
+}
+
+resource "aws_instance" "nat_allocation_b" {
+  ami           = "ami-0c55b159cbfafe1f0"
+  instance_type = "t2.micro"
+}
+
 # Create NAT Gateway
 resource "aws_nat_gateway" "nat_gateway_a" {
   allocation_id = aws_instance.nat_allocation_a.id
@@ -79,17 +90,6 @@ resource "aws_nat_gateway" "nat_gateway_b" {
   }
 }
 
-# Create Elastic IP Addresses for NAT Gateways
-resource "aws_instance" "nat_allocation_a" {
-  ami           = "ami-0c55b159cbfafe1f0"
-  instance_type = "t2.micro"
-}
-
-resource "aws_instance" "nat_allocation_b" {
-  ami           = "ami-0c55b159cbfafe1f0"
-  instance_type = "t2.micro"
-}
-
 # Create EKS Cluster
 module "eks" {
   source          = "terraform-aws-modules/eks/aws"
@@ -97,6 +97,7 @@ module "eks" {
   subnets         = [aws_subnet.private_subnet_a.id, aws_subnet.private_subnet_b.id]
   vpc_id          = aws_vpc.my_vpc.id
   cluster_version = "1.21"
+
   node_groups = {
     eks_nodes = {
       desired_capacity = 2
