@@ -95,6 +95,11 @@ module "eks" {
   source          = "terraform-aws-modules/eks/aws"
   cluster_name    = "my-eks-cluster"  
   vpc_id          = aws_vpc.my_vpc.id
+  subnets         = [aws_subnet.private_subnet_a.id, aws_subnet.private_subnet_b.id]
+  
+  cluster_version = "1.21"
+
+
   
 
   eks_managed_node_groups = {
