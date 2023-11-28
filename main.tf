@@ -83,11 +83,11 @@ resource "aws_nat_gateway" "nat_gateway_b" {
 
 # Create Elastic IP Addresses for NAT Gateways
 resource "aws_instance" "nat_allocation_a" {
-  ami           = "ami-0c55b159cbfafe1f0"
+  ami           = "ami-02a2af70a66af6dfb"
   instance_type = "t2.micro"
 }
 
 resource "aws_instance" "nat_allocation_b" {
-  ami           = "ami-0c55b159cbfafe1f0"
+  ami           = "ami-02a2af70a66af6dfb"
   instance_type = "t2.micro"
 }
