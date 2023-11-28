@@ -92,9 +92,8 @@ resource "aws_nat_gateway" "nat_gateway_b" {
 
 # Create EKS Cluster
 module "eks" {
-  
-  cluster_name    = "my-eks-cluster"
-  
+  source          = "terraform-aws-modules/eks/aws"
+  cluster_name    = "my-eks-cluster"  
   vpc_id          = aws_vpc.my_vpc.id
   
 
