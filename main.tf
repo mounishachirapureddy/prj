@@ -42,6 +42,8 @@ depends_on = [
   }
 }
 
+
+
 # Create Private Subnets
 resource "aws_subnet" "private_subnet_a" {
 depends_on = [
@@ -68,6 +70,8 @@ depends_on = [
     Name = "private-subnet-b"
   }
 }
+
+
 # Create Internet Gateway
 resource "aws_internet_gateway" "my_igw" {
 depends_on = [
@@ -81,6 +85,8 @@ depends_on = [
     Name = "my-igw"
 }
 }
+
+
 # Creating an Route Table for the public subnet!
 resource "aws_route_table" "Public-Subnet-RT" {
   depends_on = [
@@ -102,6 +108,9 @@ resource "aws_route_table" "Public-Subnet-RT" {
   }
 }
 
+
+
+
 # Creating a resource for the Route Table Association!
 resource "aws_route_table_association" "RT-IG-Association" {
 
@@ -118,13 +127,21 @@ resource "aws_route_table_association" "RT-IG-Association" {
 #  Route Table ID
   route_table_id = aws_route_table.Public-Subnet-RT.id
 }
+
+
+
+
 # Creating an Elastic IP for the NAT Gateway!
 resource "aws_eip" "Nat-Gateway-EIP" {
   depends_on = [
     aws_route_table_association.RT-IG-Association
   ]
   vpc = true
+  vpc_id = aws_vpc.my_vpc.id
 }
+
+
+
 # Creating a NAT Gateway!
 resource "aws_nat_gateway" "NAT_GATEWAY" {
   depends_on = [
@@ -135,11 +152,13 @@ resource "aws_nat_gateway" "NAT_GATEWAY" {
   allocation_id = aws_eip.Nat-Gateway-EIP.id
   
   # Associating it in the Public Subnet!
-  subnet_id = aws_subnet.subnet1.id
+  subnet_id = aws_subnet.subnet_a.id
   tags = {
     Name = "Nat-Gateway_Project"
   }
 }
+
+
 # Creating a Route Table for the Nat Gateway!
 resource "aws_route_table" "NAT-Gateway-RT" {
   depends_on = [
@@ -158,6 +177,10 @@ resource "aws_route_table" "NAT-Gateway-RT" {
   }
 
 }
+
+
+
+
 # Creating an Route Table Association of the NAT Gateway route 
 # table with the Private Subnet!
 resource "aws_route_table_association" "Nat-Gateway-RT-Association" {
@@ -166,7 +189,7 @@ resource "aws_route_table_association" "Nat-Gateway-RT-Association" {
   ]
 
 #  Private Subnet ID for adding this route table to the DHCP server of Private subnet!
-  subnet_id      = aws_subnet.subnet_b.id
+  subnet_id      = aws_subnet.private_subnet_a.id
 
 # Route Table ID
   route_table_id = aws_route_table.NAT-Gateway-RT.id
