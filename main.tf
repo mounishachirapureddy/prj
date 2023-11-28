@@ -63,31 +63,3 @@ resource "aws_subnet" "private_subnet_b" {
 }
 
 
-# Create Elastic IP Addresses for NAT Gateways
-resource "aws_instance" "nat_allocation_a" {
-  ami           = "ami-02a2af70a66af6dfb"
-  instance_type = "t2.micro"
-}
-
-resource "aws_instance" "nat_allocation_b" {
-  ami           = "ami-02a2af70a66af6dfb"
-  instance_type = "t2.micro"
-}
-# Create NAT Gateway
-resource "aws_nat_gateway" "nat_gateway_a" {
-  allocation_id = aws_instance.nat_allocation_a.id
-  subnet_id     = aws_subnet.private_subnet_a.id
-
-  tags = {
-    Name = "nat-gateway-a"
-  }
-}
-
-resource "aws_nat_gateway" "nat_gateway_b" {
-  allocation_id = aws_instance.nat_allocation_b.id
-  subnet_id     = aws_subnet.private_subnet_b.id
-
-  tags = {
-    Name = "nat-gateway-b"
-  }
-}
