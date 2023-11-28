@@ -137,7 +137,6 @@ resource "aws_eip" "Nat-Gateway-EIP" {
     aws_route_table_association.RT-IG-Association
   ]
   vpc = true
-  vpc_id = aws_vpc.my_vpc.id
 }
 
 
