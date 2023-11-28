@@ -1,5 +1,3 @@
-
-
 provider "aws" {
   region = "ap-south-1"
 }
@@ -19,7 +17,7 @@ resource "aws_vpc" "my_vpc" {
 # Create Subnets
 resource "aws_subnet" "subnet_a" {
 depends_on = [
-    aws_vpc.my-vpc
+    aws_vpc.my_vpc
   ]
   
   vpc_id                  = aws_vpc.my_vpc.id
@@ -33,7 +31,7 @@ depends_on = [
 
 resource "aws_subnet" "subnet_b" {
 depends_on = [
-    aws_vpc.my-vpc
+    aws_vpc.my_vpc
   ]
   vpc_id                  = aws_vpc.my_vpc.id
   cidr_block              = "10.0.2.0/24"
@@ -47,7 +45,7 @@ depends_on = [
 # Create Private Subnets
 resource "aws_subnet" "private_subnet_a" {
 depends_on = [
-    aws_vpc.my-vpc,
+    aws_vpc.my_vpc,
     aws_subnet.subnet_a
   ]
   vpc_id                  = aws_vpc.my_vpc.id
@@ -60,7 +58,7 @@ depends_on = [
 
 resource "aws_subnet" "private_subnet_b" {
 depends_on = [
-    aws_vpc.my-vpc,
+    aws_vpc.my_vpc,
     aws_subnet.subnet_b
   ]
   vpc_id                  = aws_vpc.my_vpc.id
@@ -73,7 +71,7 @@ depends_on = [
 # Create Internet Gateway
 resource "aws_internet_gateway" "my_igw" {
 depends_on = [
-    aws_vpc.my-vpc,
+    aws_vpc.my_vpc,
     aws_subnet.subnet_a,
     aws_subnet.subnet_b
   ]
@@ -86,12 +84,12 @@ depends_on = [
 # Creating an Route Table for the public subnet!
 resource "aws_route_table" "Public-Subnet-RT" {
   depends_on = [
-    aws_vpc.my-vpc,
+    aws_vpc.my_vpc,
     aws_internet_gateway.my_igw
   ]
 
    # VPC ID
-  vpc_id = aws_vpc.my-vpc.id
+  vpc_id = aws_vpc.my_vpc.id
 
   # NAT Rule
   route {
@@ -108,7 +106,7 @@ resource "aws_route_table" "Public-Subnet-RT" {
 resource "aws_route_table_association" "RT-IG-Association" {
 
   depends_on = [
-    aws_vpc.my-vpc,
+    aws_vpc.my_vpc,
     aws_subnet.subnet_a,
     aws_subnet.subnet_b,
     aws_route_table.Public-Subnet-RT
@@ -148,7 +146,7 @@ resource "aws_route_table" "NAT-Gateway-RT" {
     aws_nat_gateway.NAT_GATEWAY
   ]
 
-  vpc_id = aws_vpc.my-vpc.id
+  vpc_id = aws_vpc.my_vpc.id
 
   route {
     cidr_block = "0.0.0.0/0"
