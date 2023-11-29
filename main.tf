@@ -275,3 +275,29 @@ resource "aws_iam_role" "workernodes" {
   role    = aws_iam_role.workernodes.name
  }
 
+#create a node group
+resource "aws_eks_node_group" "node-ec2" {
+  cluster_name    = aws_eks_cluster.devopsthehardway-cluster.name
+  node_group_name = "t3_micro-node_group"
+  node_role_arn   = aws_iam_role.workernodes.arn
+  subnet_ids      = [aws_subnet.private_subnet_a.id, aws_subnet.private_subnet_b.id]
+
+  scaling_config {
+    desired_size = 1
+    max_size     = 1
+    min_size     = 1
+  }
+
+  ami_type       = "AL2_x86_64"
+  instance_types = ["t2.medium"]
+  capacity_type  = "ON_DEMAND"
+  disk_size      = 20
+
+  depends_on = [
+    aws_iam_role_policy_attachment.AmazonEKSWorkerNodePolicy,
+    aws_iam_role_policy_attachment.AmazonEC2ContainerRegistryReadOnly,
+    aws_iam_role_policy_attachment.AmazonEKS_CNI_Policy
+  ]
+}
+
+
