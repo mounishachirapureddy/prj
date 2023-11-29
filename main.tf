@@ -164,7 +164,7 @@ resource "aws_eip" "Nat-Gateway-EIP" {
 # Creating a NAT Gateway!
 resource "aws_nat_gateway" "NAT_GATEWAY" {
   depends_on = [
-    aws_eip.Nat-Gateway-EIP
+    aws_eip.Nat-Gateway-EIP,
     aws_internet_gateway.my_igw
   ]
 
