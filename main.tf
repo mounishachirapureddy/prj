@@ -252,7 +252,7 @@ resource "aws_route_table_association" "Private-Subnet-RT-Association-b" {
 
 #creating an aws iam role for cluster
 resource "aws_iam_role" "eks-iam-role" {
- name = "devops-eks-iam-role"
+ name = "devopsthehardway-eks-iam-role"
 
  path = "/"
 
@@ -284,8 +284,8 @@ resource "aws_iam_role_policy_attachment" "AmazonEC2ContainerRegistryReadOnly-EK
 }
 
 #creating a cluster
-resource "aws_eks_cluster" "devops-eks" {
- name = "devops-cluster"
+resource "aws_eks_cluster" "devopsthehardway-eks" {
+ name = "devopsthehardway-cluster"
  role_arn = aws_iam_role.eks-iam-role.arn
 
  vpc_config {
@@ -340,7 +340,7 @@ resource "aws_iam_role" "workernodes" {
 #create a nodegroup
 
 resource "aws_eks_node_group" "example" {
-  cluster_name    = aws_eks_cluster.devops-eks.name
+  cluster_name    = aws_eks_cluster.devopsthehardway-eks.name
   node_group_name = "example-node-group"
 
   node_role_arn = aws_iam_role.workernodes.arn
