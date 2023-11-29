@@ -182,22 +182,43 @@ resource "aws_route_table" "NAT-Gateway-RT" {
 }
 
 
+#Create a new Route Table for the Private Subnet
+resource "aws_route_table" "Private-Subnet-RT" {
+  depends_on = [
+    aws_vpc.my_vpc,
+    aws_nat_gateway.NAT_GATEWAY
+  ]
+
+  vpc_id = aws_vpc.my_vpc.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    nat_gateway_id = aws_nat_gateway.NAT_GATEWAY.id
+  }
+
+  tags = {
+    Name = "Route Table for Private Subnet"
+  }
+}
 
 
 # Creating an Route Table Association of the NAT Gateway route 
 # table with the Private Subnet!
-resource "aws_route_table_association" "Nat-Gateway-RT-Association" {
+
+resource "aws_route_table_association" "Private-Subnet-RT-Association" {
   depends_on = [
-    aws_route_table.NAT-Gateway-RT
+    aws_route_table.Private-Subnet-RT
   ]
 
-#  Private Subnet ID for adding this route table to the DHCP server of Private subnet!
   subnet_id      = aws_subnet.private_subnet_a.id
-
-
-# Route Table ID
-  route_table_id = aws_route_table.NAT-Gateway-RT.id
+  route_table_id = aws_route_table.Private-Subnet-RT.id
 }
+
+
+
+
+
+
 
 
 resource "aws_iam_role" "eks-iam-role" {
