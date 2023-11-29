@@ -287,8 +287,8 @@ resource "aws_eks_node_group" "example" {
   subnet_ids = [aws_subnet.private_subnet_a.id, aws_subnet.private_subnet_b.id]
 
   scaling_config {
-    desired_size = 2
-    max_size     = 3
+    desired_size = 1
+    max_size     = 1
     min_size     = 1
   }
   ami_type       = "AL2_x86_64"
