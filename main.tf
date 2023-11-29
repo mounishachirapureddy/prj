@@ -2,6 +2,8 @@ provider "aws" {
   region = "ap-south-1"
 }
 
+
+
 # Create VPC
 resource "aws_vpc" "my_vpc" {
   cidr_block = "10.0.0.0/16"
@@ -87,7 +89,7 @@ depends_on = [
 }
 
 
-# Creating an Route Table for the public subnet!
+# Creating an Route Table for the public subnet
 resource "aws_route_table" "Public-Subnet-RT" {
   depends_on = [
     aws_vpc.my_vpc,
@@ -111,7 +113,7 @@ resource "aws_route_table" "Public-Subnet-RT" {
 
 
 
-# Creating a resource for the Route Table Association!
+# Creating a resource for the Route Table Association with subnet_a
 resource "aws_route_table_association" "RT-IG-Association-a" {
 
   depends_on = [
@@ -128,7 +130,9 @@ resource "aws_route_table_association" "RT-IG-Association-a" {
   route_table_id = aws_route_table.Public-Subnet-RT.id
 }
 
-# Creating a resource for the Route Table Association!
+
+
+# Creating a resource for the Route Table Association with subnet_b
 resource "aws_route_table_association" "RT-IG-Association-b" {
 
   depends_on = [
@@ -150,7 +154,7 @@ resource "aws_route_table_association" "RT-IG-Association-b" {
 
 
 
-# Creating an Elastic IP for the NAT Gateway!
+# Creating an Elastic IP for the NAT Gateway
 resource "aws_eip" "Nat-Gateway-EIP" {
   
   vpc = true
@@ -161,7 +165,7 @@ resource "aws_eip" "Nat-Gateway-EIP" {
 
 
 
-# Creating a NAT Gateway!
+# Creating a NAT Gateway
 resource "aws_nat_gateway" "NAT_GATEWAY" {
   depends_on = [
     aws_eip.Nat-Gateway-EIP,
@@ -169,10 +173,10 @@ resource "aws_nat_gateway" "NAT_GATEWAY" {
   ]
 
 
-  # Allocating the Elastic IP to the NAT Gateway!
+  # Allocating the Elastic IP to the NAT Gateway
   allocation_id = aws_eip.Nat-Gateway-EIP.id
   
-  # Associating it in the Public Subnet!
+  # Associating it in the Public Subnet
   subnet_id = aws_subnet.subnet_a.id
   tags = {
     Name = "Nat-Gateway_Project"
@@ -180,7 +184,7 @@ resource "aws_nat_gateway" "NAT_GATEWAY" {
 }
 
 
-# Creating a Route Table for the Nat Gateway!
+# Creating a Route Table for the Nat Gateway
 resource "aws_route_table" "NAT-Gateway-RT" {
   depends_on = [
     aws_nat_gateway.NAT_GATEWAY
@@ -246,13 +250,9 @@ resource "aws_route_table_association" "Private-Subnet-RT-Association-b" {
 
 
 
-
-
-
-
-
+#creating an aws iam role for cluster
 resource "aws_iam_role" "eks-iam-role" {
- name = "devopsthehardway-eks-iam-role"
+ name = "devops-eks-iam-role"
 
  path = "/"
 
@@ -273,7 +273,7 @@ EOF
 
 }
 
-
+#attaching policies to cluster
 resource "aws_iam_role_policy_attachment" "AmazonEKSClusterPolicy" {
  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
  role    = aws_iam_role.eks-iam-role.name
@@ -283,9 +283,9 @@ resource "aws_iam_role_policy_attachment" "AmazonEC2ContainerRegistryReadOnly-EK
  role    = aws_iam_role.eks-iam-role.name
 }
 
-
-resource "aws_eks_cluster" "devopsthehardway-eks" {
- name = "devopsthehardway-cluster"
+#creating a cluster
+resource "aws_eks_cluster" "devops-eks" {
+ name = "devops-cluster"
  role_arn = aws_iam_role.eks-iam-role.arn
 
  vpc_config {
@@ -299,7 +299,7 @@ resource "aws_eks_cluster" "devopsthehardway-eks" {
 
 
 
-
+#creating roles for nodes
 resource "aws_iam_role" "workernodes" {
   name = "eks-node-group-example"
  
@@ -314,7 +314,8 @@ resource "aws_iam_role" "workernodes" {
    Version = "2012-10-17"
   })
  }
- 
+
+#attaching policies to nodes 
  resource "aws_iam_role_policy_attachment" "AmazonEKSWorkerNodePolicy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
   role    = aws_iam_role.workernodes.name
