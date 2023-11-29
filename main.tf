@@ -112,7 +112,7 @@ resource "aws_route_table" "Public-Subnet-RT" {
 
 
 # Creating a resource for the Route Table Association!
-resource "aws_route_table_association" "RT-IG-Association" {
+resource "aws_route_table_association" "RT-IG-Association-a" {
 
   depends_on = [
     aws_vpc.my_vpc,
@@ -129,7 +129,7 @@ resource "aws_route_table_association" "RT-IG-Association" {
 }
 
 # Creating a resource for the Route Table Association!
-resource "aws_route_table_association" "RT-IG-Association" {
+resource "aws_route_table_association" "RT-IG-Association-b" {
 
   depends_on = [
     aws_vpc.my_vpc,
@@ -152,10 +152,11 @@ resource "aws_route_table_association" "RT-IG-Association" {
 
 # Creating an Elastic IP for the NAT Gateway!
 resource "aws_eip" "Nat-Gateway-EIP" {
-  depends_on = [
-    aws_route_table_association.RT-IG-Association
-  ]
+  
   vpc = true
+ tags = {
+ Name = "nat"
+}
 }
 
 
@@ -222,7 +223,7 @@ resource "aws_route_table" "Private-Subnet-RT" {
 # Creating an Route Table Association of the NAT Gateway route 
 # table with the Private Subnet!
 
-resource "aws_route_table_association" "Private-Subnet-RT-Association" {
+resource "aws_route_table_association" "Private-Subnet-RT-Association-a" {
   depends_on = [
     aws_route_table.Private-Subnet-RT
   ]
@@ -234,7 +235,7 @@ resource "aws_route_table_association" "Private-Subnet-RT-Association" {
 # Creating an Route Table Association of the NAT Gateway route 
 # table with the Private Subnet!
 
-resource "aws_route_table_association" "Private-Subnet-RT-Association" {
+resource "aws_route_table_association" "Private-Subnet-RT-Association-b" {
   depends_on = [
     aws_route_table.Private-Subnet-RT
   ]
