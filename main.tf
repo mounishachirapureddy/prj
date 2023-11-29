@@ -146,6 +146,7 @@ resource "aws_nat_gateway" "NAT_GATEWAY" {
   depends_on = [
     aws_eip.Nat-Gateway-EIP
   ]
+vpc_id = aws_vpc.my_vpc.id
 
   # Allocating the Elastic IP to the NAT Gateway!
   allocation_id = aws_eip.Nat-Gateway-EIP.id
@@ -172,7 +173,7 @@ resource "aws_route_table" "NAT-Gateway-RT" {
   }
  route {
     cidr_block = aws_vpc.my_vpc.cidr_block
-    gateway_id  = aws_vpc.my_vpc.id
+    vpc_id  = aws_vpc.my_vpc.id
   }
 
   tags = {
@@ -259,7 +260,7 @@ resource "aws_eks_cluster" "devopsthehardway-eks" {
  role_arn = aws_iam_role.eks-iam-role.arn
 
  vpc_config {
-  subnet_ids = [aws_subnet.subnet_a.id, aws_subnet.subnet_b.id]
+  subnet_ids = [aws_subnet.private_subnet_a.id, aws_subnet.private_subnet_b.id]
  }
 
  depends_on = [
