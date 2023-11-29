@@ -170,6 +170,10 @@ resource "aws_route_table" "NAT-Gateway-RT" {
     cidr_block = "0.0.0.0/0"
     nat_gateway_id = aws_nat_gateway.NAT_GATEWAY.id
   }
+ route {
+    cidr_block = aws_vpc.my_vpc.cidr_block
+    gateway_id  = aws_vpc.my_vpc.id
+  }
 
   tags = {
     Name = "Route Table for NAT Gateway"
