@@ -340,7 +340,7 @@ resource "aws_iam_role" "workernodes" {
 #create a nodegroup
 
 resource "aws_eks_node_group" "example" {
-  cluster_name    = aws_eks_cluster.devopsthehardway-eks.name
+  cluster_name    = aws_eks_cluster.devops-eks.name
   node_group_name = "example-node-group"
 
   node_role_arn = aws_iam_role.workernodes.arn
