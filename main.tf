@@ -190,6 +190,7 @@ resource "aws_route_table_association" "Nat-Gateway-RT-Association" {
 #  Private Subnet ID for adding this route table to the DHCP server of Private subnet!
   subnet_id      = aws_subnet.private_subnet_a.id
 
+
 # Route Table ID
   route_table_id = aws_route_table.NAT-Gateway-RT.id
 }
@@ -299,7 +300,8 @@ resource "aws_eks_node_group" "example" {
   depends_on = [
     aws_iam_role_policy_attachment.AmazonEKSWorkerNodePolicy,
     aws_iam_role_policy_attachment.AmazonEC2ContainerRegistryReadOnly,
-    aws_iam_role_policy_attachment.AmazonEKS_CNI_Policy
+    aws_iam_role_policy_attachment.AmazonEKS_CNI_Policy,
+    aws_eks_cluster.devopsthehardway-eks
   ]
 }
 
