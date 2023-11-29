@@ -128,6 +128,25 @@ resource "aws_route_table_association" "RT-IG-Association" {
   route_table_id = aws_route_table.Public-Subnet-RT.id
 }
 
+# Creating a resource for the Route Table Association!
+resource "aws_route_table_association" "RT-IG-Association" {
+
+  depends_on = [
+    aws_vpc.my_vpc,
+    aws_subnet.subnet_a,
+    aws_subnet.subnet_b,
+    aws_route_table.Public-Subnet-RT
+  ]
+
+# Public Subnet ID
+  subnet_id      = aws_subnet.subnet_b.id
+
+#  Route Table ID
+  route_table_id = aws_route_table.Public-Subnet-RT.id
+}
+
+
+
 
 
 
@@ -145,8 +164,9 @@ resource "aws_eip" "Nat-Gateway-EIP" {
 resource "aws_nat_gateway" "NAT_GATEWAY" {
   depends_on = [
     aws_eip.Nat-Gateway-EIP
+    aws_internet_gateway.my_igw
   ]
-vpc_id = aws_vpc.my_vpc.id
+
 
   # Allocating the Elastic IP to the NAT Gateway!
   allocation_id = aws_eip.Nat-Gateway-EIP.id
@@ -170,10 +190,6 @@ resource "aws_route_table" "NAT-Gateway-RT" {
   route {
     cidr_block = "0.0.0.0/0"
     nat_gateway_id = aws_nat_gateway.NAT_GATEWAY.id
-  }
- route {
-    cidr_block = aws_vpc.my_vpc.cidr_block
-    vpc_id  = aws_vpc.my_vpc.id
   }
 
   tags = {
@@ -212,6 +228,18 @@ resource "aws_route_table_association" "Private-Subnet-RT-Association" {
   ]
 
   subnet_id      = aws_subnet.private_subnet_a.id
+  route_table_id = aws_route_table.Private-Subnet-RT.id
+}
+
+# Creating an Route Table Association of the NAT Gateway route 
+# table with the Private Subnet!
+
+resource "aws_route_table_association" "Private-Subnet-RT-Association" {
+  depends_on = [
+    aws_route_table.Private-Subnet-RT
+  ]
+
+  subnet_id      = aws_subnet.private_subnet_b.id
   route_table_id = aws_route_table.Private-Subnet-RT.id
 }
 
@@ -260,13 +288,17 @@ resource "aws_eks_cluster" "devopsthehardway-eks" {
  role_arn = aws_iam_role.eks-iam-role.arn
 
  vpc_config {
-  subnet_ids = [aws_subnet.private_subnet_a.id, aws_subnet.private_subnet_b.id]
+  subnet_ids = [aws_subnet.subnet_a.id,aws_subnet.subnet_b.id,aws_subnet.private_subnet_a.id, aws_subnet.private_subnet_b.id]
  }
 
  depends_on = [
   aws_iam_role.eks-iam-role,
  ]
 }
+
+
+
+
 resource "aws_iam_role" "workernodes" {
   name = "eks-node-group-example"
  
