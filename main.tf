@@ -259,7 +259,7 @@ resource "aws_eks_cluster" "devopsthehardway-eks" {
  role_arn = aws_iam_role.eks-iam-role.arn
 
  vpc_config {
-  subnet_ids = [aws_subnet.private_subnet_a.id, aws_subnet.private_subnet_b.id]
+  subnet_ids = [aws_subnet.subnet_a.id, aws_subnet.subnet_b.id]
  }
 
  depends_on = [
