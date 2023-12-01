@@ -1,6 +1,12 @@
 pipeline {
     agent any 
 
+environment {    
+        ECR_REGION            = 'ap-south-1'
+        ECR_REGISTRY          = '083118395813.dkr.ecr.ap-south-1.amazonaws.com'
+            }
+
+
     stages {
         stage('checkout') {
             steps {
@@ -27,60 +33,17 @@ pipeline {
                 sh 'terraform apply --auto-approve'
             }
         }
- 
-          stage('Build') {
+
+
+         stage('Initialize Variables') {
             steps {
-                
-                dir('client') {
-                    sh 'npm install'
-                    //bat 'npm test'
-                }
-                dir('servers/gamer-module') {
-                    sh 'npm install'
-                    //bat 'npm test'
-                }
-
-                dir('servers/merchant-module') {
-                    sh 'npm install'
-                    //bat 'npm test'
-                }
-
-                dir('servers/gaming-vendor-module') {
-                    sh 'npm install'
-                    //bat 'npm test'
-                }
-
-                dir('servers/general-module') {
-                    sh 'npm install'
-                    //bat 'npm test'
+                script {
+                    DOCKER_IMAGE_NAMES = ['client-image', 'gamer-module', 'merchant-module', 'gaming-vendor-module', 'general-module']
+                   
                 }
             }
         }
-
-        stage('Create Docker Images') {
-            steps {
-                dir('client'){
-                    sh 'docker build -t client-image .'
-                }
-                dir('servers/gamer-module') {
-                    sh 'docker build -t gamer-module .'
-                }
-
-                dir('servers/merchant-module') {
-                    sh 'docker build -t merchant-module .'
-                }
-                
-                dir('servers/gaming-vendor-module') {
-                    sh 'docker build -t gaming-vendor-module .'
-                    sh 'docker run -itd gaming-vendor-module'
-                }
-
-                dir('servers/general-module') {
-                    sh 'docker build -t general-module .'
-                }
-            }
-        }
-         stage('Configure AWS') {
+        stage('Configure AWS') {
             steps {
                 script {
                     // Configure AWS credentials
@@ -98,72 +61,73 @@ pipeline {
         }
 
 
-       
+
+      
+        stage('Build') {
+            steps {
+                dir('client') {
+                    sh 'npm install'
+                }
+                dir('servers/gamer-module') {
+                    sh 'npm install'
+                }
+                dir('servers/merchant-module') {
+                    sh 'npm install'
+                }
+                dir('servers/gaming-vendor-module') {
+                    sh 'npm install'
+                }
+                dir('servers/general-module') {
+                    sh 'npm install'
+                }
+            }
+        }
+         
+
+
+        stage('Create Docker Images') {
+            steps {
+                dir('client') {
+                    sh 'docker build -t client-image .'
+                }
+                dir('servers/gamer-module') {
+                    sh 'docker build -t gamer-module .'
+                }
+                dir('servers/merchant-module') {
+                    sh 'docker build -t merchant-module .'
+                }
+                dir('servers/gaming-vendor-module') {
+                    sh 'docker build -t gaming-vendor-module .'
+                    sh 'docker run -itd gaming-vendor-module'
+                }
+                dir('servers/general-module') {
+                    sh 'docker build -t general-module .'
+                }
+            }
+        }
+         
         stage('Authenticate with ECR') {
             steps {
                 script {
-                    def ecrRegion = 'ap-south-1'  // Your ECR region
-                    def ecrRegistry = '083118395813.dkr.ecr.ap-south-1.amazonaws.com'  // Your ECR registry URL
-
-                    def ecrLogin = "aws ecr get-login-password --region ${ecrRegion}"
-                    def ecrLoginCommand = "${ecrLogin} | docker login --username AWS --password-stdin ${ecrRegistry}"
-
+                    def ecrLogin = "aws ecr get-login-password --region ${ECR_REGION}"
+                    def ecrLoginCommand = "${ecrLogin} | docker login --username AWS --password-stdin ${ECR_REGISTRY}"
                     sh ecrLoginCommand
                 }
             }
         }
 
-        stage('Pushing Image to ECR-client') {
-            steps{
-              script {
-                withDockerRegistry( url: 'https://083118395813.dkr.ecr.ap-south-1.amazonaws.com/client-image:latest') {
-                sh'docker tag client-image:latest 083118395813.dkr.ecr.ap-south-1.amazonaws.com/client-image:latest'
-                sh 'docker push 083118395813.dkr.ecr.ap-south-1.amazonaws.com/client-image:latest'
+        stage('Push Docker Images to ECR') {
+            steps {
+                script {
+                    DOCKER_IMAGE_NAMES.each { imageName ->
+                        withDockerRegistry(url: "https://${ECR_REGISTRY}/${imageName}:latest") {
+                            sh "docker tag ${imageName}:latest ${ECR_REGISTRY}/${imageName}:latest"
+                            sh "docker push ${ECR_REGISTRY}/${imageName}:latest"
+                        }
+                    }
                 }
-              }
             }
-          }
-          stage('Pushing Image to ECR-gamer-module') {
-            steps{
-              script {
-                withDockerRegistry( url: 'https://083118395813.dkr.ecr.ap-south-1.amazonaws.com/gamer-module:latest') {
-                sh'docker tag gamer-module:latest 083118395813.dkr.ecr.ap-south-1.amazonaws.com/gamer-module:latest'
-                sh 'docker push 083118395813.dkr.ecr.ap-south-1.amazonaws.com/gamer-module:latest'
-                }
-              }
-            }
-          }
-           stage('Pushing Image to ECR-merchant-module') {
-            steps{
-              script {
-                withDockerRegistry( url: 'https://083118395813.dkr.ecr.ap-south-1.amazonaws.com/merchant-module:latest') {
-                sh'docker tag merchant-module:latest 083118395813.dkr.ecr.ap-south-1.amazonaws.com/merchant-module:latest'
-                sh 'docker push 083118395813.dkr.ecr.ap-south-1.amazonaws.com/merchant-module:latest'
-                }
-              }
-            }
-          }
-          stage('Pushing Image to ECR-gaming-vendor') {
-            steps{
-              script {
-                withDockerRegistry( url: 'https://083118395813.dkr.ecr.ap-south-1.amazonaws.com/gaming-vendor-module:latest') {
-                sh'docker tag gaming-vendor-module:latest 083118395813.dkr.ecr.ap-south-1.amazonaws.com/gaming-vendor-module:latest'
-                sh 'docker push 083118395813.dkr.ecr.ap-south-1.amazonaws.com/gaming-vendor-module:latest'
-                }
-              }
-            }
-          }
-          stage('Pushing Image to ECR-general-module1') {
-            steps{
-              script {
-                withDockerRegistry( url: 'https://083118395813.dkr.ecr.ap-south-1.amazonaws.com/general-module:latest') {
-                sh'docker tag general-module:latest 083118395813.dkr.ecr.ap-south-1.amazonaws.com/general-module:latest'
-                sh 'docker push 083118395813.dkr.ecr.ap-south-1.amazonaws.com/general-module:latest'
-                }
-              }
-            }
-          }
-         
+        
         stage('Deploy snappcoins services') {
             steps {
                 
@@ -208,9 +172,9 @@ pipeline {
                
             }
         }
-            
+         
         
-        
+        }
       
     }
     
