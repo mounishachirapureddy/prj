@@ -361,7 +361,7 @@ resource "aws_eks_node_group" "example" {
     aws_iam_role_policy_attachment.AmazonEKSWorkerNodePolicy,
     aws_iam_role_policy_attachment.AmazonEC2ContainerRegistryReadOnly,
     aws_iam_role_policy_attachment.AmazonEKS_CNI_Policy,
-    aws_eks_cluster.devopsthehardway-eks
+    aws_eks_cluster.snappcoins-eks
   ]
 }
 
