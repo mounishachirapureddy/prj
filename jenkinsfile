@@ -1,16 +1,34 @@
-
 pipeline {
-    agent any
-    
-   
+    agent any 
+
     stages {
-        stage('Checkout') {
+        stage('checkout') {
             steps {
                 git 'https://github.com/mounishachirapureddy/prj.git'
             }
         }
-
-        stage('Build') {
+        stage('init') {
+            steps {
+                sh 'terraform init'
+            }
+        }
+        stage('validate') {
+            steps {
+                sh 'terraform validate'                
+            }
+        }
+        stage('plan') {
+            steps {
+                sh 'terraform plan'
+            }
+        }
+        stage('action') {
+            steps {
+                sh 'terraform apply --auto-approve'
+            }
+        }
+ 
+          stage('Build') {
             steps {
                 
                 dir('client') {
@@ -66,7 +84,7 @@ pipeline {
             steps {
                 script {
                     // Configure AWS credentials
-                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: '03071f19-3951-4f10-9eeb-7d89cb66b86c']]) {
+                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: '4b98292f-9726-4e9d-8c8d-2e6e16a946ce']]) {
                         // Update AWS CLI configuration (optional)
                         sh 'aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID'
                         sh 'aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY'
@@ -148,30 +166,54 @@ pipeline {
          
         stage('Deploy snappcoins services') {
             steps {
+                
+               
                 dir('client'){
-                        sh 'export KUBECONFIG=/new/directory/path/config && /usr/local/bin/kubectl apply -f /var/lib/jenkins/workspace/file1/prj/client/client-deployment.yaml'
-                        sh 'export KUBECONFIG=/new/directory/path/config && /usr/local/bin/kubectl apply -f /var/lib/jenkins/workspace/file1/prj/client/client-service.yaml'
+                     sh "export KUBECONFIG=/new/directory/path/config"
+                         sh "aws eks update-kubeconfig --name snappcoins-cluster --region ap-south-1"
+                           sh 'kubectl apply -f client-serviceaccount.yaml'
+                        sh 'kubectl apply -f client-deployment.yaml'
+                        sh ' kubectl apply -f client-service.yaml'
                         }
                 dir('servers/gaming-vendor-module'){
-                        sh 'export KUBECONFIG=/new/directory/path/config && /usr/local/bin/kubectl apply -f /var/lib/jenkins/workspace/file1/prj/servers/gaming-vendor-module/gaming-vendor-module-deployment.yaml'
-                        sh 'export KUBECONFIG=/new/directory/path/config && /usr/local/bin/kubectl apply -f /var/lib/jenkins/workspace/file1/prj/servers/gaming-vendor-module/gaming-vendor-module-service.yaml'
+                    sh "export KUBECONFIG=/new/directory/path/config"
+                         sh "aws eks update-kubeconfig --name snappcoins-cluster --region ap-south-1"
+                          sh 'kubectl apply -f gaming-vendor-module-serviceaccount.yaml'
+                        sh 'kubectl apply -f gaming-vendor-module-deployment.yaml'
+                        sh 'kubectl apply -f gaming-vendor-module-service.yaml'
                         }
                 dir('servers/gamer-module'){
-                       sh 'export KUBECONFIG=/new/directory/path/config && /usr/local/bin/kubectl apply -f /var/lib/jenkins/workspace/file1/prj/servers/gamer-module/gamer-module-deployment.yaml'
-                        sh 'export KUBECONFIG=/new/directory/path/config && /usr/local/bin/kubectl apply -f /var/lib/jenkins/workspace/file1/prj/servers/gamer-module/gamer-module-service.yaml'
+                    sh "export KUBECONFIG=/new/directory/path/config"
+                         sh "aws eks update-kubeconfig --name snappcoins-cluster --region ap-south-1"
+                          sh 'kubectl apply -f gamer-module-serviceaccount.yaml'
+                       sh 'kubectl apply -f gamer-module-deployment.yaml'
+                        sh 'kubectl apply -f gamer-module-service.yaml'
                         }
                 dir('servers/general-module'){
-                        sh 'export KUBECONFIG=/new/directory/path/config && /usr/local/bin/kubectl apply -f /var/lib/jenkins/workspace/file1/prj/servers/general-module/general-module-deployment.yaml'
-                        sh 'export KUBECONFIG=/new/directory/path/config && /usr/local/bin/kubectl apply -f /var/lib/jenkins/workspace/file1/prj/servers/general-module/general-module-service.yaml'
+                    sh "export KUBECONFIG=/new/directory/path/config"
+                         sh "aws eks update-kubeconfig --name snappcoins-cluster --region ap-south-1"
+                         sh 'kubectl apply -f general-module-serviceaccount.yaml'
+                        sh 'kubectl apply -f general-module-deployment.yaml'
+                        sh 'kubectl apply -f general-module-service.yaml'
                         }
                 dir('servers/merchant-module'){
-                        sh 'export KUBECONFIG=/new/directory/path/config && /usr/local/bin/kubectl apply -f /var/lib/jenkins/workspace/file1/prj/servers/merchant-module/merchant-module-deployment.yaml'
-                        sh 'export KUBECONFIG=/new/directory/path/config && /usr/local/bin/kubectl apply -f /var/lib/jenkins/workspace/file1/prj/servers/merchant-module/merchant-module-service.yaml'
+                    sh "export KUBECONFIG=/new/directory/path/config"
+                         sh "aws eks update-kubeconfig --name snappcoins-cluster --region ap-south-1"
+                         sh 'kubectl apply -f merchant-module-serviceaccount.yaml'
+                        sh 'kubectl apply -f merchant-module-deployment.yaml'
+                        sh 'kubectl apply -f merchant-module-service.yaml'
                         }
+               
+          
                
             }
         }
-
-        }
+            
+        
+        
+      
     }
+    
+
+}
 
