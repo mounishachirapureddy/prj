@@ -127,6 +127,7 @@ environment {
                     }
                 }
             }
+}
         
         stage('Deploy snappcoins services') {
             steps {
