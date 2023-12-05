@@ -353,9 +353,9 @@ resource "aws_eks_node_group" "example" {
     min_size     = 1
   }
   ami_type       = "AL2_x86_64"
-  instance_types = ["t2.medium"]
+  instance_types = ["t2.large"]
   capacity_type  = "ON_DEMAND"
-  disk_size      = 20
+  disk_size      = 30
 
   depends_on = [
     aws_iam_role_policy_attachment.AmazonEKSWorkerNodePolicy,
