@@ -24,6 +24,6 @@ spec:
       serviceAccountName: client-serviceaccount
       containers:
         - name: client-service
-          image: 083118395813.dkr.ecr.ap-south-1.amazonaws.com/client-demo:latest
+          image: 083118395813.dkr.ecr.ap-south-1.amazonaws.com/client:latest
           ports:
             - containerPort: 3000
