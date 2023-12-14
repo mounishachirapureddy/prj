@@ -1,0 +1,174 @@
+pipeline {
+    agent any
+
+    environment {    
+        ECR_REGION = 'ap-south-1'
+        ECR_REGISTRY = '083118395813.dkr.ecr.ap-south-1.amazonaws.com'
+        KUBECONFIG_PATH = '/new/directory/path/config'
+       
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git 'https://github.com/mounishachirapureddy/prj.git'
+            }
+        }
+        stage('init') {
+            steps {
+                sh 'terraform init'
+            }
+        }
+        stage('validate') {
+            steps {
+                sh 'terraform validate'                
+            }
+        }
+        stage('plan') {
+            steps {
+                sh 'terraform plan'
+            }
+        }
+        stage('action') {
+            steps {
+                sh 'terraform apply --auto-approve'
+            }
+        }
+
+
+
+        
+        stage('Initialize Variables') {
+            steps {
+                script {
+                    def buildNumber = env.BUILD_NUMBER
+
+                    DOCKER_IMAGE_NAMES = [
+                        "client-image:${buildNumber}",
+                        "gamer-module:${buildNumber}",
+                        "merchant-module:${buildNumber}",
+                        "gaming-vendor-module:${buildNumber}",
+                        "general-module:${buildNumber}"
+                    ]
+                }
+            }
+        }
+
+        stage('Configure AWS') {
+            steps {
+                script {
+                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: '31e98a34-0ca4-421f-af00-b93feb91b4b9']]) {
+                        sh 'aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID'
+                        sh 'aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY'
+                        sh 'aws configure set region ap-south-1'
+                    }
+                }
+            }
+        }
+         stage('Create Docker Images') {
+            steps {
+                dir('client') {
+                    sh 'docker build -t client-image:${BUILD_NUMBER} .'
+                }
+                dir('servers/gamer-module') {
+                    sh 'docker build -t gamer-module:${BUILD_NUMBER} .'
+                }
+                dir('servers/merchant-module') {
+                    sh 'docker build -t merchant-module:${BUILD_NUMBER} .'
+                }
+                dir('servers/gaming-vendor-module') {
+                    sh 'docker build -t gaming-vendor-module:${BUILD_NUMBER} .'
+                   
+                }
+                dir('servers/general-module') {
+                    sh 'docker build -t general-module:${BUILD_NUMBER} .'
+                }
+            }
+        }
+
+        stage('Build and Push Docker Images') {
+            steps {
+                script {
+                    def ecrLogin = "aws ecr get-login-password --region ${ECR_REGION}"
+                    def ecrLoginCommand = "${ecrLogin} | docker login --username AWS --password-stdin ${ECR_REGISTRY}"
+                    sh ecrLoginCommand
+
+                    DOCKER_IMAGE_NAMES.each { dockerImageName ->
+                        dir(dockerImageName.split(':')[0]) {
+                            
+                            sh "docker tag ${dockerImageName} ${ECR_REGISTRY}/${dockerImageName}"
+                            sh "docker push ${ECR_REGISTRY}/${dockerImageName}"
+                        }
+                    }
+                }
+            }
+        }
+   
+
+
+         stage('Deploy snappcoins services') {
+            steps {
+                sh "export KUBECONFIG=/new/directory/path/config"
+                         sh "aws eks update-kubeconfig --name snappcoins-cluster --region ap-south-1"
+                sh 'kubectl apply -f VirtualService.yaml'
+               
+                dir('client'){
+                     sh "export KUBECONFIG=/new/directory/path/config"
+                         sh "aws eks update-kubeconfig --name snappcoins-cluster --region ap-south-1"
+                           sh 'kubectl apply -f client-serviceaccount.yaml'
+                        sh 'kubectl apply -f client-deployment.yaml'
+                        sh ' kubectl apply -f client-service.yaml'
+                        }
+                dir('servers/gaming-vendor-module'){
+                    sh "export KUBECONFIG=/new/directory/path/config"
+                         sh "aws eks update-kubeconfig --name snappcoins-cluster --region ap-south-1"
+                          sh 'kubectl apply -f gaming-vendor-module-serviceaccount.yaml'
+                        sh 'kubectl apply -f gaming-vendor-module-deployment.yaml'
+                        sh 'kubectl apply -f gaming-vendor-module-service.yaml'
+                        }
+                dir('servers/gamer-module'){
+                    sh "export KUBECONFIG=/new/directory/path/config"
+                         sh "aws eks update-kubeconfig --name snappcoins-cluster --region ap-south-1"
+                          sh 'kubectl apply -f gamer-module-serviceaccount.yaml'
+                       sh 'kubectl apply -f gamer-module-deployment.yaml'
+                        sh 'kubectl apply -f gamer-module-service.yaml'
+                        }
+                dir('servers/general-module'){
+                    sh "export KUBECONFIG=/new/directory/path/config"
+                         sh "aws eks update-kubeconfig --name snappcoins-cluster --region ap-south-1"
+                         sh 'kubectl apply -f general-module-serviceaccount.yaml'
+                        sh 'kubectl apply -f general-module-deployment.yaml'
+                        sh 'kubectl apply -f general-module-service.yaml'
+                        }
+                dir('servers/merchant-module'){
+                    sh "export KUBECONFIG=/new/directory/path/config"
+                         sh "aws eks update-kubeconfig --name snappcoins-cluster --region ap-south-1"
+                         sh 'kubectl apply -f merchant-module-serviceaccount.yaml'
+                        sh 'kubectl apply -f merchant-module-deployment.yaml'
+                        sh 'kubectl apply -f merchant-module-service.yaml'
+                        }
+               
+          
+               
+            }
+            
+            }
+            stage('Print Ingress IP') {
+            steps {
+            script {
+                def externalIP = sh(script: 'kubectl get svc istio-ingressgateway -n istio-system -o jsonpath="{.status.loadBalancer.ingress[0].hostname}"', returnStdout: true).trim()
+
+                echo "Ingress Gateway External IP: ${externalIP}"
+        }
+    }
+            
+        }
+    }
+   
+
+        // ... (other stages)
+
+    }
+    
+   
+
