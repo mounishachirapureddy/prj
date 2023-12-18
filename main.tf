@@ -336,12 +336,3 @@ resource "aws_eks_node_group" "example" {
     aws_eks_cluster.snappcoins-eks
   ]
 }
-terraform {
-  backend "s3" {
-    bucket         = "your-terraform-state-bucket"
-    key            = "dev/ap-south-1/project-name/terraform.tfstate"
-    region         = "ap-south-1"
-    encrypt        = true
-    dynamodb_table = "your-lock-table-name"
-  }
-}
