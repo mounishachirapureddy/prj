@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client-deployment
+  labels:
+    app: client
+    version: v1
+spec:
+  replicas: 1  # Number of desired replicas
+  selector:
+    matchLabels:
+      app: client-service
+      version: v1
+  template:
+    metadata:
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9080"
+        prometheus.io/path: "/metrics"
+      labels:
+        app: client-service
+        version: v1
+    spec:
+      serviceAccountName: client-serviceaccount
+      containers:
+        - name: client-service
+          image: 083118395813.dkr.ecr.ap-south-1.amazonaws.com/ab:latest
+          ports:
+            - containerPort: 3000
+          readinessProbe:
+            httpGet:
+              path: /healthz  # Adjust the path based on your application's health check endpoint
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /healthz  # Adjust the path based on your application's health check endpoint
+              port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 20
+---
+apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: client-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: client-deployment
+  minReplicas: 1
+  maxReplicas: 5  # Adjust as needed
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      targetAverageUtilization: 80  # Adjust the target CPU utilization percentage
