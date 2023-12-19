@@ -338,7 +338,7 @@ resource "aws_eks_node_group" "example" {
 }
 terraform {
   backend "s3" {
-    bucket = "snappcoinsbucket"
+    bucket = "snappcoins-terraform-state-bucket"
     key    = "abc"
     region = "ap-south-1"
   }
