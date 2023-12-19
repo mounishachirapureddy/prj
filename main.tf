@@ -338,7 +338,7 @@ resource "aws_eks_node_group" "example" {
 }
 terraform {
   backend "s3" {
-    bucket         = "your-terraform-state-bucket"  # Replace with your actual S3 bucket name
+    bucket         = "snappcoins-terraform-state-bucket"  # Replace with your actual S3 bucket name
     key            = "dev/ap-south-1/project-name/terraform.tfstate"
     region         = "ap-south-1"  # Specify the correct AWS region
     encrypt        = true
