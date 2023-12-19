@@ -336,23 +336,11 @@ resource "aws_eks_node_group" "example" {
     aws_eks_cluster.snappcoins-eks
   ]
 }
-# Create DynamoDB Table for State Locking
-resource "aws_dynamodb_table" "terraform_locks" {
-  name           = "snappcoins-lock-table"
-  hash_key       = "LockID"
-  attribute {
-    name = "LockID"
-    type = "S"
-  }
-}
-
 terraform {
   backend "s3" {
-    bucket         = "snappcoins-terraform-state-bucket"
-    key            = "dev/ap-south-1/project-name/terraform.tfstate"
-    region         = "ap-south-1"
-    encrypt        = true
-    dynamodb_table = aws_dynamodb_table.terraform_locks.name
+    bucket = "snappcoinsbucket"
+    key    = "abc"
+    region = "ap-south-1"
   }
 }
 
