@@ -223,6 +223,10 @@ resource "aws_iam_role" "eks-iam-role" {
   name = "${var.environment_name}-eks-iam-role"
 
   path = "/"
+tags = {
+    Name = "${var.environment_name}-eks-iam-role"
+  }
+
 
   assume_role_policy = <<EOF
 {
@@ -272,8 +276,12 @@ resource "aws_eks_cluster" "snappcoins-eks" {
 
 # Creating roles for nodes
 resource "aws_iam_role" "workernodes" {
-  name = "eks-node-group-example"
+ name = var.node_group_role_name
 
+  path = "/"
+  tags = {
+    Name = "${var.environment_name}-node-group-role"
+  }
   assume_role_policy = jsonencode({
     Statement = [{
       Action = "sts:AssumeRole"
@@ -328,6 +336,10 @@ resource "aws_eks_node_group" "example" {
   instance_types = ["t2.large"]
   capacity_type  = "ON_DEMAND"
   disk_size      = 30
+tags = {
+    Name = "${var.environment_name}-eks-node-group"
+  }
+
 
   depends_on = [
     aws_iam_role_policy_attachment.AmazonEKSWorkerNodePolicy,
@@ -336,11 +348,5 @@ resource "aws_eks_node_group" "example" {
     aws_eks_cluster.snappcoins-eks
   ]
 }
-terraform {
-  backend "s3" {
-    bucket = "snappcoins-terraform-state-bucket"
-    key    = "abc"
-    region = "ap-south-1"
-  }
-}
+
 
