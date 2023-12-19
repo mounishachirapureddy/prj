@@ -310,7 +310,7 @@ resource "aws_iam_role_policy_attachment" "AmazonEC2ContainerRegistryReadOnly" {
 # Create a nodegroup
 resource "aws_eks_node_group" "example" {
   cluster_name    = aws_eks_cluster.snappcoins-eks.name
-  node_group_name = "example-node-group"
+  node_group_name = "${var.environment_name}-example-node-group"
 
   node_role_arn = aws_iam_role.workernodes.arn
 
