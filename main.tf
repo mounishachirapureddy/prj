@@ -342,7 +342,7 @@ terraform {
     key            = "dev/ap-south-1/project-name/terraform.tfstate"
     region         = "ap-south-1"  # Specify the correct AWS region
     encrypt        = true
-    dynamodb_table = "snappcoins-lock-table  # Replace with your actual DynamoDB table name for state locking
+    dynamodb_table = "snappcoins-lock-table"  # Replace with your actual DynamoDB table name for state locking
   }
 }
 
