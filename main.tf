@@ -253,7 +253,7 @@ resource "aws_iam_role_policy_attachment" "AmazonEC2ContainerRegistryReadOnly-EK
 
 # Creating a cluster
 resource "aws_eks_cluster" "snappcoins-eks" {
-  name     = "snappcoins-cluster"
+  name     = "${var.environment_name}-snappcoins-cluster"
   role_arn = aws_iam_role.eks-iam-role.arn
 
   vpc_config {
@@ -272,7 +272,7 @@ resource "aws_eks_cluster" "snappcoins-eks" {
 
 # Creating roles for nodes
 resource "aws_iam_role" "workernodes" {
-  name = "eks-node-group-example"
+  name = "${var.environment_name}-eks-node-group-example"
 
   assume_role_policy = jsonencode({
     Statement = [{
