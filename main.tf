@@ -258,7 +258,7 @@ resource "aws_eks_cluster" "snappcoins-eks" {
 
   vpc_config {
     subnet_ids = [
-      aws_subnet.${var.environment_name}_subnet_a.id,
+      aws_subnet.var.environment_name_subnet_a.id,
       aws_subnet.${var.environment_name}_subnet_b.id,
       aws_subnet.${var.environment_name}_private_subnet_a.id,
       aws_subnet.${var.environment_name}_private_subnet_b.id
