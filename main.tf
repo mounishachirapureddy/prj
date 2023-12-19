@@ -2,23 +2,19 @@ provider "aws" {
   region = "ap-south-1"
 }
 
-
-
 # Create VPC
 resource "aws_vpc" "my_vpc" {
-  cidr_block = "10.0.0.0/16"
-  enable_dns_support = true
+  cidr_block          = "10.0.0.0/16"
+  enable_dns_support  = true
   enable_dns_hostnames = true
   tags = {
-    Name = "my-vpc"
+    Name = "${var.environment_name}-vpc"
   }
 }
 
-
-
 # Create Subnets
 resource "aws_subnet" "subnet_a" {
-depends_on = [
+  depends_on = [
     aws_vpc.my_vpc
   ]
   
@@ -27,12 +23,12 @@ depends_on = [
   availability_zone       = "ap-south-1a"
   map_public_ip_on_launch = true
   tags = {
-    Name = "subnet-a"
+    Name = "${var.environment_name}-subnet-a"
   }
 }
 
 resource "aws_subnet" "subnet_b" {
-depends_on = [
+  depends_on = [
     aws_vpc.my_vpc
   ]
   vpc_id                  = aws_vpc.my_vpc.id
@@ -40,15 +36,13 @@ depends_on = [
   availability_zone       = "ap-south-1b"
   map_public_ip_on_launch = true
   tags = {
-    Name = "subnet-b"
+    Name = "${var.environment_name}-subnet-b"
   }
 }
 
-
-
 # Create Private Subnets
 resource "aws_subnet" "private_subnet_a" {
-depends_on = [
+  depends_on = [
     aws_vpc.my_vpc,
     aws_subnet.subnet_a
   ]
@@ -56,12 +50,12 @@ depends_on = [
   cidr_block              = "10.0.3.0/24"
   availability_zone       = "ap-south-1a"
   tags = {
-    Name = "private-subnet-a"
+    Name = "${var.environment_name}-private-subnet-a"
   }
 }
 
 resource "aws_subnet" "private_subnet_b" {
-depends_on = [
+  depends_on = [
     aws_vpc.my_vpc,
     aws_subnet.subnet_b
   ]
@@ -69,14 +63,13 @@ depends_on = [
   cidr_block              = "10.0.4.0/24"
   availability_zone       = "ap-south-1b"
   tags = {
-    Name = "private-subnet-b"
+    Name = "${var.environment_name}-private-subnet-b"
   }
 }
 
-
 # Create Internet Gateway
 resource "aws_internet_gateway" "my_igw" {
-depends_on = [
+  depends_on = [
     aws_vpc.my_vpc,
     aws_subnet.subnet_a,
     aws_subnet.subnet_b
@@ -84,19 +77,18 @@ depends_on = [
 
   vpc_id = aws_vpc.my_vpc.id
   tags = {
-    Name = "my-igw"
-}
+    Name = "${var.environment_name}-igw"
+  }
 }
 
-
-# Creating an Route Table for the public subnet
+# Creating a Route Table for the public subnet
 resource "aws_route_table" "Public-Subnet-RT" {
   depends_on = [
     aws_vpc.my_vpc,
     aws_internet_gateway.my_igw
   ]
 
-   # VPC ID
+  # VPC ID
   vpc_id = aws_vpc.my_vpc.id
 
   # NAT Rule
@@ -106,16 +98,12 @@ resource "aws_route_table" "Public-Subnet-RT" {
   }
 
   tags = {
-    Name = "Route Table for Internet Gateway"
+    Name = "${var.environment_name}-Route-Table-for-Internet-Gateway"
   }
 }
 
-
-
-
 # Creating a resource for the Route Table Association with subnet_a
 resource "aws_route_table_association" "RT-IG-Association-a" {
-
   depends_on = [
     aws_vpc.my_vpc,
     aws_subnet.subnet_a,
@@ -123,18 +111,15 @@ resource "aws_route_table_association" "RT-IG-Association-a" {
     aws_route_table.Public-Subnet-RT
   ]
 
-# Public Subnet ID
+  # Public Subnet ID
   subnet_id      = aws_subnet.subnet_a.id
 
-#  Route Table ID
+  #  Route Table ID
   route_table_id = aws_route_table.Public-Subnet-RT.id
 }
-
-
 
 # Creating a resource for the Route Table Association with subnet_b
 resource "aws_route_table_association" "RT-IG-Association-b" {
-
   depends_on = [
     aws_vpc.my_vpc,
     aws_subnet.subnet_a,
@@ -142,28 +127,20 @@ resource "aws_route_table_association" "RT-IG-Association-b" {
     aws_route_table.Public-Subnet-RT
   ]
 
-# Public Subnet ID
+  # Public Subnet ID
   subnet_id      = aws_subnet.subnet_b.id
 
-#  Route Table ID
+  #  Route Table ID
   route_table_id = aws_route_table.Public-Subnet-RT.id
 }
 
-
-
-
-
-
 # Creating an Elastic IP for the NAT Gateway
 resource "aws_eip" "Nat-Gateway-EIP" {
-  
   vpc = true
- tags = {
- Name = "nat"
+  tags = {
+    Name = "${var.environment_name}-nat-eip"
+  }
 }
-}
-
-
 
 # Creating a NAT Gateway
 resource "aws_nat_gateway" "NAT_GATEWAY" {
@@ -172,17 +149,15 @@ resource "aws_nat_gateway" "NAT_GATEWAY" {
     aws_internet_gateway.my_igw
   ]
 
-
   # Allocating the Elastic IP to the NAT Gateway
   allocation_id = aws_eip.Nat-Gateway-EIP.id
-  
+
   # Associating it in the Public Subnet
   subnet_id = aws_subnet.subnet_a.id
   tags = {
-    Name = "Nat-Gateway_Project"
+    Name = "${var.environment_name}-Nat-Gateway_Project"
   }
 }
-
 
 # Creating a Route Table for the Nat Gateway
 resource "aws_route_table" "NAT-Gateway-RT" {
@@ -193,18 +168,16 @@ resource "aws_route_table" "NAT-Gateway-RT" {
   vpc_id = aws_vpc.my_vpc.id
 
   route {
-    cidr_block = "0.0.0.0/0"
-    nat_gateway_id = aws_nat_gateway.NAT_GATEWAY.id
+    cidr_block      = "0.0.0.0/0"
+    nat_gateway_id  = aws_nat_gateway.NAT_GATEWAY.id
   }
 
   tags = {
-    Name = "Route Table for NAT Gateway"
+    Name = "${var.environment_name}-Route-Table-for-NAT-Gateway"
   }
-
 }
 
-
-#Create a new Route Table for the Private Subnet
+# Create a new Route Table for the Private Subnet
 resource "aws_route_table" "Private-Subnet-RT" {
   depends_on = [
     aws_vpc.my_vpc,
@@ -214,19 +187,17 @@ resource "aws_route_table" "Private-Subnet-RT" {
   vpc_id = aws_vpc.my_vpc.id
 
   route {
-    cidr_block = "0.0.0.0/0"
-    nat_gateway_id = aws_nat_gateway.NAT_GATEWAY.id
+    cidr_block      = "0.0.0.0/0"
+    nat_gateway_id  = aws_nat_gateway.NAT_GATEWAY.id
   }
 
   tags = {
-    Name = "Route Table for Private Subnet"
+    Name = "${var.environment_name}-Route-Table-for-Private-Subnet"
   }
 }
 
-
 # Creating an Route Table Association of the NAT Gateway route 
 # table with the Private Subnet!
-
 resource "aws_route_table_association" "Private-Subnet-RT-Association-a" {
   depends_on = [
     aws_route_table.Private-Subnet-RT
@@ -238,7 +209,6 @@ resource "aws_route_table_association" "Private-Subnet-RT-Association-a" {
 
 # Creating an Route Table Association of the NAT Gateway route 
 # table with the Private Subnet!
-
 resource "aws_route_table_association" "Private-Subnet-RT-Association-b" {
   depends_on = [
     aws_route_table.Private-Subnet-RT
@@ -248,15 +218,17 @@ resource "aws_route_table_association" "Private-Subnet-RT-Association-b" {
   route_table_id = aws_route_table.Private-Subnet-RT.id
 }
 
-
-
-#creating an aws iam role for cluster
+# Creating an AWS IAM role for the cluster
 resource "aws_iam_role" "eks-iam-role" {
- name = "snappcoins-eks-iam-role"
+  name = "${var.environment_name}-eks-iam-role"
 
- path = "/"
+  path = "/"
+tags = {
+    Name = "${var.environment_name}-eks-iam-role"
+  }
 
- assume_role_policy = <<EOF
+
+  assume_role_policy = <<EOF
 {
  "Version": "2012-10-17",
  "Statement": [
@@ -270,82 +242,90 @@ resource "aws_iam_role" "eks-iam-role" {
  ]
 }
 EOF
-
 }
 
-#attaching policies to cluster
+# Attaching policies to the cluster
 resource "aws_iam_role_policy_attachment" "AmazonEKSClusterPolicy" {
- policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
- role    = aws_iam_role.eks-iam-role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
+  role       = aws_iam_role.eks-iam-role.name
 }
+
 resource "aws_iam_role_policy_attachment" "AmazonEC2ContainerRegistryReadOnly-EKS" {
- policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
- role    = aws_iam_role.eks-iam-role.name
-}
-
-#creating a cluster
-resource "aws_eks_cluster" "snappcoins-eks" {
- name = "snappcoins-cluster"
- role_arn = aws_iam_role.eks-iam-role.arn
-
- vpc_config {
-  subnet_ids = [aws_subnet.subnet_a.id,aws_subnet.subnet_b.id,aws_subnet.private_subnet_a.id, aws_subnet.private_subnet_b.id]
- }
-
- depends_on = [
-  aws_iam_role.eks-iam-role,
- ]
-}
-
-
-
-#creating roles for nodes
-resource "aws_iam_role" "workernodes" {
-  name = "eks-node-group-example"
- 
-  assume_role_policy = jsonencode({
-   Statement = [{
-    Action = "sts:AssumeRole"
-    Effect = "Allow"
-    Principal = {
-     Service = "ec2.amazonaws.com"
-    }
-   }]
-   Version = "2012-10-17"
-  })
- }
-
-#attaching policies to nodes 
- resource "aws_iam_role_policy_attachment" "AmazonEKSWorkerNodePolicy" {
-  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
-  role    = aws_iam_role.workernodes.name
- }
- 
- resource "aws_iam_role_policy_attachment" "AmazonEKS_CNI_Policy" {
-  policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
-  role    = aws_iam_role.workernodes.name
- }
- 
- resource "aws_iam_role_policy_attachment" "EC2InstanceProfileForImageBuilderECRContainerBuilds" {
-  policy_arn = "arn:aws:iam::aws:policy/EC2InstanceProfileForImageBuilderECRContainerBuilds"
-  role    = aws_iam_role.workernodes.name
- }
- 
- resource "aws_iam_role_policy_attachment" "AmazonEC2ContainerRegistryReadOnly" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
-  role    = aws_iam_role.workernodes.name
- }
+  role       = aws_iam_role.eks-iam-role.name
+}
 
+# Creating a cluster
+resource "aws_eks_cluster" "snappcoins-eks" {
+  name     = "snappcoins-cluster"
+  role_arn = aws_iam_role.eks-iam-role.arn
 
-#create a nodegroup
+  vpc_config {
+    subnet_ids = [
+      aws_subnet.subnet_a.id,
+      aws_subnet.subnet_b.id,
+      aws_subnet.private_subnet_a.id,
+      aws_subnet.private_subnet_b.id
+    ]
+  }
 
+  depends_on = [
+    aws_iam_role.eks-iam-role,
+  ]
+}
+
+# Creating roles for nodes
+resource "aws_iam_role" "workernodes" {
+ name = var.node_group_role_name
+
+  path = "/"
+  tags = {
+    Name = "${var.environment_name}-node-group-role"
+  }
+  assume_role_policy = jsonencode({
+    Statement = [{
+      Action = "sts:AssumeRole"
+      Effect = "Allow"
+      Principal = {
+        Service = "ec2.amazonaws.com"
+      }
+    }]
+    Version = "2012-10-17"
+  })
+}
+
+# Attaching policies to nodes
+resource "aws_iam_role_policy_attachment" "AmazonEKSWorkerNodePolicy" {
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
+  role       = aws_iam_role.workernodes.name
+}
+
+resource "aws_iam_role_policy_attachment" "AmazonEKS_CNI_Policy" {
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
+  role       = aws_iam_role.workernodes.name
+}
+
+resource "aws_iam_role_policy_attachment" "EC2InstanceProfileForImageBuilderECRContainerBuilds" {
+  policy_arn = "arn:aws:iam::aws:policy/EC2InstanceProfileForImageBuilderECRContainerBuilds"
+  role       = aws_iam_role.workernodes.name
+}
+
+resource "aws_iam_role_policy_attachment" "AmazonEC2ContainerRegistryReadOnly" {
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
+  role       = aws_iam_role.workernodes.name
+}
+
+# Create a nodegroup
 resource "aws_eks_node_group" "example" {
   cluster_name    = aws_eks_cluster.snappcoins-eks.name
   node_group_name = "example-node-group"
 
   node_role_arn = aws_iam_role.workernodes.arn
 
-  subnet_ids = [aws_subnet.private_subnet_a.id, aws_subnet.private_subnet_b.id]
+  subnet_ids = [
+    aws_subnet.private_subnet_a.id,
+    aws_subnet.private_subnet_b.id
+  ]
 
   scaling_config {
     desired_size = 1
@@ -356,6 +336,10 @@ resource "aws_eks_node_group" "example" {
   instance_types = ["t2.large"]
   capacity_type  = "ON_DEMAND"
   disk_size      = 30
+tags = {
+    Name = "${var.environment_name}-eks-node-group"
+  }
+
 
   depends_on = [
     aws_iam_role_policy_attachment.AmazonEKSWorkerNodePolicy,
@@ -364,16 +348,3 @@ resource "aws_eks_node_group" "example" {
     aws_eks_cluster.snappcoins-eks
   ]
 }
-
-terraform {
-  backend "s3" {
-    bucket         = "your-terraform-state-bucket"
-    key            = "dev/ap-south-1/project-name/terraform.tfstate"
-    region         = "ap-south-1"
-    encrypt        = true
-    dynamodb_table = "your-lock-table-name"
-  }
-}
-
-
-
