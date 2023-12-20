@@ -351,15 +351,7 @@ resource "aws_eks_node_group" "example" {
   ]
 }
 # Helm resources for Istio installation
-resource "null_resource" "set_kubeconfig_permissions" {
-  triggers = {
-    always_run = timestamp()
-  }
 
-  provisioner "local-exec" {
-    command = "chmod +r /new/directory/path/config"
-  }
-}
 
 
 resource "helm_release" "istio-base" {
