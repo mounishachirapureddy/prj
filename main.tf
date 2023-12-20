@@ -1,29 +1,15 @@
 provider "aws" {
   region = "ap-south-1"
 }
-provider "helm" {
-  kubernetes {
-     config_path = "/new/directory/path/config"
-  }
-}
-locals {
-  istio_charts_url = "https://istio-release.storage.googleapis.com/charts"
-}
-resource "kubernetes_namespace" "istio-ingress-label" {
-  metadata {
-    name = "istio-ingress"
-  }
-}
 
 # Create VPC
 resource "aws_vpc" "my_vpc" {
   cidr_block          = "10.0.0.0/16"
   enable_dns_support  = true
   enable_dns_hostnames = true
- tags = {
+  tags = {
     Name = "${var.environment_name}-vpc"
   }
-  
 }
 
 # Create Subnets
@@ -267,7 +253,7 @@ resource "aws_iam_role_policy_attachment" "AmazonEC2ContainerRegistryReadOnly-EK
 
 # Creating a cluster
 resource "aws_eks_cluster" "snappcoins-eks" {
-  name     = "snappcoins-cluster"
+  name     = "${var.environment_name}-snappcoins-cluster"
   role_arn = aws_iam_role.eks-iam-role.arn
 
   vpc_config {
@@ -286,7 +272,7 @@ resource "aws_eks_cluster" "snappcoins-eks" {
 
 # Creating roles for nodes
 resource "aws_iam_role" "workernodes" {
-  name = "eks-node-group-example"
+  name = "${var.environment_name}-eks-node-group-example"
 
   assume_role_policy = jsonencode({
     Statement = [{
@@ -324,7 +310,7 @@ resource "aws_iam_role_policy_attachment" "AmazonEC2ContainerRegistryReadOnly" {
 # Create a nodegroup
 resource "aws_eks_node_group" "example" {
   cluster_name    = aws_eks_cluster.snappcoins-eks.name
-  node_group_name = "example-node-group"
+  node_group_name = "${var.environment_name}-example-node-group"
 
   node_role_arn = aws_iam_role.workernodes.arn
 
@@ -350,46 +336,3 @@ resource "aws_eks_node_group" "example" {
     aws_eks_cluster.snappcoins-eks
   ]
 }
-# Helm resources for Istio installation
-
-
-
-resource "helm_release" "istio-base" {
-  repository       = local.istio_charts_url
-  chart            = "base"
-  name             = "istio-base"
-  namespace        = "istio-system"
-  version          = "1.12.1"
-  create_namespace = true
-  depends_on       = [aws_eks_node_group.example]
-}
-
-resource "helm_release" "istiod" {
-  repository       = local.istio_charts_url
-  chart            = "istiod"
-  name             = "istiod"
-  namespace        = "istio-system"
-  create_namespace = true
-  version          = "1.12.1"
-  depends_on       = [helm_release.istio-base]
-}
-
-resource "kubernetes_namespace" "istio-ingress" {
-  metadata {
-    labels = {
-      istio-injection = "enabled"
-    }
-
-    name = "istio-ingress"
-  }
-}
-
-resource "helm_release" "istio-ingress" {
-  repository = local.istio_charts_url
-  chart      = "gateway"
-  name       = "istio-ingress"
-  namespace  = kubernetes_namespace.istio-ingress-label.id
-  version    = "1.12.1"
-  depends_on = [helm_release.istiod]
-}
-
