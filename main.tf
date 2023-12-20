@@ -3,7 +3,7 @@ provider "aws" {
 }
 provider "helm" {
   kubernetes {
-     KUBECONFIG_PATH = "/new/directory/path/config"
+     config_path = "/new/directory/path/config"
   }
 }
 locals {
