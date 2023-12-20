@@ -356,7 +356,7 @@ resource "null_resource" "kubectl_use_context" {
   depends_on = [aws_eks_cluster.snappcoins-eks]
   
   provisioner "local-exec" {
-    command = "kubectl config use-context snappcoins-cluster"
+    command = "kubectl config use-context arn:aws:eks:ap-south-1:083118395813:cluster/snappcoins-cluster"
   }
 }
 
