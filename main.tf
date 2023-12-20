@@ -336,3 +336,14 @@ resource "aws_eks_node_group" "example" {
     aws_eks_cluster.snappcoins-eks
   ]
 }
+resource "null_resource" "install_istio" {
+  provisioner "local-exec" {
+    command = <<-EOT
+      curl -L https://istio.io/downloadIstio | ISTIO_VERSION=1.20.1 TARGET_ARCH=x86_64 sh -
+      cd istio-1.20.1
+      export PATH=$PWD/bin:$PATH
+      istioctl install --set profile=demo -y
+    EOT
+  }
+}
+
