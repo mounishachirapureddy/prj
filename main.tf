@@ -336,3 +336,20 @@ resource "aws_eks_node_group" "example" {
     aws_eks_cluster.snappcoins-eks
   ]
 }
+resource "null_resource" "install_istio" {
+  depends_on = [aws_eks_cluster.snappcoins-eks]
+
+  triggers = {
+    cluster_id = aws_eks_cluster.snappcoins-eks.id
+  }
+
+  provisioner "local-exec" {
+    command = <<-EOT
+      aws eks update-kubeconfig --name prod-snappcoins-cluster --region ap-south-1
+      curl -L https://istio.io/downloadIstio | ISTIO_VERSION=1.20.1 TARGET_ARCH=x86_64 sh -
+      cd istio-1.20.1
+      export PATH=$PWD/bin:$PATH
+      istioctl install --set profile=demo -y
+    EOT
+  }
+}
