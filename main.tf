@@ -9,6 +9,11 @@ provider "helm" {
 locals {
   istio_charts_url = "https://istio-release.storage.googleapis.com/charts"
 }
+resource "kubernetes_namespace" "istio-ingress-label" {
+  metadata {
+    name = "istio-ingress"
+  }
+}
 
 # Create VPC
 resource "aws_vpc" "my_vpc" {
