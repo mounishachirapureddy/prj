@@ -353,10 +353,13 @@ resource "aws_eks_node_group" "example" {
 # Helm resources for Istio installation
 
 resource "null_resource" "kubectl_use_context" {
+  depends_on = [aws_eks_cluster.snappcoins-eks]
+  
   provisioner "local-exec" {
     command = "kubectl config use-context snappcoins-cluster"
   }
 }
+
 
 
 resource "helm_release" "istio-base" {
