@@ -20,7 +20,7 @@ spec:
       serviceAccountName: merchant-serviceaccount
       containers:
         - name: merchant-module-service
-          image: 083118395813.dkr.ecr.ap-south-1.amazonaws.com/merchant-module:latest
+          image: 083118395813.dkr.ecr.ap-south-1.amazonaws.com/merchant-demo:latest
           ports:
             - containerPort: 3003
           env:
