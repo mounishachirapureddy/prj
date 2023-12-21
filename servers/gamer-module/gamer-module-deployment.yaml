@@ -20,6 +20,6 @@ spec:
       serviceAccountName: gamer-serviceaccount
       containers:
         - name: gamer-module-service
-          image: 083118395813.dkr.ecr.ap-south-1.amazonaws.com/gamer-module:latest
+          image: 083118395813.dkr.ecr.ap-south-1.amazonaws.com/gamer-demo:latest
           ports:
             - containerPort: 3004
