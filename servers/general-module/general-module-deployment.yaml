@@ -20,6 +20,6 @@ spec:
       serviceAccountName: general-serviceaccount
       containers:
         - name: general-module-service
-          image: 083118395813.dkr.ecr.ap-south-1.amazonaws.com/general-module:latest
+          image: 083118395813.dkr.ecr.ap-south-1.amazonaws.com/general-demo:latest
           ports:
             - containerPort: 3002
