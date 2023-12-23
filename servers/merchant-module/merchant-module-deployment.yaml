@@ -16,13 +16,17 @@ spec:
       labels:
         app: merchant-module-service
         version: v1
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9090"
+        prometheus.io/path: "/metrics"
     spec:
       serviceAccountName: merchant-serviceaccount
       containers:
         - name: merchant-module-service
           image: 083118395813.dkr.ecr.ap-south-1.amazonaws.com/merchant-module:latest
           ports:
-            - containerPort: 3003
+            - containerPort: 3003  # Existing port configuration
           env:
             - name: MONGO_URI
               value: "mongodb+srv://Incrivelsoft:Incrivelsoft%40sh@smarthealth.nwut0dh.mongodb.net/test?retryWrites=true&w=majority"
@@ -32,3 +36,34 @@ spec:
               value: "Info@incrivelsoft.com"
             - name: AUTH_PASS
               value: "Incrivelsoft@emails"
+          readinessProbe:
+            httpGet:
+              path: /readiness
+              port: 3003
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /liveness
+              port: 3003
+            initialDelaySeconds: 10
+            periodSeconds: 30
+---
+apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: merchant-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: merchant-module-deployment
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 80
