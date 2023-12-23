@@ -16,10 +16,45 @@ spec:
       labels:
         app: gaming-vendor-module-service
         version: v1
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9090"
+        prometheus.io/path: "/metrics"
     spec:
       serviceAccountName: gaming-serviceaccount
       containers:
       - name: gaming-vendor-module-service
-        image: 083118395813.dkr.ecr.ap-south-1.amazonaws.com/cd:latest
+        image: 083118395813.dkr.ecr.ap-south-1.amazonaws.com/gaming-demo:latest
         ports:
-        - containerPort: 3001
+        - containerPort: 3001  # Existing port configuration
+        readinessProbe:
+          httpGet:
+            path: /readiness
+            port: 3001
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /liveness
+            port: 3001
+          initialDelaySeconds: 10
+          periodSeconds: 30
+---
+apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: gaming-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: gaming-vendor-module-deployment
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 80
