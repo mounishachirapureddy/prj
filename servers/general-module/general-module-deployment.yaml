@@ -16,10 +16,45 @@ spec:
       labels:
         app: general-module-service
         version: v1
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9090"
+        prometheus.io/path: "/metrics"
     spec:
       serviceAccountName: general-serviceaccount
       containers:
         - name: general-module-service
           image: 083118395813.dkr.ecr.ap-south-1.amazonaws.com/general-module:latest
           ports:
-            - containerPort: 3002
+            - containerPort: 3002  # Existing port configuration
+          readinessProbe:
+            httpGet:
+              path: /readiness
+              port: 3002
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /liveness
+              port: 3002
+            initialDelaySeconds: 10
+            periodSeconds: 30
+---
+apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: general-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: general-module-deployment
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 80
