@@ -3,21 +3,29 @@ options {
     disableConcurrentBuilds()
     buildDiscarder(logRotator(numToKeepStr: '4'))
   }
+
     agent any
 
     environment {    
         ECR_REGION = 'ap-south-1'
         ECR_REGISTRY = '083118395813.dkr.ecr.ap-south-1.amazonaws.com'
         KUBECONFIG_PATH = '/new/directory/path/config'
-       
+        VERSION = 'v1.0'
     }
 
     stages {
-        stage('Checkout') {
+        stage('Configure AWS') {
             steps {
-                git 'https://github.com/mounishachirapureddy/prj.git'
+                script {
+                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'f457fa0c-671e-4380-a0fc-a931d9f7d87c']]) {
+                        sh 'aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID'
+                        sh 'aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY'
+                        sh 'aws configure set region ap-south-1'
+                    }
+                }
             }
         }
+        
         stage('init') {
             steps {
                 sh 'terraform init'
@@ -58,34 +66,23 @@ options {
             }
         }
 
-        stage('Configure AWS') {
-            steps {
-                script {
-                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: '31e98a34-0ca4-421f-af00-b93feb91b4b9']]) {
-                        sh 'aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID'
-                        sh 'aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY'
-                        sh 'aws configure set region ap-south-1'
-                    }
-                }
-            }
-        }
+        
          stage('Create Docker Images') {
             steps {
                 dir('client') {
-                    sh 'docker build -t client-image:${BUILD_NUMBER} .'
+                    sh 'docker build -t client-image:${VERSION}-${BUILD_NUMBER} .'
                 }
                 dir('servers/gamer-module') {
-                    sh 'docker build -t gamer-module:${BUILD_NUMBER} .'
+                    sh 'docker build -t gamer-module:${VERSION}-${BUILD_NUMBER} .'
                 }
                 dir('servers/merchant-module') {
-                    sh 'docker build -t merchant-module:${BUILD_NUMBER} .'
+                    sh 'docker build -t merchant-module:${VERSION}-${BUILD_NUMBER} .'
                 }
                 dir('servers/gaming-vendor-module') {
-                    sh 'docker build -t gaming-vendor-module:${BUILD_NUMBER} .'
-                   
+                    sh 'docker build -t gaming-vendor-module:${VERSION}-${BUILD_NUMBER} .'   
                 }
                 dir('servers/general-module') {
-                    sh 'docker build -t general-module:${BUILD_NUMBER} .'
+                    sh 'docker build -t general-module:${VERSION}-${BUILD_NUMBER} .'
                 }
             }
         }
@@ -113,49 +110,45 @@ options {
          stage('Deploy snappcoins services') {
             steps {
                 sh "export KUBECONFIG=/new/directory/path/config"
-                         sh "aws eks update-kubeconfig --name snappcoins-cluster --region ap-south-1"
+                sh "aws eks update-kubeconfig --name snappcoins-cluster --region ap-south-1"
                 sh 'kubectl apply -f VirtualService.yaml'
                
                 dir('client'){
                      sh "export KUBECONFIG=/new/directory/path/config"
-                         sh "aws eks update-kubeconfig --name snappcoins-cluster --region ap-south-1"
-                           sh 'kubectl apply -f client-serviceaccount.yaml'
-                        sh 'kubectl apply -f client-deployment.yaml'
-                        sh ' kubectl apply -f client-service.yaml'
+                     sh "aws eks update-kubeconfig --name snappcoins-cluster --region ap-south-1"
+                     sh 'kubectl apply -f client-serviceaccount.yaml'
+                    sh 'kubectl apply -f client-deployment.yaml'
+                    sh ' kubectl apply -f client-service.yaml'
                         }
                 dir('servers/gaming-vendor-module'){
                     sh "export KUBECONFIG=/new/directory/path/config"
-                         sh "aws eks update-kubeconfig --name snappcoins-cluster --region ap-south-1"
-                          sh 'kubectl apply -f gaming-vendor-module-serviceaccount.yaml'
-                        sh 'kubectl apply -f gaming-vendor-module-deployment.yaml'
-                        sh 'kubectl apply -f gaming-vendor-module-service.yaml'
+                    sh "aws eks update-kubeconfig --name snappcoins-cluster --region ap-south-1"
+                    sh 'kubectl apply -f gaming-vendor-module-serviceaccount.yaml'
+                    sh 'kubectl apply -f gaming-vendor-module-deployment.yaml'
+                    sh 'kubectl apply -f gaming-vendor-module-service.yaml'
                         }
                 dir('servers/gamer-module'){
                     sh "export KUBECONFIG=/new/directory/path/config"
-                         sh "aws eks update-kubeconfig --name snappcoins-cluster --region ap-south-1"
-                          sh 'kubectl apply -f gamer-module-serviceaccount.yaml'
-                       sh 'kubectl apply -f gamer-module-deployment.yaml'
-                        sh 'kubectl apply -f gamer-module-service.yaml'
+                    sh "aws eks update-kubeconfig --name snappcoins-cluster --region ap-south-1"
+                    sh 'kubectl apply -f gamer-module-serviceaccount.yaml'
+                    sh 'kubectl apply -f gamer-module-deployment.yaml'
+                    sh 'kubectl apply -f gamer-module-service.yaml'
                         }
                 dir('servers/general-module'){
                     sh "export KUBECONFIG=/new/directory/path/config"
-                         sh "aws eks update-kubeconfig --name snappcoins-cluster --region ap-south-1"
-                         sh 'kubectl apply -f general-module-serviceaccount.yaml'
-                        sh 'kubectl apply -f general-module-deployment.yaml'
-                        sh 'kubectl apply -f general-module-service.yaml'
+                    sh "aws eks update-kubeconfig --name snappcoins-cluster --region ap-south-1"
+                    sh 'kubectl apply -f general-module-serviceaccount.yaml'
+                    sh 'kubectl apply -f general-module-deployment.yaml'
+                    sh 'kubectl apply -f general-module-service.yaml'
                         }
                 dir('servers/merchant-module'){
                     sh "export KUBECONFIG=/new/directory/path/config"
-                         sh "aws eks update-kubeconfig --name snappcoins-cluster --region ap-south-1"
-                         sh 'kubectl apply -f merchant-module-serviceaccount.yaml'
-                        sh 'kubectl apply -f merchant-module-deployment.yaml'
-                        sh 'kubectl apply -f merchant-module-service.yaml'
+                    sh "aws eks update-kubeconfig --name snappcoins-cluster --region ap-south-1"
+                    sh 'kubectl apply -f merchant-module-serviceaccount.yaml'
+                    sh 'kubectl apply -f merchant-module-deployment.yaml'
+                    sh 'kubectl apply -f merchant-module-service.yaml'
                         }
-               
-          
-               
             }
-            
             }
             stage('Print Ingress IP') {
             steps {
@@ -167,10 +160,52 @@ options {
     }
             
         }
+      stage('Conditional Job Trigger') {
+            steps {
+                script {
+                    // Add your condition here
+                    def shouldTriggerNextJob = input(
+                        id: 'triggerConfirmation',
+                        message: 'Do you want to trigger the next job?',
+                        parameters: [
+                            [$class: 'BooleanParameterDefinition', defaultValue: false, description: 'Proceed with triggering?', name: 'TRIGGER']
+                        ]
+                    )
+
+                    if (shouldTriggerNextJob) {
+                        build job: 'qa', wait: false
+                    } else {
+                        echo 'Not triggering the next job.'
+                    }
+                }
+            }
+        }
     }
+  stage('Conditional Job Trigger') {
+            steps {
+                script {
+                    // Add your condition here
+                    def shouldTriggerNextJob = input(
+                        id: 'triggerConfirmation',
+                        message: 'Do you want to trigger the next job?',
+                        parameters: [
+                            [$class: 'BooleanParameterDefinition', defaultValue: false, description: 'Proceed with triggering?', name: 'TRIGGER']
+                        ]
+                    )
+
+                    if (shouldTriggerNextJob) {
+                        build job: 'qa', wait: false
+                    } else {
+                        echo 'Not triggering the next job.'
+                    }
+                }
+            }
+        }
+    }
+}
    
 
-        // ... (other stages)
+    
 
     }
     
