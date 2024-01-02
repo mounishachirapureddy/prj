@@ -43,7 +43,7 @@ options {
         }
         stage('action') {
             steps {
-                sh 'terraform apply --auto-approve'
+                sh 'terraform apply -var="environment_name=qa" --auto-approve'
             }
         }
 
@@ -53,19 +53,12 @@ options {
         stage('Initialize Variables') {
             steps {
                 script {
-                    def buildNumber = env.BUILD_NUMBER
-
-                    DOCKER_IMAGE_NAMES = [
-                        "client-image:${buildNumber}",
-                        "gamer-module:${buildNumber}",
-                        "merchant-module:${buildNumber}",
-                        "gaming-vendor-module:${buildNumber}",
-                        "general-module:${buildNumber}"
-                    ]
+                    DOCKER_IMAGE_NAMES = ['client-image', 'gamer-module', 'merchant-module', 'gaming-vendor-module', 'general-module']
                 }
             }
         }
-
+     
+       
         
          stage('Create Docker Images') {
             steps {
@@ -87,21 +80,18 @@ options {
             }
         }
 
-        stage('Build and Push Docker Images') {
+         stage('Push Docker Images to ECR') {
             steps {
+                // Push Docker images to ECR
                 script {
-                    def ecrLogin = "aws ecr get-login-password --region ${ECR_REGION}"
-                    def ecrLoginCommand = "${ecrLogin} | docker login --username AWS --password-stdin ${ECR_REGISTRY}"
-                    sh ecrLoginCommand
-
-                    DOCKER_IMAGE_NAMES.each { dockerImageName ->
-                        dir(dockerImageName.split(':')[0]) {
-                            
-                            sh "docker tag ${dockerImageName} ${ECR_REGISTRY}/${dockerImageName}"
-                            sh "docker push ${ECR_REGISTRY}/${dockerImageName}"
-                        }
-                    }
+                     DOCKER_IMAGE_NAMES.each { imageName ->
+                    withDockerRegistry(url: "https://${ECR_REGISTRY}/${imageName}:${VERSION}") {
+                    sh "docker tag ${imageName}:${VERSION}-${BUILD_NUMBER} ${ECR_REGISTRY}/${imageName}:${VERSION}-${BUILD_NUMBER}"
+                    sh "docker push ${ECR_REGISTRY}/${imageName}:${VERSION}-${BUILD_NUMBER}"
                 }
+                }
+                }
+
             }
         }
    
