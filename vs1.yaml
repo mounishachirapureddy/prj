@@ -44,3 +44,51 @@ spec:
           host: gaming-vendor-module-service.default.svc.cluster.local
           port:
             number: 3001
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: merchant
+spec:
+  hosts:
+    - "merchant-module-service.reachmylifeline.com"
+  gateways:
+    - test
+  http:
+    -  route:
+       - destination:
+          host: merchant-module-service.default.svc.cluster.local
+          port:
+            number: 3003
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: general
+spec:
+  hosts:
+    - "general-module-service.reachmylifeline.com"
+  gateways:
+    - test
+  http:
+    -  route:
+       - destination:
+          host: general-module-service.default.svc.cluster.local
+          port:
+            number: 3002
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: gamer
+spec:
+  hosts:
+    - "gamer-module-service.reachmylifeline.com"
+  gateways:
+    - test
+  http:
+    -  route:
+       - destination:
+          host: gamer-module-service.default.svc.cluster.local
+          port:
+            number: 3004
