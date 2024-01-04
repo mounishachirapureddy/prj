@@ -23,3 +23,27 @@ spec:
           image: 083118395813.dkr.ecr.ap-south-1.amazonaws.com/gamer-demo:latest
           ports:
             - containerPort: 3004
+          resources:
+            requests:
+              cpu: "100m"
+            limits:
+              cpu: "500m"  
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: gamer-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: gamer-module-deployment
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 80
