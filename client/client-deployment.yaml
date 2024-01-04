@@ -26,20 +26,12 @@ spec:
         - name: client-service
           image: 083118395813.dkr.ecr.ap-south-1.amazonaws.com/client-demo:latest
           ports:
-            - containerPort: 3000  # Existing port configuration
-            - containerPort: 8080  # Additional port configuration
-          readinessProbe:
-            httpGet:
-              path: /readiness
-              port: 8080
-            initialDelaySeconds: 5
-            periodSeconds: 10
-          livenessProbe:
-            httpGet:
-              path: /liveness
-              port: 8080
-            initialDelaySeconds: 10
-            periodSeconds: 30
+            - containerPort: 3000  
+          resources:
+            requests:
+              cpu: "50m"
+            limits:
+              cpu: "500m"
 ---
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
@@ -59,9 +51,4 @@ spec:
       target:
         type: Utilization
         averageUtilization: 80
-  - type: Resource
-    resource:
-      name: memory
-      target:
-        type: AverageValue
-        averageValue: 100Mi
+  
