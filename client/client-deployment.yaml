@@ -27,3 +27,8 @@ spec:
           image: 083118395813.dkr.ecr.ap-south-1.amazonaws.com/ab:latest
           ports:
             - containerPort: 3000
+          resources:
+            requests:
+              cpu: "50m"
+            limits:
+              cpu: "500m"
