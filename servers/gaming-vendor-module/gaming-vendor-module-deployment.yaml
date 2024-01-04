@@ -20,7 +20,7 @@ spec:
       serviceAccountName: gaming-serviceaccount
       containers:
       - name: gaming-vendor-module-service
-        image: 083118395813.dkr.ecr.ap-south-1.amazonaws.com/gaming-demo:latest
+        image: 083118395813.dkr.ecr.ap-south-1.amazonaws.com/cd:latest
         ports:
         - containerPort: 3001
         resources:
