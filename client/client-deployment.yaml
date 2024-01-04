@@ -27,6 +27,11 @@ spec:
           image: 083118395813.dkr.ecr.ap-south-1.amazonaws.com/client-image:${VERSION}-${BUILD_NUMBER}
           ports:
             - containerPort: 3000
+          resources:
+            requests:
+              cpu: "50m"
+            limits:
+              cpu: "500m"
 ---
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
@@ -46,9 +51,4 @@ spec:
       target:
         type: Utilization
         averageUtilization: 80
-  - type: Resource
-    resource:
-      name: memory
-      target:
-        type: AverageValue
-        averageValue: 100Mi
+  
