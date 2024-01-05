@@ -6,8 +6,8 @@ provider "aws" {
 # Configure Terraform backend to use S3
 terraform {
   backend "s3" {
-    bucket = "terraform-snappcoins"
-    key    = "terraform.tfstate"  # You can customize the key as needed
+    bucket = "dev-terraform-snappcoins"
+    key    = "dev-terraform.tfstate"  # You can customize the key as needed
     region = "ap-south-1"
   }
 }
