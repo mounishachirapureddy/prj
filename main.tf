@@ -12,7 +12,6 @@ resource "aws_s3_bucket" "terraform_backend" {
 
   tags = {
     Name        = "dev-Terraform-Backend-Bucket"
-    Environment = var.environment_name
   }
 }
 
