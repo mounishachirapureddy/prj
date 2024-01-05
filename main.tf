@@ -18,7 +18,7 @@ resource "aws_s3_bucket" "terraform_backend" {
 # Configure Terraform backend to use S3
 terraform {
   backend "s3" {
-    bucket = aws_s3_bucket.terraform_backend.bucket
+    bucket = "snappcoins-dev-bucket"
     key    = "terraform.tfstate"  # You can customize the key as needed
     region = "ap-south-1"
   }
