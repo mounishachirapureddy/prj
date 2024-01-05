@@ -1,24 +1,12 @@
 provider "aws" {
   region = "ap-south-1"
 }
-# Create S3 bucket for Terraform backend
-resource "aws_s3_bucket" "terraform_backend" {
-  bucket = "snappcoins-dev-bucket"  # Choose a globally unique name for your bucket
-  acl    = "private"  # You can adjust the ACL (Access Control List) as needed
 
-  versioning {
-    enabled = true
-  }
-
-  tags = {
-    Name        = "dev-Terraform-Backend-Bucket"
-  }
-}
 
 # Configure Terraform backend to use S3
 terraform {
   backend "s3" {
-    bucket = "snappcoins-dev-bucket"
+    bucket = "terraform-snappcoins"
     key    = "terraform.tfstate"  # You can customize the key as needed
     region = "ap-south-1"
   }
