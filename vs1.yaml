@@ -25,7 +25,7 @@ spec:
   http:
     -  route:
        - destination:
-          host: client-service.default.svc.cluster.local
+          host: client-service.dev.svc.cluster.local
           port:
             number: 3000
 ---
@@ -41,7 +41,7 @@ spec:
   http:
     -  route:
        - destination:
-          host: gaming-vendor-module-service.default.svc.cluster.local
+          host: gaming-vendor-module-service.dev.svc.cluster.local
           port:
             number: 3001
 ---
@@ -57,7 +57,7 @@ spec:
   http:
     -  route:
        - destination:
-          host: merchant-module-service.default.svc.cluster.local
+          host: merchant-module-service.dev.svc.cluster.local
           port:
             number: 3003
 ---
@@ -73,7 +73,7 @@ spec:
   http:
     -  route:
        - destination:
-          host: general-module-service.default.svc.cluster.local
+          host: general-module-service.dev.svc.cluster.local
           port:
             number: 3002
 ---
@@ -89,6 +89,6 @@ spec:
   http:
     -  route:
        - destination:
-          host: gamer-module-service.default.svc.cluster.local
+          host: gamer-module-service.dev.svc.cluster.local
           port:
             number: 3004
